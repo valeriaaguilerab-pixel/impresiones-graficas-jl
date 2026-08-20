@@ -361,20 +361,15 @@
                     </div>
                 </div>
 
-                <!-- Service 4: Agendas -->
-<div
-    class="bg-white rounded-xl border border-sky/50 p-6 card-hover-effect flex flex-col justify-between shadow-card relative group cursor-pointer"
-    onclick="openAgendaModal()"
->
+               <!-- Service 4: Agendas -->
+<div class="bg-white rounded-xl border border-sky/50 p-6 card-hover-effect flex flex-col justify-between shadow-card relative group">
 
     <div class="space-y-4">
 
-        <!-- Icono -->
-        <div class="w-12 h-12 rounded-lg bg-sky/30 text-petroleum flex items-center justify-center text-2xl group-hover:bg-petroleum group-hover:text-white transition">
+        <div class="w-12 h-12 rounded-lg bg-sky/30 text-petroleum flex items-center justify-center text-2xl">
             <i class="fa-solid fa-book"></i>
         </div>
 
-        <!-- Información -->
         <h3 class="text-xl font-heading font-bold text-petroleum">
             Agendas y Cuadernos
         </h3>
@@ -386,18 +381,17 @@
 
     </div>
 
-    <!-- Parte inferior -->
     <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
-
         <span class="text-xs text-gray-400 font-medium">
             Anillado / Empastado
         </span>
 
-        <span class="inline-flex items-center text-xs font-bold text-petroleum">
-            Ver trabajo
-            <i class="fa-solid fa-chevron-right ml-1"></i>
-        </span>
-
+        <a href="#cotizacion"
+           onclick="preselectService('Agendas y Cuadernos')"
+           class="inline-flex items-center text-xs font-bold text-petroleum hover:underline">
+            Cotizar
+            <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+        </a>
     </div>
 
 </div>
@@ -1166,12 +1160,40 @@
                 <h3 id="modal-title" class="text-2xl font-heading font-extrabold text-petroleum">Título del Proyecto</h3>
                 
                 <div id="modal-graphic-preview" class="w-full h-56 bg-gradient-to-br from-sky-light to-mainbg rounded-xl border border-sky/40 flex items-center justify-center p-6 my-4 shadow-inner">
-                    <div class="text-center space-y-2">
-                        <i class="fa-solid fa-print text-4xl text-petroleum"></i>
-                        <p class="text-xs font-bold text-petroleum">Visualización de Proyecto Real</p>
-                    </div>
-                </div>
+                   <div class="w-full">
+    <p class="text-sm font-bold text-petroleum text-center mb-4">
+        Visualización de Proyecto Real
+    </p>
 
+    <div class="grid grid-cols-3 gap-3">
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    
+    <div class="rounded-lg overflow-hidden bg-sky/30 aspect-square">
+        <img
+            src="./imágenes/agendas/agenda-portada.png"
+            alt="Agenda personalizada - portada"
+            class="w-full h-full object-cover"
+        >
+    </div>
+
+    <div class="rounded-lg overflow-hidden bg-sky/30 aspect-square">
+        <img
+            src="./imágenes/agendas/agenda-interior.png"
+            alt="Agenda personalizada - interior"
+            class="w-full h-full object-cover"
+        >
+    </div>
+
+    <div class="rounded-lg overflow-hidden bg-sky/30 aspect-square">
+        <img
+            src="./imágenes/agendas/agenda-trasera.png"
+            alt="Agenda personalizada - parte trasera"
+            class="w-full h-full object-cover"
+        >
+    </div>
+
+</div>
                 <p id="modal-description" class="text-sm text-gray-600 leading-relaxed">
                     Descripción detallada del trabajo realizado.
                 </p>
