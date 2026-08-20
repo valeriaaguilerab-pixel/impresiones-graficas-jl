@@ -1319,5 +1319,131 @@
             document.getElementById('file-name').textContent = '';
         }
     </script>
+<!-- Modal de Agendas -->
+<div id="agendaModal"
+     class="fixed inset-0 z-[9999] hidden items-center justify-center bg-petroleum/80 backdrop-blur-sm p-4">
+
+    <div class="relative w-full max-w-6xl max-h-[95vh] overflow-y-auto bg-white rounded-3xl shadow-2xl p-6 md:p-10">
+
+        <!-- Botón cerrar -->
+        <button
+            onclick="closeAgendaModal()"
+            class="absolute top-5 right-5 w-12 h-12 rounded-full bg-gray-100 text-petroleum text-2xl flex items-center justify-center hover:bg-petroleum hover:text-white transition z-10"
+            aria-label="Cerrar">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <!-- Encabezado -->
+        <div class="pr-16 mb-8">
+
+            <span class="inline-block px-4 py-2 rounded-lg bg-sky/30 text-petroleum text-sm font-bold uppercase tracking-wide">
+                Agendas Colegios e Instituciones
+            </span>
+
+            <h2 class="mt-4 text-3xl md:text-5xl font-heading font-bold text-petroleum">
+                Agendas Escolares e Institucionales
+            </h2>
+
+        </div>
+
+        <!-- Galería -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+            <!-- Imagen 1 -->
+            <div class="rounded-2xl overflow-hidden bg-sky/20 aspect-square">
+                <img
+                    src="./imágenes/agendas/agenda portada con fondo lila .png"
+                    alt="Agenda personalizada - portada"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+            </div>
+
+            <!-- Imagen 2 -->
+            <div class="rounded-2xl overflow-hidden bg-sky/20 aspect-square">
+                <img
+                    src="./imágenes/agendas/Agenda abierta fondo lila.png"
+                    alt="Agenda personalizada - interior"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+            </div>
+
+            <!-- Imagen 3 -->
+            <div class="rounded-2xl overflow-hidden bg-sky/20 aspect-square">
+                <img
+                    src="./imágenes/agendas/Agenda parte de atras con fondo lila.png"
+                    alt="Agenda personalizada - parte trasera"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+            </div>
+
+        </div>
+
+        <!-- Descripción -->
+        <div class="mt-8">
+
+            <p class="text-base md:text-lg text-gray-600 leading-relaxed">
+                Diseño y confección de agendas escolares para colegios, liceos,
+                universidades e instituciones. Personalizadas según las necesidades
+                de cada proyecto, con diferentes opciones de tapas, interiores y
+                sistemas de anillado.
+            </p>
+
+        </div>
+
+        <!-- Pie -->
+        <div class="mt-8 pt-6 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-4">
+
+            <span class="text-gray-400 font-medium">
+                Impresiones Gráficas J.I.
+            </span>
+
+            <a
+                href="#cotizacion"
+                onclick="closeAgendaModal()"
+                class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-petroleum text-white font-bold hover:opacity-90 transition">
+                <i class="fa-solid fa-calculator"></i>
+                Cotizar este trabajo
+            </a>
+
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+function openAgendaModal() {
+    const modal = document.getElementById('agendaModal');
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+
+    document.body.style.overflow = 'hidden';
+}
+
+function closeAgendaModal() {
+    const modal = document.getElementById('agendaModal');
+
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+
+    document.body.style.overflow = '';
+}
+
+/* Cerrar haciendo clic fuera de la ventana */
+document.getElementById('agendaModal').addEventListener('click', function(event) {
+
+    if (event.target === this) {
+        closeAgendaModal();
+    }
+
+});
+
+/* Cerrar con la tecla ESC */
+document.addEventListener('keydown', function(event) {
+
+    if (event.key === 'Escape') {
+        closeAgendaModal();
+    }
+
+});
+</script>
 </body>
 </html>
