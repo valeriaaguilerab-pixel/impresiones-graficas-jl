@@ -362,23 +362,73 @@
                 </div>
 
                 <!-- Service 4: Agendas -->
-                <div class="bg-white rounded-xl border border-sky/50 p-6 card-hover-effect flex flex-col justify-between shadow-card relative group">
-                    <div class="space-y-4">
-                        <div class="w-12 h-12 rounded-lg bg-sky/30 text-petroleum flex items-center justify-center text-2xl group-hover:bg-petroleum group-hover:text-white transition-colors duration-300">
-                            <i class="fa-solid fa-book"></i>
-                        </div>
-                        <h3 class="text-xl font-heading font-bold text-petroleum">Agendas y Cuadernos</h3>
-                        <p class="text-sm text-gray-600 leading-relaxed">
-                            Agendas corporativas y libretas personalizadas con tapa dura o blanda, anillado doble cero y hojas impresas a medida.
-                        </p>
-                    </div>
-                    <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
-                        <span class="text-xs text-gray-400 font-medium">Anillado / Empastado</span>
-                        <a href="#cotizacion" onclick="preselectService('Agendas y Cuadernos')" class="inline-flex items-center text-xs font-bold text-petroleum hover:underline">
-                            Cotizar <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
-                        </a>
-                    </div>
-                </div>
+                <!-- Service 4: Agendas -->
+<div class="bg-white rounded-xl border border-sky/50 p-6 card-hover-effect flex flex-col justify-between shadow-card relative group">
+
+    <div class="space-y-4">
+
+        <!-- Galería de agendas -->
+        <div class="grid grid-cols-3 gap-2">
+
+            <div class="aspect-square rounded-lg overflow-hidden bg-sky/30">
+                <img
+                    src="./imágenes/agendas/agenda portada con fondo lila .png"
+                    alt="Agenda personalizada - portada"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                >
+            </div>
+
+            <div class="aspect-square rounded-lg overflow-hidden bg-sky/30">
+                <img
+                    src="./imágenes/agendas/Agenda abierta fondo lila.png"
+                    alt="Agenda personalizada - interior"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                >
+            </div>
+
+            <div class="aspect-square rounded-lg overflow-hidden bg-sky/30">
+                <img
+                    src="./imágenes/agendas/Agenda parte de atras con fondo lila.png"
+                    alt="Agenda personalizada - parte trasera"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                >
+            </div>
+
+        </div>
+
+        <!-- Información -->
+        <div>
+            <h3 class="text-xl font-heading font-bold text-petroleum">
+                Agendas y Cuadernos
+            </h3>
+
+            <p class="text-sm text-gray-600 leading-relaxed">
+                Agendas corporativas y libretas personalizadas con tapa dura o blanda,
+                anillado doble cero y hojas impresas a medida.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Pie de tarjeta -->
+    <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
+
+        <span class="text-xs text-gray-400 font-medium">
+            Anillado / Empastado
+        </span>
+
+        <a
+            href="#cotizacion"
+            onclick="preselectService('Agendas y Cuadernos')"
+            class="inline-flex items-center text-xs font-bold text-petroleum hover:text-blue-700"
+        >
+            Cotizar
+            <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+        </a>
+
+    </div>
+
+</div>
 
                 <!-- Service 5: Folletos -->
                 <div class="bg-white rounded-xl border border-sky/50 p-6 card-hover-effect flex flex-col justify-between shadow-card relative group">
