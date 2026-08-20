@@ -1469,6 +1469,58 @@ document.addEventListener('keydown', function(event) {
     }
 
 });
+    /* =========================
+   VISOR DE IMÁGENES
+   ========================= */
+
+const imageViewerImages = [
+    './imágenes/agendas/agenda-portada.png',
+    './imágenes/agendas/agenda-interior.png',
+    './imágenes/agendas/agenda-trasera.png'
+];
+
+let currentImageIndex = 0;
+
+function openImageViewer(imageSrc) {
+
+    currentImageIndex = imageViewerImages.indexOf(imageSrc);
+
+    if (currentImageIndex === -1) {
+        currentImageIndex = 0;
+    }
+
+    const viewer = document.getElementById('imageViewer');
+    const viewerImage = document.getElementById('imageViewerImage');
+
+    viewerImage.src = imageViewerImages[currentImageIndex];
+
+    viewer.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeImageViewer() {
+
+    const viewer = document.getElementById('imageViewer');
+
+    viewer.classList.add('hidden');
+    document.body.style.overflow = '';
+}
+
+function changeViewerImage(direction) {
+
+    currentImageIndex += direction;
+
+    if (currentImageIndex < 0) {
+        currentImageIndex = imageViewerImages.length - 1;
+    }
+
+    if (currentImageIndex >= imageViewerImages.length) {
+        currentImageIndex = 0;
+    }
+
+    document.getElementById('imageViewerImage').src =
+        imageViewerImages[currentImageIndex];
+}
 </script>
 </body>
 </html>
