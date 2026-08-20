@@ -1522,5 +1522,50 @@ function changeViewerImage(direction) {
         imageViewerImages[currentImageIndex];
 }
 </script>
+        </script>
+
+<!-- VISOR DE IMÁGENES -->
+<div
+    id="imageViewer"
+    class="fixed inset-0 z-[9999] hidden bg-black/90 items-center justify-center p-4"
+    onclick="closeImageViewer()"
+>
+
+    <!-- Botón cerrar -->
+    <button
+        onclick="event.stopPropagation(); closeImageViewer()"
+        class="absolute top-5 right-5 w-12 h-12 rounded-full bg-white/90 text-petroleum text-2xl font-bold flex items-center justify-center shadow-lg"
+    >
+        ×
+    </button>
+
+    <!-- Imagen -->
+    <img
+        id="imageViewerImage"
+        src=""
+        alt="Imagen ampliada"
+        class="max-w-[92vw] max-h-[88vh] object-contain rounded-xl shadow-2xl"
+        onclick="event.stopPropagation()"
+    >
+
+    <!-- Anterior -->
+    <button
+        onclick="event.stopPropagation(); changeViewerImage(-1)"
+        class="absolute left-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 text-petroleum text-3xl font-bold shadow-lg"
+    >
+        ‹
+    </button>
+
+    <!-- Siguiente -->
+    <button
+        onclick="event.stopPropagation(); changeViewerImage(1)"
+        class="absolute right-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 text-petroleum text-3xl font-bold shadow-lg"
+    >
+        ›
+    </button>
+
+</div>
+
+</body>
 </body>
 </html>
