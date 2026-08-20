@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impresiones Gráficas J.I. | Soluciones Gráficas e Impresión</title>
+    
+    <!-- Google Fonts: Montserrat & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        petroleum: '#433A9B', // Brand Royal Indigo Blue
+                        'petroleum-dark': '#30287C',
+                        sky: '#DCDCFA', // Light Lavender/Indigo Tint
+                        'sky-light': '#ECEBFB',
+                        mainbg: '#F6F7FA',
+                        softbg: '#E8E7FA',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 30px -10px rgba(67, 58, 155, 0.08)',
+                        'card': '0 4px 20px rgba(0, 0, 0, 0.04)',
+                        'hover': '0 12px 28px rgba(67, 58, 155, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F6F7FA;
+            color: #2D3748;
+        }
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .bg-petroleum { background-color: #433A9B; }
+        .text-petroleum { color: #433A9B; }
+        .border-petroleum { border-color: #433A9B; }
+        .bg-sky { background-color: #DCDCFA; }
+        .bg-mainbg { background-color: #F6F7FA; }
+        .bg-softbg { background-color: #E8E7FA; }
+        
+        .card-hover-effect {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px rgba(67, 58, 155, 0.15);
+        }
+        
+        .modal-active {
+            overflow: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F6F7FA;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #DCDCFA;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #433A9B;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-sky selection:text-petroleum">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-petroleum text-white text-xs py-2 px-4 text-center sm:text-left">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-4">
+                <span><i class="fa-solid fa-check-circle text-sky mr-1"></i> Atención personalizada para particulares, emprendedores y empresas</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="https://wa.me/5699056453?text=Hola,%20quisiera%20consultar%20por%20servicios%20de%20impresión" target="_blank" class="hover:text-sky transition flex items-center gap-1">
+                    <i class="fa-brands fa-whatsapp text-green-400"></i> +56 9 9056 453
+                </a>
+                <span class="hidden md:inline">|</span>
+                <span class="hidden md:inline"><i class="fa-regular fa-clock text-sky mr-1"></i> Lun - Vie: 09:00 - 17:30 hrs</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-sky/30 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center gap-3.5 group">
+                    <div class="relative flex-shrink-0">
+                        <svg viewBox="0 0 60 60" class="h-11 sm:h-12 w-11 sm:w-12 transition-transform duration-300 group-hover:scale-105" aria-label="Logo Impresiones Gráficas J.I. Ltda">
+                            <rect x="2" y="2" width="56" height="56" rx="14" fill="#433A9B"/>
+                            <rect x="12" y="12" width="30" height="36" rx="4" fill="#FFFFFF" opacity="0.95"/>
+                            <rect x="18" y="16" width="30" height="36" rx="4" fill="#DCDCFA" opacity="0.9"/>
+                            <circle cx="24" cy="24" r="3" fill="#00FFFF"/>
+                            <circle cx="32" cy="24" r="3" fill="#FF00FF"/>
+                            <circle cx="24" cy="32" r="3" fill="#FFFF00"/>
+                            <circle cx="32" cy="32" r="3" fill="#000000"/>
+                            <path d="M 12 40 C 24 48, 36 48, 48 40" stroke="#433A9B" stroke-width="3" fill="none" stroke-linecap="round"/>
+                            <text x="23" y="44" fill="#433A9B" font-family="'Montserrat', sans-serif" font-weight="900" font-size="8">JI</text>
+                        </svg>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <span class="font-heading font-extrabold text-base sm:text-lg leading-tight tracking-tight text-petroleum">
+                            IMPRESIONES GRÁFICAS <span class="text-petroleum/80">J.I. LTDA</span>
+                        </span>
+                        <span class="text-[10px] sm:text-[11px] text-gray-500 font-semibold tracking-wider uppercase">
+                            Servicios Gráficos & Impresión
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center space-x-8">
+                    <a href="#inicio" class="text-sm font-semibold text-gray-700 hover:text-petroleum transition-colors">Inicio</a>
+                    <a href="#servicios" class="text-sm font-semibold text-gray-700 hover:text-petroleum transition-colors">Servicios</a>
+                    <a href="#portafolio" class="text-sm font-semibold text-gray-700 hover:text-petroleum transition-colors">Nuestro Trabajo</a>
+                    <a href="#nosotros" class="text-sm font-semibold text-gray-700 hover:text-petroleum transition-colors">¿Por qué elegirnos?</a>
+                    <a href="#proceso" class="text-sm font-semibold text-gray-700 hover:text-petroleum transition-colors">Proceso</a>
+                    <a href="#contacto" class="text-sm font-semibold text-gray-700 hover:text-petroleum transition-colors">Contacto</a>
+                </nav>
+
+                <!-- Action Button Desktop -->
+                <div class="hidden lg:flex items-center gap-3">
+                    <a href="#cotizacion" class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold text-white bg-petroleum hover:bg-petroleum-dark shadow-md hover:shadow-lg transition-all duration-200">
+                        <i class="fa-regular fa-file-lines mr-2"></i> Cotizar Proyecto
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Toggle Button -->
+                <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-md text-petroleum hover:bg-mainbg focus:outline-none" aria-label="Abrir Menú">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-sky/30 px-4 pt-2 pb-6 space-y-3 shadow-lg">
+            <a href="#inicio" class="mobile-nav-link block py-2 px-3 text-base font-medium text-gray-700 rounded-md hover:bg-mainbg hover:text-petroleum">Inicio</a>
+            <a href="#servicios" class="mobile-nav-link block py-2 px-3 text-base font-medium text-gray-700 rounded-md hover:bg-mainbg hover:text-petroleum">Servicios</a>
+            <a href="#portafolio" class="mobile-nav-link block py-2 px-3 text-base font-medium text-gray-700 rounded-md hover:bg-mainbg hover:text-petroleum">Nuestro Trabajo</a>
+            <a href="#nosotros" class="mobile-nav-link block py-2 px-3 text-base font-medium text-gray-700 rounded-md hover:bg-mainbg hover:text-petroleum">¿Por qué elegirnos?</a>
+            <a href="#proceso" class="mobile-nav-link block py-2 px-3 text-base font-medium text-gray-700 rounded-md hover:bg-mainbg hover:text-petroleum">Proceso</a>
+            <a href="#contacto" class="mobile-nav-link block py-2 px-3 text-base font-medium text-gray-700 rounded-md hover:bg-mainbg hover:text-petroleum">Contacto</a>
+            <div class="pt-2 flex flex-col gap-2">
+                <a href="#cotizacion" class="mobile-nav-link w-full text-center py-3 px-4 rounded-lg font-semibold text-white bg-petroleum">
+                    Solicitar Cotización
+                </a>
+                <a href="https://wa.me/5699056453?text=Hola,%20me%20gustaría%20solicitar%20información%20sobre%20sus%20servicios" target="_blank" class="w-full text-center py-3 px-4 rounded-lg font-semibold text-petroleum border border-petroleum bg-white flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-green-600"></i> Contactar por WhatsApp
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative bg-mainbg py-16 md:py-24 overflow-hidden">
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-sky/40 blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-softbg/60 blur-2xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Text Column -->
+                <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky/50 border border-sky text-petroleum text-xs md:text-sm font-semibold tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-petroleum animate-pulse"></span>
+                        IMPRESIONES GRÁFICAS J.I. LTDA
+                    </div>
+                    
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold text-petroleum tracking-tight leading-tight">
+                        Soluciones gráficas para empresas, emprendedores y profesionales.
+                    </h1>
+                    
+                    <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        Realizamos y coordinamos proyectos de impresión personalizados, adaptados a las necesidades de cada cliente con la mejor calidad del mercado.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="#cotizacion" class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-lg text-base font-bold text-white bg-petroleum hover:bg-petroleum-dark shadow-lg hover:shadow-xl transition-all duration-200">
+                            COTIZA CON NOSOTROS
+                            <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                        <a href="#portafolio" class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-lg text-base font-bold text-petroleum bg-white border-2 border-petroleum hover:bg-sky-light transition-all duration-200">
+                            VER NUESTROS TRABAJOS
+                        </a>
+                    </div>
+
+                    <!-- Trust indicators -->
+                    <div class="pt-8 grid grid-cols-3 gap-4 border-t border-gray-200/80 text-left max-w-lg mx-auto lg:mx-0">
+                        <div>
+                            <p class="font-heading font-bold text-xl md:text-2xl text-petroleum">100%</p>
+                            <p class="text-xs text-gray-500 font-medium">Personalizado</p>
+                        </div>
+                        <div>
+                            <p class="font-heading font-bold text-xl md:text-2xl text-petroleum">Calidad</p>
+                            <p class="text-xs text-gray-500 font-medium">Garantizada</p>
+                        </div>
+                        <div>
+                            <p class="font-heading font-bold text-xl md:text-2xl text-petroleum">Asesoría</p>
+                            <p class="text-xs text-gray-500 font-medium">Directa y cercana</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Interactive Visual Card -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        <div class="bg-white p-4 rounded-2xl shadow-xl border border-sky/40 transform lg:rotate-1 hover:rotate-0 transition-transform duration-500">
+                            <div class="aspect-[4/3] rounded-xl overflow-hidden bg-gradient-to-br from-sky-light to-white relative flex items-center justify-center p-6 border border-gray-100">
+                                <div class="relative w-full h-full flex items-center justify-center">
+                                    <div class="absolute w-4/5 h-4/5 bg-petroleum rounded-lg shadow-md transform -rotate-6 flex flex-col justify-between p-4 text-white">
+                                        <div class="flex justify-between items-center opacity-80">
+                                            <span class="text-xs font-bold font-heading">CARPETA CORPORATIVA</span>
+                                            <i class="fa-solid fa-folder"></i>
+                                        </div>
+                                        <div class="space-y-1">
+                                            <div class="h-1.5 w-1/2 bg-sky rounded"></div>
+                                            <div class="h-1.5 w-1/3 bg-white/40 rounded"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="absolute w-3/5 h-3/4 bg-white rounded-md shadow-lg border border-sky transform rotate-3 p-4 flex flex-col justify-between">
+                                        <div class="border-b border-sky/40 pb-2 flex items-center justify-between">
+                                            <span class="text-[10px] font-bold text-petroleum tracking-wider">AGENDA 2026</span>
+                                            <span class="w-2 h-2 rounded-full bg-sky"></span>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <div class="h-1 w-full bg-gray-200 rounded"></div>
+                                            <div class="h-1 w-4/5 bg-gray-200 rounded"></div>
+                                            <div class="h-1 w-3/5 bg-gray-200 rounded"></div>
+                                        </div>
+                                        <div class="text-[9px] text-right text-gray-400 font-mono">EDICIÓN PREMIUM</div>
+                                    </div>
+
+                                    <div class="absolute -bottom-2 -right-2 w-48 h-28 bg-white rounded-lg shadow-2xl border-2 border-sky p-3 flex flex-col justify-between transform -rotate-3 hover:scale-105 transition-transform">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-6 h-6 rounded bg-petroleum text-white text-[10px] font-bold flex items-center justify-center">JI</div>
+                                            <span class="text-[10px] font-bold text-petroleum font-heading">Impresiones J.I.</span>
+                                        </div>
+                                        <div class="text-[8px] text-gray-500">
+                                            <p class="font-bold text-petroleum">Tarjetas de Presentación</p>
+                                            <p>Polilaminado Mate + UV Sectorizado</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex items-center justify-between px-2 text-xs text-gray-500 font-medium">
+                                <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-petroleum"></i> Impresión Offset y Digital</span>
+                                <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-petroleum"></i> Finas Terminaciones</span>
+                            </div>
+                        </div>
+
+                        <div class="absolute -top-4 -left-4 bg-white px-4 py-2.5 rounded-xl shadow-lg border border-sky flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-full bg-sky/40 text-petroleum flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-award"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-petroleum">Calidad Profesional</p>
+                                <p class="text-[10px] text-gray-500">Supervisión detallada</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid Section -->
+    <section id="servicios" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-petroleum bg-sky/30 px-3 py-1 rounded-full inline-block">
+                    Catálogo de Productos
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-heading font-extrabold text-petroleum">
+                    Nuestros servicios
+                </h2>
+                <p class="text-base sm:text-lg text-gray-600 font-normal">
+                    Soluciones de impresión adaptadas a las necesidades de cada proyecto.
+                </p>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                
+                <!-- Service 1: Tarjetas de presentación -->
+                <div class="bg-white rounded-xl border border-sky/50 p-6 card-hover-effect flex flex-col justify-between shadow-card relative group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-lg bg-sky/30 text-petroleum flex items-center justify-center text-2xl group-hover:bg-petroleum group-hover:text-white transition-colors duration-300">
+                            <i class="fa-regular fa-address-card"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-petroleum">Tarjetas de presentación</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Diseño e impresión de tarjetas profesionales en variados gramajes, acabados polilaminado mate, brillante o bordes redondeados.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs text-gray-400 font-medium">Medida a elección</span>
+                        <a href="#cotizacion" onclick="preselectService('Tarjetas de presentación')" class="inline-flex items-center text-xs font-bold text-petroleum hover:underline">
+                            Cotizar <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service 2: Talonarios -->
+                <div class="bg-white rounded-xl border border-sky/50 p-6 card-hover-effect flex flex-col justify-between shadow-card relative group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-lg bg-sky/30 text-petroleum flex items-center justify-center text-2xl group-hover:bg-petroleum group-hover:text-white transition-colors duration-300">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-petroleum">Talonarios</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Talonarios autocopiativos para cotizaciones, recibos, comandas y documentos comerciales con numeración correlativa y corcheteado.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs text-gray-400 font-medium">Duplicado / Triplicado</span>
+                        <a href="#cotizacion" onclick="preselectService('Talonarios')" class="inline-flex items-center text-xs font-bold text-petroleum hover:underline">
+                            Cotizar <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service 3: Carpetas corporativas -->
+                <div class="bg-white rounded-xl border border-sky/50 p-6 card-hover-effect flex flex-col justify-between shadow-card relative group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-lg bg-sky/30 text-petroleum flex items-center justify-center text-2xl group-hover:bg-petroleum group-hover:text-white transition-colors duration-300">
+                            <i class="fa-solid fa-folder-closed"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-petroleum">Carpetas corporativas</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Carpetas institucionales para presentación de propuestas, con solapa interior, troquel para tarjeta y acabados de lujo.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs text-gray-400 font-medium">Papel Couché 300g / 350g</span>
+                        <a href="#cotizacion" onclick="preselectService('Carpetas corporativas')" class="inline-flex items-center text-xs font-bold text-petroleum hover:underline">
+                            Cotizar <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service 4: Agendas -->
+                <div class="bg-white rounded-xl border border-sky/50 p-6 card-hover-effect flex flex-col justify-between shadow-card relative group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-lg bg-sky/30 text-petroleum flex items-center justify-center text-2xl group-hover:bg-petroleum group-hover:text-white transition-colors duration-300">
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-petroleum">Agendas y Cuadernos</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Agendas corporativas y libretas personalizadas con tapa dura o blanda, anillado doble cero y hojas impresas a medida.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs text-gray-400 font-medium">Anillado / Empastado</span>
+                        <a href="#cotizacion" onclick="preselectService('Agendas y Cuadernos')" class="inline-flex items-center text-xs font-bold text-petroleum hover:underline">
+                            Cotizar <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service 5: Folletos -->
+                <div class="bg-white rounded-xl border border-sky/50 p-6 card-hover-effect flex flex-col justify-between shadow-card relative group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-lg bg-sky/30 text-petroleum flex items-center justify-center text-2xl group-hover:bg-petroleum group-hover:text-white transition-colors duration-300">
+                            <i class="fa-solid fa-map"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-petroleum">Folletos y Trípticos</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Folletos informativos, dípticos y trípticos plegados para promocionar productos o servicios con nitidez de color.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs text-gray-400 font-medium">Varios pliegues</span>
+                        <a href="#cotizacion" onclick="preselectService('Folletos y Trípticos')" class="inline-flex items-center text-xs font-bold text-petroleum hover:underline">
+                            Cotizar <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service 6: Volantes -->
+                <div class="bg-white rounded-xl border border-sky/50 p-6 card-hover-effect flex flex-col justify-between shadow-card relative group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-lg bg-sky/30 text-petroleum flex items-center justify-center text-2xl group-hover:bg-petroleum group-hover:text-white transition-colors duration-300">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-petroleum">Volantes y Flyers</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Flyers publicitarios impresos tiro y retiro en papel couché brillante o mate. Ideales para campañas masivas de difusión.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs text-gray-400 font-medium">Formatos A5 / A6 / 10x15</span>
+                        <a href="#cotizacion" onclick="preselectService('Volantes y Flyers')" class="inline-flex items-center text-xs font-bold text-petroleum hover:underline">
+                            Cotizar <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service 7: Hojas membretadas y Sobres -->
+                <div class="bg-white rounded-xl border border-sky/50 p-6 card-hover-effect flex flex-col justify-between shadow-card relative group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-lg bg-sky/30 text-petroleum flex items-center justify-center text-2xl group-hover:bg-petroleum group-hover:text-white transition-colors duration-300">
+                            <i class="fa-regular fa-file-lines"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-petroleum">Hojas Membretadas y Sobres</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Papelería corporativa de alta calidad para cartas, presupuestos, contratos y sobres corporativos impresos.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs text-gray-400 font-medium">Bond / Hilario / Opaco</span>
+                        <a href="#cotizacion" onclick="preselectService('Hojas Membretadas y Sobres')" class="inline-flex items-center text-xs font-bold text-petroleum hover:underline">
+                            Cotizar <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service 8: Etiquetas y stickers -->
+                <div class="bg-white rounded-xl border border-sky/50 p-6 card-hover-effect flex flex-col justify-between shadow-card relative group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-lg bg-sky/30 text-petroleum flex items-center justify-center text-2xl group-hover:bg-petroleum group-hover:text-white transition-colors duration-300">
+                            <i class="fa-solid fa-tags"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-petroleum">Etiquetas y Stickers</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Adhesivos en papel o vinilo troquelados con la forma que requieras para empaques, frascos y sellos de seguridad.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs text-gray-400 font-medium">Troquelado personalizado</span>
+                        <a href="#cotizacion" onclick="preselectService('Etiquetas y Stickers')" class="inline-flex items-center text-xs font-bold text-petroleum hover:underline">
+                            Cotizar <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service 9: Porta CD y Estuches -->
+                <div class="bg-white rounded-xl border border-sky/50 p-6 card-hover-effect flex flex-col justify-between shadow-card relative group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-lg bg-sky/30 text-petroleum flex items-center justify-center text-2xl group-hover:bg-petroleum group-hover:text-white transition-colors duration-300">
+                            <i class="fa-solid fa-compact-disc"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-petroleum">Porta CD y Carátulas</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Estuches, fundas, díptechs y porta CD/DVD impresos en cartulina con solapas, bolsillo interior y carátulas personalizadas.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs text-gray-400 font-medium">Troquel e impresión full color</span>
+                        <a href="#cotizacion" onclick="preselectService('Porta CD y Carátulas')" class="inline-flex items-center text-xs font-bold text-petroleum hover:underline">
+                            Cotizar <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service 10: Cajas para Tarjetas y Packaging -->
+                <div class="bg-white rounded-xl border border-sky/50 p-6 card-hover-effect flex flex-col justify-between shadow-card relative group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-lg bg-sky/30 text-petroleum flex items-center justify-center text-2xl group-hover:bg-petroleum group-hover:text-white transition-colors duration-300">
+                            <i class="fa-solid fa-box-archive"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-petroleum">Cajas para Tarjetas y Packaging</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Cajas personalizadas para tarjetas de presentación, empaques corporativos pequeños y packaging promocional a medida.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs text-gray-400 font-medium">Cartulina armable / Troquelada</span>
+                        <a href="#cotizacion" onclick="preselectService('Cajas para Tarjetas y Packaging')" class="inline-flex items-center text-xs font-bold text-petroleum hover:underline">
+                            Cotizar <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Price note banner -->
+            <div class="mt-12 bg-mainbg rounded-xl p-6 border border-sky/40 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-sky/50 text-petroleum flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-600">
+                        <strong class="text-petroleum">¿Cómo calculamos tu presupuesto?</strong> El valor final de cada proyecto depende de factores como la cantidad, el formato, el gramaje del papel, el tipo de impresión y las terminaciones especiales requeridas.
+                    </p>
+                </div>
+                <a href="#cotizacion" class="whitespace-nowrap px-5 py-2.5 rounded-lg bg-petroleum text-white text-xs font-bold hover:bg-petroleum-dark transition">
+                    Solicitar Presupuesto
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portafolio" class="py-20 bg-mainbg border-t border-b border-sky/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-petroleum bg-sky/30 px-3 py-1 rounded-full inline-block">
+                    Muestra de Proyectos
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-heading font-extrabold text-petroleum">
+                    Nuestro trabajo
+                </h2>
+                <p class="text-base sm:text-lg text-gray-600 font-normal">
+                    Conoce algunos de los proyectos gráficos reales que hemos producido y entregado.
+                </p>
+            </div>
+
+            <!-- Category Filter Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-2 mb-10">
+                <button onclick="filterPortfolio('all')" class="portfolio-btn active-filter px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-petroleum text-white shadow-sm" data-filter="all">
+                    Todos los proyectos
+                </button>
+                <button onclick="filterPortfolio('papeleria')" class="portfolio-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-white text-gray-700 hover:bg-sky/30 border border-gray-200" data-filter="papeleria">
+                    Papelería Corporativa
+                </button>
+                <button onclick="filterPortfolio('comercial')" class="portfolio-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-white text-gray-700 hover:bg-sky/30 border border-gray-200" data-filter="comercial">
+                    Impresión Comercial
+                </button>
+                <button onclick="filterPortfolio('talonarios')" class="portfolio-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-white text-gray-700 hover:bg-sky/30 border border-gray-200" data-filter="talonarios">
+                    Talonarios y Formularios
+                </button>
+                <button onclick="filterPortfolio('agendas')" class="portfolio-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-white text-gray-700 hover:bg-sky/30 border border-gray-200" data-filter="agendas">
+                    Agendas y Personalizados
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+                
+                <!-- Item 1: Papelería Corporativa -->
+                <div class="portfolio-item papeleria bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Set de Papelería Institucional', 'Papelería corporativa', 'Juego completo de tarjetas de presentación en Couché 350g con polilaminado mate y folia metálica, acompañado de carpetas solapadas e impresiones membretadas.', 'Papeleria')">
+                    <div class="relative h-64 bg-gradient-to-br from-sky-light to-white flex items-center justify-center p-6 overflow-hidden">
+                        <div class="w-full h-full bg-white rounded-lg shadow-md border border-sky/40 p-4 flex flex-col justify-between group-hover:scale-105 transition-transform duration-300">
+                            <div class="flex justify-between items-center border-b border-sky/30 pb-2">
+                                <span class="text-xs font-bold text-petroleum">ESTUDIO JURÍDICO</span>
+                                <span class="text-[10px] bg-sky px-2 py-0.5 rounded text-petroleum font-semibold">Couché 350g</span>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="h-2 w-3/4 bg-petroleum/20 rounded"></div>
+                                <div class="h-2 w-1/2 bg-sky rounded"></div>
+                            </div>
+                            <div class="flex justify-end gap-2">
+                                <div class="w-16 h-8 bg-petroleum rounded text-white text-[8px] flex items-center justify-center font-bold">TARJETA</div>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 bg-petroleum/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white font-medium text-sm">
+                            <span class="bg-white text-petroleum px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ampliar Proyecto</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-petroleum bg-sky/30 px-2.5 py-1 rounded">Papelería corporativa</span>
+                        <h3 class="text-lg font-heading font-bold text-petroleum mt-2">Set de Papelería Institucional</h3>
+                        <p class="text-xs text-gray-500 mt-1">Tarjetas con acabado polilaminado y carpetas corporativas.</p>
+                    </div>
+                </div>
+
+                <!-- Item 2: Impresión Comercial -->
+                <div class="portfolio-item comercial bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Catálogos y Trípticos Promocionales', 'Impresión comercial', 'Producción de catálogos plegados en acordeón para lanzamiento de productos. Impresión tiro y retiro full color con doblado de alta precisión.', 'Comercial')">
+                    <div class="relative h-64 bg-gradient-to-br from-gray-100 to-sky-light flex items-center justify-center p-6 overflow-hidden">
+                        <div class="w-full h-full bg-sky/20 rounded-lg shadow-md border border-sky/40 p-4 flex items-center justify-between group-hover:scale-105 transition-transform duration-300">
+                            <div class="w-1/3 h-full bg-white rounded p-2 shadow-sm border-r border-sky/30 flex flex-col justify-between">
+                                <div class="w-full h-2 bg-petroleum rounded"></div>
+                                <div class="w-full h-12 bg-sky/40 rounded"></div>
+                            </div>
+                            <div class="w-1/3 h-full bg-white rounded p-2 shadow-sm border-r border-sky/30 flex flex-col justify-between">
+                                <div class="w-full h-2 bg-petroleum rounded"></div>
+                                <div class="w-full h-12 bg-sky/40 rounded"></div>
+                            </div>
+                            <div class="w-1/3 h-full bg-white rounded p-2 shadow-sm flex flex-col justify-between">
+                                <div class="w-full h-2 bg-petroleum rounded"></div>
+                                <div class="w-full h-12 bg-sky/40 rounded"></div>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 bg-petroleum/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white font-medium text-sm">
+                            <span class="bg-white text-petroleum px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ampliar Proyecto</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-petroleum bg-sky/30 px-2.5 py-1 rounded">Impresión comercial</span>
+                        <h3 class="text-lg font-heading font-bold text-petroleum mt-2">Catálogos y Trípticos Promocionales</h3>
+                        <p class="text-xs text-gray-500 mt-1">Impresión full color con plegado exacto.</p>
+                    </div>
+                </div>
+
+                <!-- Item 3: Talonarios -->
+                <div class="portfolio-item talonarios bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Talonarios Autocopiativos Numerados', 'Talonarios y formularios', 'Talonarios para control de entregas y facturación interna con papel químico de rápido calcado y numeración correlativa en tinta roja.', 'Talonarios')">
+                    <div class="relative h-64 bg-gradient-to-br from-white to-softbg flex items-center justify-center p-6 overflow-hidden">
+                        <div class="w-full h-full bg-white rounded-lg shadow-md border-t-8 border-petroleum p-4 flex flex-col justify-between group-hover:scale-105 transition-transform duration-300">
+                            <div class="flex justify-between text-[10px] font-mono text-gray-500">
+                                <span>RECIBO N° 00482</span>
+                                <span class="text-red-500 font-bold">DUPLICADO</span>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="h-1.5 bg-gray-200 rounded w-full"></div>
+                                <div class="h-1.5 bg-gray-200 rounded w-4/5"></div>
+                                <div class="h-1.5 bg-gray-200 rounded w-2/3"></div>
+                            </div>
+                            <div class="border-t border-dashed border-gray-300 pt-2 text-[9px] text-gray-400">
+                                Papel Químico Copia Rosa / Blanca
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 bg-petroleum/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white font-medium text-sm">
+                            <span class="bg-white text-petroleum px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ampliar Proyecto</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-petroleum bg-sky/30 px-2.5 py-1 rounded">Talonarios y formularios</span>
+                        <h3 class="text-lg font-heading font-bold text-petroleum mt-2">Talonarios Autocopiativos Numerados</h3>
+                        <p class="text-xs text-gray-500 mt-1">Hojas autocopiativas con numeración y prepicado.</p>
+                    </div>
+                </div>
+
+                <!-- Item 4: Agendas -->
+                <div class="portfolio-item agendas bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Agendas Corporativas Tapa Dura', 'Agendas y personalizados', 'Agendas ejecutivas personalizadas con empastado duro, elástico de cierre, marcador de cinta y portada termo-laminada anti-rayaduras.', 'Agendas')">
+                    <div class="relative h-64 bg-gradient-to-br from-sky-light to-white flex items-center justify-center p-6 overflow-hidden">
+                        <div class="w-3/4 h-full bg-petroleum rounded-r-lg shadow-xl border-l-4 border-gray-800 p-4 flex flex-col justify-between text-white group-hover:scale-105 transition-transform duration-300">
+                            <div class="text-right">
+                                <span class="text-[10px] tracking-widest uppercase border border-sky/40 px-2 py-0.5 rounded">2026</span>
+                            </div>
+                            <div class="text-center">
+                                <p class="font-heading font-extrabold text-sm tracking-wide">AGENDA EJECUTIVA</p>
+                                <p class="text-[9px] text-sky mt-1">Impresiones Gráficas J.I.</p>
+                            </div>
+                            <div class="h-1 bg-sky/30 rounded"></div>
+                        </div>
+                        <div class="absolute inset-0 bg-petroleum/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white font-medium text-sm">
+                            <span class="bg-white text-petroleum px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ampliar Proyecto</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-petroleum bg-sky/30 px-2.5 py-1 rounded">Agendas y personalizados</span>
+                        <h3 class="text-lg font-heading font-bold text-petroleum mt-2">Agendas Corporativas Tapa Dura</h3>
+                        <p class="text-xs text-gray-500 mt-1">Empastado de lujo con anillado o costura.</p>
+                    </div>
+                </div>
+
+                <!-- Item 4B: Agendas Escolares e Institucionales -->
+                <div class="portfolio-item agendas bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Agendas Escolares e Institucionales', 'Agendas Colegios e Instituciones', 'Diseño y confección masiva de agendas escolares para colegios, liceos, universidades e instituciones públicas. Incluye tapas duras o en mica extra termolaminada, reglamento interno impreso, libreta de comunicaciones, calendario académico y anillado doble cero de alta durabilidad.', 'Agendas')">
+                    <div class="relative h-64 bg-gradient-to-br from-softbg via-white to-sky-light flex items-center justify-center p-6 overflow-hidden">
+                        <div class="w-full h-full bg-white rounded-lg shadow-lg border-2 border-petroleum p-3 flex flex-col justify-between group-hover:scale-105 transition-transform duration-300 relative">
+                            <!-- Spiral Binding Graphic -->
+                            <div class="absolute -left-2 top-2 bottom-2 flex flex-col justify-between z-10">
+                                <div class="w-3 h-2 bg-gray-700 rounded-full"></div>
+                                <div class="w-3 h-2 bg-gray-700 rounded-full"></div>
+                                <div class="w-3 h-2 bg-gray-700 rounded-full"></div>
+                                <div class="w-3 h-2 bg-gray-700 rounded-full"></div>
+                                <div class="w-3 h-2 bg-gray-700 rounded-full"></div>
+                                <div class="w-3 h-2 bg-gray-700 rounded-full"></div>
+                            </div>
+                            <div class="pl-3 flex justify-between items-center border-b border-sky/50 pb-2">
+                                <span class="text-[10px] font-bold font-heading text-petroleum uppercase">COLEGIO / INSTITUCIÓN</span>
+                                <span class="text-[9px] bg-petroleum text-white px-2 py-0.5 rounded font-bold">2026</span>
+                            </div>
+                            <div class="pl-3 py-2 space-y-1.5 flex-1 flex flex-col justify-center">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-7 h-7 rounded-full bg-sky text-petroleum font-bold text-[9px] flex items-center justify-center">ESC</div>
+                                    <div>
+                                        <p class="text-[10px] font-bold text-petroleum">Agenda Escolar & Comunicaciones</p>
+                                        <p class="text-[8px] text-gray-500">Reglamento • Libreta • Calendario</p>
+                                    </div>
+                                </div>
+                                <div class="h-1 bg-gray-200 rounded w-full"></div>
+                                <div class="h-1 bg-gray-200 rounded w-4/5"></div>
+                            </div>
+                            <div class="pl-3 border-t border-sky/30 pt-1 flex justify-between items-center">
+                                <span class="text-[8px] text-petroleum font-semibold">Anillado Doble Cero</span>
+                                <span class="text-[8px] text-gray-400">Tapa Dura Termolaminada</span>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 bg-petroleum/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white font-medium text-sm z-20">
+                            <span class="bg-white text-petroleum px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ampliar Proyecto</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-petroleum bg-sky/30 px-2.5 py-1 rounded">Colegios e Instituciones</span>
+                        <h3 class="text-lg font-heading font-bold text-petroleum mt-2">Agendas Escolares e Institucionales</h3>
+                        <p class="text-xs text-gray-500 mt-1">Con reglamento interno, libreta de comunicaciones y anillado continuo.</p>
+                    </div>
+                </div>
+
+                <!-- Item 5: Papelería -->
+                <div class="portfolio-item papeleria bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Carpetas Corporativas con Solapa', 'Papelería corporativa', 'Carpetas de presentación impresas full color exterior con solapa ensamblada para holding corporativo.', 'Papeleria')">
+                    <div class="relative h-64 bg-gradient-to-br from-softbg to-white flex items-center justify-center p-6 overflow-hidden">
+                        <div class="w-full h-full bg-white rounded-lg shadow-md border-2 border-sky p-4 flex flex-col justify-between group-hover:scale-105 transition-transform duration-300">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 bg-sky rounded-full flex items-center justify-center text-petroleum font-bold text-xs">JI</div>
+                                <div>
+                                    <p class="text-xs font-bold text-petroleum">Carpetas Corporativas</p>
+                                    <p class="text-[9px] text-gray-400">Solapa troquelada con ranura</p>
+                                </div>
+                            </div>
+                            <div class="h-16 bg-mainbg rounded p-2 flex items-end justify-end">
+                                <span class="text-[8px] bg-petroleum text-white px-2 py-0.5 rounded">Troquel tarjeta</span>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 bg-petroleum/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white font-medium text-sm">
+                            <span class="bg-white text-petroleum px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ampliar Proyecto</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-petroleum bg-sky/30 px-2.5 py-1 rounded">Papelería corporativa</span>
+                        <h3 class="text-lg font-heading font-bold text-petroleum mt-2">Carpetas Corporativas con Solapa</h3>
+                        <p class="text-xs text-gray-500 mt-1">Troquel especial para tarjeta de presentación.</p>
+                    </div>
+                </div>
+
+                <!-- Item 6: Comercial / Stickers -->
+                <div class="portfolio-item comercial agendas bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Stickers y Etiquetas en Vinilo Adhesivo', 'Productos personalizados', 'Etiquetas adhesivas troqueladas para packaging y productos gastronómicos con polilaminado anti-humedad y acabado brillante.', 'Comercial')">
+                    <div class="relative h-64 bg-gradient-to-br from-white to-sky-light flex items-center justify-center p-6 overflow-hidden">
+                        <div class="flex flex-wrap gap-3 items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                            <div class="w-20 h-20 rounded-full bg-petroleum text-white flex flex-col items-center justify-center p-2 text-center shadow-lg border-2 border-white">
+                                <span class="text-[9px] font-bold">ETIQUETA</span>
+                                <span class="text-[7px] text-sky">Troquel Circular</span>
+                            </div>
+                            <div class="w-20 h-20 rounded-xl bg-sky text-petroleum flex flex-col items-center justify-center p-2 text-center shadow-lg border-2 border-white">
+                                <span class="text-[9px] font-bold">STICKER</span>
+                                <span class="text-[7px]">Vinilo Adhesivo</span>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 bg-petroleum/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white font-medium text-sm">
+                            <span class="bg-white text-petroleum px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ampliar Proyecto</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-petroleum bg-sky/30 px-2.5 py-1 rounded">Productos personalizados</span>
+                        <h3 class="text-lg font-heading font-bold text-petroleum mt-2">Stickers y Etiquetas en Vinilo Adhesivo</h3>
+                        <p class="text-xs text-gray-500 mt-1">Corte troquelado a medida resistente al agua.</p>
+                    </div>
+                </div>
+
+                <!-- Item 7: Recetarios Médicos y Profesionales -->
+                <div class="portfolio-item talonarios papeleria bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Recetarios Médicos y Fichas Profesionales', 'Papelería Médica y Talonarios', 'Impresión de recetarios médicos y profesionales personalizados para doctores, clínicas y especialistas. Disponibles en block encolado de papel bond de alto gramaje, formato duplicado autocopiativo o numerado correlativo.', 'Talonarios')">
+                    <div class="relative h-64 bg-gradient-to-br from-sky-light via-white to-softbg flex items-center justify-center p-6 overflow-hidden">
+                        <div class="w-4/5 h-full bg-white rounded-md shadow-md border border-gray-200 p-4 flex flex-col justify-between group-hover:scale-105 transition-transform duration-300">
+                            <div class="flex justify-between items-start border-b border-sky/40 pb-2">
+                                <div class="space-y-1">
+                                    <p class="text-[10px] font-bold text-petroleum leading-none">DR. ROBERTO SILVA C.</p>
+                                    <p class="text-[8px] text-gray-500 leading-none">Medicina General - Reg. Col. 45892</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-xs font-serif font-bold text-petroleum">Rx</span>
+                                </div>
+                            </div>
+                            <div class="space-y-1.5 my-2">
+                                <div class="flex items-center gap-1">
+                                    <span class="text-[8px] font-semibold text-gray-400">Nombre:</span>
+                                    <div class="h-0.5 bg-gray-200 flex-1"></div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-[8px] font-semibold text-gray-400">RUT:</span>
+                                    <div class="h-0.5 bg-gray-200 w-1/2"></div>
+                                    <span class="text-[8px] font-semibold text-gray-400">Fecha:</span>
+                                    <div class="h-0.5 bg-gray-200 flex-1"></div>
+                                </div>
+                            </div>
+                            <div class="flex-1 my-1 space-y-2 border-t border-dashed border-gray-200 pt-2">
+                                <div class="h-1 bg-gray-100 rounded w-full"></div>
+                                <div class="h-1 bg-gray-100 rounded w-5/6"></div>
+                                <div class="h-1 bg-gray-100 rounded w-3/4"></div>
+                            </div>
+                            <div class="border-t border-sky/30 pt-1 text-center">
+                                <p class="text-[7px] text-gray-400">Av. Providencia 1234, Of. 502 • Tel: +56 2 2233 4455</p>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 bg-petroleum/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white font-medium text-sm">
+                            <span class="bg-white text-petroleum px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ampliar Proyecto</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-petroleum bg-sky/30 px-2.5 py-1 rounded">Recetarios y papelería médica</span>
+                        <h3 class="text-lg font-heading font-bold text-petroleum mt-2">Recetarios Médicos y Profesionales</h3>
+                        <p class="text-xs text-gray-500 mt-1">Blocks encolados con diseño corporativo e institucional.</p>
+                    </div>
+                </div>
+
+                <!-- Item 8: Porta CD y Cajas de Tarjetas -->
+                <div class="portfolio-item comercial papeleria bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Porta CD y Cajas para Tarjetas de Presentación', 'Empaques y Presentación', 'Producción de fundas troqueladas Porta CD con carátulas impresas full color y cajas contenedoras personalizadas para sets de tarjetas de presentación.', 'Comercial')">
+                    <div class="relative h-64 bg-gradient-to-br from-sky-light to-white flex items-center justify-center p-6 overflow-hidden">
+                        <div class="flex items-center justify-center gap-4 group-hover:scale-105 transition-transform duration-300">
+                            <!-- CD Graphic -->
+                            <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-sky via-white to-petroleum p-1 shadow-lg flex items-center justify-center relative">
+                                <div class="w-8 h-8 rounded-full bg-white border-2 border-sky flex items-center justify-center">
+                                    <div class="w-3 h-3 rounded-full bg-petroleum"></div>
+                                </div>
+                                <span class="absolute bottom-2 text-[7px] font-bold text-petroleum">PORTA CD</span>
+                            </div>
+                            <!-- Box Graphic -->
+                            <div class="w-20 h-28 bg-petroleum rounded-lg shadow-xl border-2 border-sky p-2 flex flex-col justify-between text-white">
+                                <div class="text-[8px] font-bold text-sky">CAJA TARJETAS</div>
+                                <div class="space-y-1">
+                                    <div class="h-1 bg-white/60 rounded"></div>
+                                    <div class="h-1 bg-white/40 rounded"></div>
+                                </div>
+                                <div class="text-[7px] text-right text-sky-light font-mono">100 UND</div>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 bg-petroleum/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white font-medium text-sm">
+                            <span class="bg-white text-petroleum px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ampliar Proyecto</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-petroleum bg-sky/30 px-2.5 py-1 rounded">Empaques & Presentación</span>
+                        <h3 class="text-lg font-heading font-bold text-petroleum mt-2">Porta CD y Cajas para Tarjetas</h3>
+                        <p class="text-xs text-gray-500 mt-1">Estuches Porta CD troquelados y cajas para tarjetas de presentación.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Intermediate Call to Action -->
+    <section class="py-16 bg-softbg border-t border-b border-sky/40">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+            <h2 class="text-3xl sm:text-4xl font-heading font-extrabold text-petroleum">
+                ¿Tienes un proyecto en mente?
+            </h2>
+            <p class="text-base sm:text-lg text-gray-700 max-w-2xl mx-auto">
+                Cuéntanos qué necesitas y te ayudaremos a encontrar la mejor alternativa para tu impresión.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                <a href="https://wa.me/5699056453?text=Hola,%20tengo%20un%20proyecto%20de%20impresión%20y%20me%20gustaría%20asesorarme" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl text-base font-bold text-white bg-petroleum hover:bg-petroleum-dark shadow-md transition">
+                    <i class="fa-brands fa-whatsapp text-green-400 text-xl mr-2"></i> MÁNDANOS UN MENSAJE
+                </a>
+                <a href="#cotizacion" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl text-base font-bold text-petroleum bg-white border-2 border-petroleum hover:bg-sky-light transition">
+                    SOLICITAR COTIZACIÓN
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Quotation Form -->
+    <section id="cotizacion" class="py-20 bg-mainbg">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="bg-white rounded-2xl shadow-xl border border-sky/50 p-6 sm:p-10">
+                <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
+                    <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-petroleum">
+                        Solicita tu cotización
+                    </h2>
+                    <p class="text-sm sm:text-base text-gray-600">
+                        Cuéntanos los detalles de tu proyecto y prepararemos una cotización personalizada a la brevedad.
+                    </p>
+                </div>
+
+                <form id="quote-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label for="nombre" class="block text-xs font-bold text-petroleum uppercase mb-2">Nombre completo *</label>
+                            <input type="text" id="nombre" required placeholder="Ej. María González" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-petroleum outline-none text-sm transition">
+                        </div>
+
+                        <div>
+                            <label for="empresa" class="block text-xs font-bold text-petroleum uppercase mb-2">Empresa (Opcional)</label>
+                            <input type="text" id="empresa" placeholder="Ej. Mi Emprendimiento SpA" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-petroleum outline-none text-sm transition">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label for="whatsapp" class="block text-xs font-bold text-petroleum uppercase mb-2">WhatsApp / Teléfono *</label>
+                            <input type="tel" id="whatsapp" required placeholder="+56 9 1234 5678" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-petroleum outline-none text-sm transition">
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-xs font-bold text-petroleum uppercase mb-2">Correo electrónico *</label>
+                            <input type="email" id="email" required placeholder="correo@ejemplo.com" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-petroleum outline-none text-sm transition">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                        <div class="sm:col-span-2">
+                            <label for="servicio" class="block text-xs font-bold text-petroleum uppercase mb-2">¿Qué necesitas imprimir? *</label>
+                            <select id="servicio" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-petroleum outline-none text-sm transition bg-white">
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="Tarjetas de presentación">Tarjetas de presentación</option>
+                                <option value="Cajas para tarjetas y packaging">Cajas para tarjetas y packaging</option>
+                                <option value="Porta CD y carátulas">Porta CD y carátulas</option>
+                                <option value="Talonarios autocopiativos">Talonarios autocopiativos</option>
+                                <option value="Recetarios médicos y papelería profesional">Recetarios médicos y papelería profesional</option>
+                                <option value="Carpetas corporativas">Carpetas corporativas</option>
+                                <option value="Agendas Institucionales / Escolares">Agendas Institucionales y Escolares</option>
+                                <option value="Agendas Corporativas Tapa Dura">Agendas Corporativas Tapa Dura</option>
+                                <option value="Folletos y Trípticos">Folletos y Trípticos</option>
+                                <option value="Volantes y Flyers">Volantes y Flyers</option>
+                                <option value="Hojas membretadas / Sobres">Hojas membretadas / Sobres</option>
+                                <option value="Etiquetas y Stickers">Etiquetas y Stickers</option>
+                                <option value="Otro producto personalizado">Otro producto personalizado</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="cantidad" class="block text-xs font-bold text-petroleum uppercase mb-2">Cantidad aprox. *</label>
+                            <input type="text" id="cantidad" required placeholder="Ej. 500 unidades" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-petroleum outline-none text-sm transition">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label for="papel" class="block text-xs font-bold text-petroleum uppercase mb-2">Tipo de Papel / Material *</label>
+                            <select id="papel" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-petroleum outline-none text-sm transition bg-white">
+                                <option value="" disabled selected>Selecciona la alternativa de papel</option>
+                                <optgroup label="Papel Couché">
+                                    <option value="Couché 300g / 350g (Tarjetas, Carpetas, Portadas)">Couché 300g / 350g (Grueso: Tarjetas, Carpetas)</option>
+                                    <option value="Couché 170g / 200g (Folletos, Catálogos, Trípticos)">Couché 170g / 200g (Medio: Folletos, Volantes)</option>
+                                    <option value="Couché 130g (Flyers masivos, Afiches)">Couché 130g (Delgado: Flyers masivos, Hojas)</option>
+                                </optgroup>
+                                <optgroup label="Papel Químico & Talonarios">
+                                    <option value="Papel Químico Autocopiativo (Duplicado / Triplicado)">Papel Químico Autocopiativo (Duplicado / Triplicado)</option>
+                                </optgroup>
+                                <optgroup label="Papel Bond & Hilado">
+                                    <option value="Papel Bond 80g / 90g (Recetarios, Membretadas, Interior Agendas)">Papel Bond 80g / 90g (Recetarios, Membretadas)</option>
+                                    <option value="Papel Hilado 100g / 140g (Agendas y Diplomas)">Papel Hilado 100g / 140g (Mayor grosor)</option>
+                                </optgroup>
+                                <optgroup label="Adhesivos & Especiales">
+                                    <option value="Vinilo Adhesivo (Resistente al agua)">Vinilo Adhesivo PVC (Especial Stickers)</option>
+                                    <option value="Papel Adhesivo Ilustración">Papel Adhesivo Ilustración</option>
+                                    <option value="Cartulina Dúplex / Triplex (Packaging y Cajas)">Cartulina Dúplex / Triplex (Cajas y Packaging)</option>
+                                </optgroup>
+                                <optgroup label="Asesoría">
+                                    <option value="Requiero asesoría según mi proyecto">Requiero asesoría (Sugerir la mejor opción)</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="acabado" class="block text-xs font-bold text-petroleum uppercase mb-2">Terminaciones y Acabados</label>
+                            <select id="acabado" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-petroleum outline-none text-sm transition bg-white">
+                                <option value="Sin terminación especial">Sin terminación especial</option>
+                                <option value="Termolaminado Mate">Termolaminado Mate</option>
+                                <option value="Termolaminado Brillante">Termolaminado Brillante</option>
+                                <option value="Polilaminado Mate + UV Sectorizado">Polilaminado Mate + UV Sectorizado</option>
+                                <option value="Troquelado personalizado / Plegado">Troquelado personalizado / Plegado</option>
+                                <option value="Anillado Doble Cero / Empastado">Anillado Doble Cero / Empastado</option>
+                                <option value="Numeración correlativa / Prepicado">Numeración correlativa / Prepicado</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="mensaje" class="block text-xs font-bold text-petroleum uppercase mb-2">Detalles adicionales del proyecto</label>
+                        <textarea id="mensaje" rows="4" placeholder="Indícanos medidas especiales, si posees el diseño listo en PDF, fechas de entrega deseadas, etc." class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-petroleum outline-none text-sm transition"></textarea>
+                    </div>
+
+                    <div class="border-2 border-dashed border-sky rounded-lg p-4 text-center bg-sky-light/50">
+                        <i class="fa-solid fa-cloud-arrow-up text-petroleum text-2xl mb-1"></i>
+                        <p class="text-xs text-petroleum font-semibold">Adjuntar diseño o referencia (Opcional)</p>
+                        <p class="text-[11px] text-gray-500">Aceptamos PDF, AI, PSD, PNG o JPG hasta 20MB</p>
+                        <input type="file" id="archivo" class="hidden" onchange="updateFileName(this)">
+                        <button type="button" onclick="document.getElementById('archivo').click()" class="mt-2 text-xs font-bold text-petroleum bg-white border border-sky px-3 py-1.5 rounded hover:bg-sky/20 transition">
+                            Seleccionar Archivo
+                        </button>
+                        <span id="file-name" class="block text-xs text-gray-600 mt-2 font-mono"></span>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 rounded-xl text-base font-bold text-white bg-petroleum hover:bg-petroleum-dark shadow-lg transition duration-200 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> ENVIAR SOLICITUD DE COTIZACIÓN
+                    </button>
+
+                    <p class="text-center text-xs text-gray-500 font-medium pt-2">
+                        <i class="fa-solid fa-shield-halved text-petroleum mr-1"></i> El valor final dependerá de las características y especificaciones del pedido.
+                    </p>
+
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact & Direct Information Section -->
+    <section id="contacto" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-xs font-bold uppercase tracking-widest text-petroleum bg-sky/40 px-3 py-1 rounded-full inline-block">
+                        Estamos para Ayudarte
+                    </span>
+                    <h2 class="text-3xl font-heading font-extrabold text-petroleum">
+                        Impresiones Gráficas J.I. Ltda.
+                    </h2>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Servicios gráficos e impresión profesional. Ponte en contacto directamente con nosotros para resolver tus dudas o coordinar tus entregas.
+                    </p>
+
+                    <div class="space-y-4 pt-2">
+                        <a href="https://wa.me/5699056453" target="_blank" class="flex items-center gap-4 p-4 rounded-xl bg-mainbg border border-sky/40 hover:bg-sky/20 transition">
+                            <div class="w-10 h-10 rounded-lg bg-petroleum text-white flex items-center justify-center text-xl">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase font-bold">WhatsApp Directo</p>
+                                <p class="text-sm font-bold text-petroleum">+56 9 9056 453</p>
+                            </div>
+                        </a>
+
+                        <a href="mailto:contacto@impresionesgraficasji.cl" class="flex items-center gap-4 p-4 rounded-xl bg-mainbg border border-sky/40 hover:bg-sky/20 transition">
+                            <div class="w-10 h-10 rounded-lg bg-petroleum text-white flex items-center justify-center text-xl">
+                                <i class="fa-regular fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase font-bold">Correo Electrónico</p>
+                                <p class="text-sm font-bold text-petroleum">contacto@impresionesgraficasji.cl</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 bg-mainbg p-8 rounded-2xl border border-sky/40 flex flex-col justify-between space-y-6">
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-heading font-bold text-petroleum border-b border-sky/50 pb-3">
+                            Horarios y Cobertura de Servicio
+                        </h3>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <p class="text-xs font-bold text-petroleum uppercase flex items-center gap-2">
+                                    <i class="fa-regular fa-clock text-sky"></i> Horario de Atención
+                                </p>
+                                <p class="text-sm text-gray-700 font-medium">Lunes a Viernes: 09:00 - 17:30 hrs</p>
+                                <p class="text-sm text-gray-500">Sábados: Atención previa coordinación</p>
+                            </div>
+
+                            <div class="space-y-2">
+                                <p class="text-xs font-bold text-petroleum uppercase flex items-center gap-2">
+                                    <i class="fa-solid fa-location-dot text-sky"></i> Área de Atención
+                                </p>
+                                <p class="text-sm text-gray-700 font-medium">Despachos locales y envíos a todo el país</p>
+                                <p class="text-sm text-gray-500">Entrega personalizada para empresas</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-xl border border-sky flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-sky/30 text-petroleum flex items-center justify-center text-xl flex-shrink-0">
+                            <i class="fa-solid fa-truck-ramp-box"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-petroleum">¿Requieres muestras o asesoría presencial?</h4>
+                            <p class="text-xs text-gray-600">Coordinamos visitas técnicas y catálogo físico de papeles para proyectos corporativos.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-petroleum text-white pt-12 pb-8 border-t border-petroleum-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 border-b border-white/10 pb-8">
+                
+                <div class="flex items-center gap-3">
+                    <div class="bg-white p-1 rounded-xl shadow-sm flex items-center justify-center">
+                        <svg viewBox="0 0 60 60" class="h-10 w-10" aria-label="Logo Impresiones Gráficas J.I. Ltda">
+                            <rect x="2" y="2" width="56" height="56" rx="14" fill="#433A9B"/>
+                            <rect x="12" y="12" width="30" height="36" rx="4" fill="#FFFFFF" opacity="0.95"/>
+                            <rect x="18" y="16" width="30" height="36" rx="4" fill="#DCDCFA" opacity="0.9"/>
+                            <circle cx="24" cy="24" r="3" fill="#00FFFF"/>
+                            <circle cx="32" cy="24" r="3" fill="#FF00FF"/>
+                            <circle cx="24" cy="32" r="3" fill="#FFFF00"/>
+                            <circle cx="32" cy="32" r="3" fill="#000000"/>
+                            <path d="M 12 40 C 24 48, 36 48, 48 40" stroke="#433A9B" stroke-width="3" fill="none" stroke-linecap="round"/>
+                            <text x="23" y="44" fill="#433A9B" font-family="'Montserrat', sans-serif" font-weight="900" font-size="8">JI</text>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="font-heading font-bold text-base tracking-wide">IMPRESIONES GRÁFICAS J.I. LTDA</p>
+                        <p class="text-xs text-sky font-normal">Servicios gráficos e impresión</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-6 text-xs text-sky">
+                    <a href="https://wa.me/5699056453" target="_blank" class="hover:text-white transition flex items-center gap-1.5">
+                        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="mailto:contacto@impresionesgraficasji.cl" class="hover:text-white transition flex items-center gap-1.5">
+                        <i class="fa-regular fa-envelope"></i> Correo
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="pt-6 text-center text-xs text-white/70 flex flex-col sm:flex-row justify-between items-center gap-2">
+                <p>© <span id="current-year">2026</span> Impresiones Gráficas J.I. Ltda. Todos los derechos reservados.</p>
+                <p class="text-[11px] text-sky">Calidad & Confianza en Impresión Personalizada</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Widget -->
+    <a href="https://wa.me/5699056453?text=Hola!%20Me%20gustaría%20cotizar%20un%20servicio%20de%20impresión." target="_blank" class="fixed bottom-6 right-6 z-50 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:bg-green-600 hover:scale-110 transition-all duration-300 group" aria-label="Chat en WhatsApp">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+        <span class="absolute right-16 bg-white text-gray-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            ¿Consultas? ¡Escríbenos!
+        </span>
+    </a>
+
+    <!-- Notification Toast Banner -->
+    <div id="toast-notification" class="fixed bottom-6 left-6 z-50 bg-petroleum text-white px-5 py-4 rounded-xl shadow-2xl border border-sky/30 hidden max-w-sm flex items-center gap-3 animate-bounce">
+        <i class="fa-brands fa-whatsapp text-green-400 text-2xl flex-shrink-0"></i>
+        <div>
+            <p class="text-xs font-bold" id="toast-title">¡Solicitud recibida!</p>
+            <p class="text-[11px] text-sky" id="toast-message">Te redirigimos a WhatsApp para enviar los detalles...</p>
+        </div>
+    </div>
+
+    <!-- Portfolio Project Modal Overlay -->
+    <div id="portfolio-modal" class="fixed inset-0 z-50 hidden bg-petroleum/80 backdrop-blur-sm items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 relative shadow-2xl border border-sky/40">
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-mainbg hover:bg-sky text-petroleum flex items-center justify-center text-lg font-bold transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="space-y-4">
+                <span id="modal-category" class="text-[11px] font-bold uppercase tracking-wider text-petroleum bg-sky/30 px-2.5 py-1 rounded inline-block">Categoría</span>
+                <h3 id="modal-title" class="text-2xl font-heading font-extrabold text-petroleum">Título del Proyecto</h3>
+                
+                <div id="modal-graphic-preview" class="w-full h-56 bg-gradient-to-br from-sky-light to-mainbg rounded-xl border border-sky/40 flex items-center justify-center p-6 my-4 shadow-inner">
+                    <div class="text-center space-y-2">
+                        <i class="fa-solid fa-print text-4xl text-petroleum"></i>
+                        <p class="text-xs font-bold text-petroleum">Visualización de Proyecto Real</p>
+                    </div>
+                </div>
+
+                <p id="modal-description" class="text-sm text-gray-600 leading-relaxed">
+                    Descripción detallada del trabajo realizado.
+                </p>
+
+                <div class="pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <span class="text-xs text-gray-400">Impresiones Gráficas J.I.</span>
+                    <button id="modal-cotizar-btn" onclick="modalCotizar()" class="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-petroleum text-white font-bold text-xs hover:bg-petroleum-dark transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-calculator"></i> Cotizar este trabajo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Embedded Application Logic -->
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Mobile Navigation Toggle Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Preselect Service in Quote Form
+        function preselectService(serviceName) {
+            const select = document.getElementById('servicio');
+            if (select) {
+                select.value = serviceName;
+            }
+        }
+
+        // Portfolio Filtering Logic
+        function filterPortfolio(category) {
+            const items = document.querySelectorAll('.portfolio-item');
+            const buttons = document.querySelectorAll('.portfolio-btn');
+
+            buttons.forEach(btn => {
+                if (btn.getAttribute('data-filter') === category) {
+                    btn.classList.add('bg-petroleum', 'text-white');
+                    btn.classList.remove('bg-white', 'text-gray-700');
+                } else {
+                    btn.classList.remove('bg-petroleum', 'text-white');
+                    btn.classList.add('bg-white', 'text-gray-700');
+                }
+            });
+
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        let activeProjectTitle = '';
+
+        function openModal(title, category, description, type) {
+            activeProjectTitle = title;
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-category').textContent = category;
+            document.getElementById('modal-description').textContent = description;
+            
+            const modal = document.getElementById('portfolio-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.classList.add('modal-active');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('portfolio-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.classList.remove('modal-active');
+        }
+
+        function modalCotizar() {
+            closeModal();
+            const serviceSelect = document.getElementById('servicio');
+            if (serviceSelect) {
+                serviceSelect.value = "Otro producto personalizado";
+            }
+            window.location.href = "#cotizacion";
+        }
+
+        document.getElementById('portfolio-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'portfolio-modal') {
+                closeModal();
+            }
+        });
+
+        function updateFileName(input) {
+            const nameSpan = document.getElementById('file-name');
+            if (input.files && input.files[0]) {
+                nameSpan.textContent = "Archivo seleccionado: " + input.files[0].name;
+            } else {
+                nameSpan.textContent = "";
+            }
+        }
+
+        // Quote Form Submission & WhatsApp Deep-Linking
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const nombre = document.getElementById('nombre').value;
+            const empresa = document.getElementById('empresa').value || 'Particular';
+            const whatsapp = document.getElementById('whatsapp').value;
+            const email = document.getElementById('email').value;
+            const servicio = document.getElementById('servicio').value;
+            const cantidad = document.getElementById('cantidad').value;
+            const papel = document.getElementById('papel').value || 'A definir';
+            const acabado = document.getElementById('acabado') ? document.getElementById('acabado').value : 'Estándar';
+            const mensaje = document.getElementById('mensaje').value || 'Sin detalles adicionales';
+
+            const whatsappMessage = `Hola *Impresiones Gráficas J.I.*, me gustaría solicitar una cotización con los siguientes datos:%0A%0A` +
+                `👤 *Nombre:* ${encodeURIComponent(nombre)}%0A` +
+                `🏢 *Empresa / Institución:* ${encodeURIComponent(empresa)}%0A` +
+                `📱 *WhatsApp:* ${encodeURIComponent(whatsapp)}%0A` +
+                `✉️ *Correo:* ${encodeURIComponent(email)}%0A%0A` +
+                `🖨️ *Producto:* ${encodeURIComponent(servicio)}%0A` +
+                `📦 *Cantidad aprox:* ${encodeURIComponent(cantidad)}%0A` +
+                `📄 *Tipo de Papel/Material:* ${encodeURIComponent(papel)}%0A` +
+                `✨ *Acabado / Terminación:* ${encodeURIComponent(acabado)}%0A` +
+                `📝 *Detalles:* ${encodeURIComponent(mensaje)}`;
+
+            const toast = document.getElementById('toast-notification');
+            toast.classList.remove('hidden');
+
+            setTimeout(() => {
+                window.open(`https://wa.me/5699056453?text=${whatsappMessage}`, '_blank');
+                toast.classList.add('hidden');
+            }, 1200);
+
+            document.getElementById('quote-form').reset();
+            document.getElementById('file-name').textContent = '';
+        }
+    </script>
+</body>
+</html>
