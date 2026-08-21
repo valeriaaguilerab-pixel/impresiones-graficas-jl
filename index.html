@@ -1474,9 +1474,9 @@ document.addEventListener('keydown', function(event) {
    ========================= */
 
 const imageViewerImages = [
-    './imágenes/agendas/agenda-portada.png',
-    './imágenes/agendas/agenda-interior.png',
-    './imágenes/agendas/agenda-trasera.png'
+    '/imagenes/agendas/agenda-portada.png',
+    '/imagenes/agendas/agenda-abierta.png',
+    '/imagenes/agendas/agenda-trasera.png'
 ];
 
 let currentImageIndex = 0;
@@ -1523,7 +1523,7 @@ function changeViewerImage(direction) {
 <!-- VISOR DE IMÁGENES -->
 <div
     id="imageViewer"
-    class="fixed inset-0 z-[9999] hidden bg-black/90 items-center justify-center p-4"
+    class="fixed inset-0 z-[9999] hidden flex bg-black/90 items-center justify-center p-4"
     onclick="closeImageViewer()"
 >
 
