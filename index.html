@@ -1181,7 +1181,7 @@
     <div class="rounded-lg overflow-hidden bg-sky/30 aspect-square">
         <img
             src="./imagenes/agendas/agenda-abierta.png"
-            alt="Agenda personalizada - interior"
+            alt="Agenda personalizada - abierta"
             class="w-full h-full object-cover"
             onclick="openImageViewer('/imagenes/agendas/agenda-abierta.png')"
         >
@@ -1480,6 +1480,20 @@ const imageViewerImages = [
 ];
 
 let currentImageIndex = 0;
+    function openImageViewer(imageSrc) {
+    const viewer = document.getElementById('imageViewer');
+    const image = document.getElementById('imageViewerImage');
+
+    currentImageIndex = imageViewerImages.indexOf(imageSrc);
+
+    if (currentImageIndex === -1) {
+        currentImageIndex = 0;
+    }
+
+    image.src = imageSrc;
+    viewer.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
 function closeImageViewer() {
 
     const viewer = document.getElementById('imageViewer');
