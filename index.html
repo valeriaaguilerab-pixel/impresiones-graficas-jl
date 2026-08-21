@@ -1610,7 +1610,7 @@
             src="./imagenes/agendas/agenda-portada.png"
             alt="Agenda personalizada - portada"
             class="w-full h-full object-cover"
-           onclick="openImageViewer('/imagenes/agendas/agenda-portada.png')"
+           onclick="openImageViewer('/imagenes/agendas/agenda-portada.png', agendaImages)"
         >
     </div>
 
@@ -1619,7 +1619,7 @@
             src="./imagenes/agendas/agenda-abierta.png"
             alt="Agenda personalizada - abierta"
             class="w-full h-full object-cover"
-            onclick="openImageViewer('/imagenes/agendas/agenda-abierta.png')"
+            onclick="openImageViewer('/imagenes/agendas/agenda-abierta.png', agendaImages)"
         >
     </div>
 
@@ -1628,7 +1628,7 @@
             src="./imagenes/agendas/agenda-trasera.png"
             alt="Agenda personalizada - parte trasera"
             class="w-full h-full object-cover"
-            onclick="openImageViewer('/imagenes/agendas/agenda-trasera.png')"
+            onclick="openImageViewer('/imagenes/agendas/agenda-trasera.png', agendaImages)"
         >
     </div>
 
@@ -1790,7 +1790,7 @@
                                 src="${imageSrc}"
                                 alt="${title} - imagen ${index + 1}"
                                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                                onclick="openImageViewer('${imageSrc}')"
+                                onclick="openImageViewer('${imageSrc}', galleryImages)"
                             >
 
                         </div>
@@ -2036,21 +2036,24 @@ const cajasImages = [
     '/imagenes/cajas-abierta.png',
     '/imagenes/cajas-trasera.png'
 ];
-let imageViewerImages = [];
+    
 let currentImageIndex = 0;
- function openImageViewer(imageSrc, galleryImages = imageViewerImages) {
+function openImageViewer(imageSrc, galleryImages = imageViewerImages) {
     const viewer = document.getElementById('imageViewer');
     const image = document.getElementById('imageViewerImage');
 
-   imageViewerImages = galleryImages;
-currentImageIndex = imageViewerImages.indexOf(imageSrc);
+    imageViewerImages = galleryImages;
+    currentImageIndex = imageViewerImages.indexOf(imageSrc);
 
     if (currentImageIndex === -1) {
         currentImageIndex = 0;
     }
 
-    image.src = imageSrc;
+    image.src = imageViewerImages[currentImageIndex];
+
     viewer.classList.remove('hidden');
+    viewer.classList.add('flex');
+
     document.body.style.overflow = 'hidden';
 }
 function closeImageViewer() {
