@@ -1700,24 +1700,22 @@
 
         let activeProjectTitle = '';
 
-       function openModal(title, category, description, type) {
+    function openModal(title, category = '', description = '', type = '') {
 
     activeProjectTitle = title;
 
     document.getElementById('modal-title').textContent = title;
-    document.getElementById('modal-category').textContent = category || '';
-    document.getElementById('modal-description').textContent = description || '';
-
-    /* ==========================================
-       GALERÍAS SEGÚN EL PRODUCTO
-       ========================================== */
+    document.getElementById('modal-category').textContent = category;
+    document.getElementById('modal-description').textContent = description;
 
     let galleryImages = [];
 
-    const productText = `${title || ''} ${category || ''} ${type || ''}`.toLowerCase();
+    const productText = `${title} ${category} ${type}`.toLowerCase();
 
-    /* AGENDAS */
-   if (productText.includes('agenda')) {
+    /* ==========================
+       AGENDAS
+       ========================== */
+    if (productText.includes('agenda')) {
 
         galleryImages = [
             '/imagenes/agendas/agenda-portada.png',
@@ -1727,7 +1725,9 @@
 
     }
 
-    /* CAJAS */
+    /* ==========================
+       CAJAS
+       ========================== */
     else if (productText.includes('caja')) {
 
         galleryImages = [
@@ -1738,10 +1738,12 @@
 
     }
 
-    /* PORTA CD */
+    /* ==========================
+       PORTA CD
+       ========================== */
     else if (
-        productTitle.includes('cd') ||
-        productTitle.includes('porta cd')
+        productText.includes('porta cd') ||
+        productText.includes('porta cd')
     ) {
 
         galleryImages = [
@@ -1752,80 +1754,75 @@
 
     }
 
-    /* Si no encuentra una categoría */
-    else {
-
-        galleryImages = [];
-    }
-
-
-    /* Guardamos la galería correspondiente */
-    imageViewerImages = galleryImages;
-
-
-    /* ==========================================
-       CREAR GALERÍA DEL PRODUCTO
-       ========================================== */
+    /* ==========================
+       GALERÍA
+       ========================== */
 
     const graphicPreview =
         document.getElementById('modal-graphic-preview');
 
-    if (graphicPreview) {
+    if (galleryImages.length > 0) {
 
-        if (galleryImages.length > 0) {
+        graphicPreview.innerHTML = `
 
-            graphicPreview.innerHTML = `
-                <div class="mb-4">
-                    <p class="text-sm font-bold text-petroleum text-center">
-                        Visualización de Proyecto Real
-                    </p>
-                </div>
+            <div class="mb-4">
+                <p class="text-sm font-bold text-petroleum text-center">
+                    Visualización de Proyecto Real
+                </p>
+            </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
 
-                    ${galleryImages.map((imageSrc, index) => `
-                        <div class="rounded-lg overflow-hidden bg-sky/30 aspect-square cursor-pointer">
+                ${galleryImages.map((imageSrc, index) => `
 
-                            <img
-                                src="${imageSrc}"
-                                alt="${title} - imagen ${index + 1}"
-                                class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                                onclick="openImageViewer('${imageSrc}', galleryImages)"
-                            >
+                    <div
+                        class="rounded-lg overflow-hidden bg-sky/30 aspect-square cursor-pointer"
+                        onclick="openImageViewer('${imageSrc}', ${JSON.stringify(galleryImages).replace(/"/g, '&quot;')})"
+                    >
 
-                        </div>
-                    `).join('')}
+                        <img
+                            src="${imageSrc}"
+                            alt="${title} - imagen ${index + 1}"
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        >
 
-                </div>
-            `;
+                    </div>
 
-        } else {
+                `).join('')}
 
-            graphicPreview.innerHTML = `
-                <div class="mb-4">
-                    <p class="text-sm font-bold text-petroleum text-center">
-                        Visualización de Proyecto Real
-                    </p>
-                </div>
+            </div>
 
-                <div class="text-center py-8 text-gray-400">
-                    Imágenes del proyecto próximamente.
-                </div>
-            `;
-        }
+        `;
+
+    } else {
+
+        graphicPreview.innerHTML = `
+
+            <div class="mb-4">
+                <p class="text-sm font-bold text-petroleum text-center">
+                    Visualización de Proyecto Real
+                </p>
+            </div>
+
+            <div class="text-center py-8 text-gray-400">
+                Imágenes del proyecto próximamente.
+            </div>
+
+        `;
     }
 
-
-    /* ==========================================
+    /* ==========================
        ABRIR MODAL
-       ========================================== */
+       ========================== */
 
-    const modal = document.getElementById('portfolio-modal');
+    const modal =
+        document.getElementById('portfolio-modal');
 
     modal.classList.remove('hidden');
     modal.classList.add('flex');
 
     document.body.classList.add('modal-active');
+}
 }
         function closeModal() {
             const modal = document.getElementById('portfolio-modal');
@@ -1895,177 +1892,8 @@
             document.getElementById('file-name').textContent = '';
         }
     </script>
-<!-- Modal de Agendas -->
-<div id="agendaModal"
-     class="fixed inset-0 z-[9999] hidden items-center justify-center bg-petroleum/80 backdrop-blur-sm p-4">
-
-    <div class="relative w-full max-w-6xl max-h-[95vh] overflow-y-auto bg-white rounded-3xl shadow-2xl p-6 md:p-10">
-
-        <!-- Botón cerrar -->
-        <button
-            onclick="closeAgendaModal()"
-            class="absolute top-5 right-5 w-12 h-12 rounded-full bg-gray-100 text-petroleum text-2xl flex items-center justify-center hover:bg-petroleum hover:text-white transition z-10"
-            aria-label="Cerrar">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-
-        <!-- Encabezado -->
-        <div class="pr-16 mb-8">
-
-            <span class="inline-block px-4 py-2 rounded-lg bg-sky/30 text-petroleum text-sm font-bold uppercase tracking-wide">
-                Agendas Colegios e Instituciones
-            </span>
-
-            <h2 class="mt-4 text-3xl md:text-5xl font-heading font-bold text-petroleum">
-                Agendas Escolares e Institucionales
-            </h2>
-
-        </div>
-
-        <!-- Galería -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-
-            <!-- Imagen 1 -->
-            <div class="rounded-2xl overflow-hidden bg-sky/20 aspect-square">
-                <img
-                    src="./imágenes/agendas/agenda-portada.png"
-                    alt="Agenda personalizada - portada"
-                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
-            </div>
-
-            <!-- Imagen 2 -->
-            <div class="rounded-2xl overflow-hidden bg-sky/20 aspect-square">
-                <img
-                    src="./imágenes/agendas/agenda-abierta.png"
-                    alt="Agenda personalizada - interior"
-                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
-            </div>
-
-            <!-- Imagen 3 -->
-            <div class="rounded-2xl overflow-hidden bg-sky/20 aspect-square">
-                <img
-                    src="./imágenes/agendas/agenda-trasera.png"
-                    alt="Agenda personalizada - parte trasera"
-                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
-            </div>
-
-        </div>
-
-        <!-- Descripción -->
-        <div class="mt-8">
-
-            <p class="text-base md:text-lg text-gray-600 leading-relaxed">
-                Diseño y confección de agendas escolares para colegios, liceos,
-                universidades e instituciones. Personalizadas según las necesidades
-                de cada proyecto, con diferentes opciones de tapas, interiores y
-                sistemas de anillado.
-            </p>
-
-        </div>
-
-        <!-- Pie -->
-        <div class="mt-8 pt-6 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-4">
-
-            <span class="text-gray-400 font-medium">
-                Impresiones Gráficas J.I.
-            </span>
-
-            <a
-                href="#cotizacion"
-                onclick="closeAgendaModal()"
-                class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-petroleum text-white font-bold hover:opacity-90 transition">
-                <i class="fa-solid fa-calculator"></i>
-                Cotizar este trabajo
-            </a>
-
-        </div>
-
-    </div>
-</div>
-
-
-<script>
-function openAgendaModal() {
-    const modal = document.getElementById('agendaModal');
-
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-
-    document.body.style.overflow = 'hidden';
-}
-
-function closeAgendaModal() {
-    const modal = document.getElementById('agendaModal');
-
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-
-    document.body.style.overflow = '';
-}
-
-/* Cerrar haciendo clic fuera de la ventana */
-document.getElementById('agendaModal').addEventListener('click', function(event) {
-
-    if (event.target === this) {
-        closeAgendaModal();
-    }
 
 });
-
-/* Cerrar con la tecla ESC */
-document.addEventListener('keydown', function(event) {
-
-    if (event.key === 'Escape') {
-        closeAgendaModal();
-    }
-
-});
-    /* =========================
-   VISOR DE IMÁGENES
-   ========================= */
-
-let imageViewerImages = [];
-const agendaImages = [
-    '/imagenes/agendas/agenda-portada.png',
-    '/imagenes/agendas/agenda-abierta.png',
-    '/imagenes/agendas/agenda-trasera.png'
-];
-
-const cajasImages = [
-    '/imagenes/cajas-portada.png',
-    '/imagenes/cajas-abierta.png',
-    '/imagenes/cajas-trasera.png'
-];
-    
-let currentImageIndex = 0;
-function openImageViewer(imageSrc, galleryImages = imageViewerImages) {
-    const viewer = document.getElementById('imageViewer');
-    const image = document.getElementById('imageViewerImage');
-
-    imageViewerImages = galleryImages;
-    currentImageIndex = imageViewerImages.indexOf(imageSrc);
-
-    if (currentImageIndex === -1) {
-        currentImageIndex = 0;
-    }
-
-    image.src = imageViewerImages[currentImageIndex];
-
-    viewer.classList.remove('hidden');
-    viewer.classList.add('flex');
-
-    document.body.style.overflow = 'hidden';
-}
-function closeImageViewer() {
-
-    const viewer = document.getElementById('imageViewer');
-
-    viewer.classList.add('hidden');
-    document.body.style.overflow = '';
-}
-
-function changeViewerImage(direction) {
-
     currentImageIndex += direction;
 
     if (currentImageIndex < 0) {
@@ -2082,19 +1910,29 @@ function changeViewerImage(direction) {
 </script>
 
         
-<!-- VISOR DE IMÁGENES -->
+<!-- VISOR UNIVERSAL DE IMÁGENES -->
 <div
     id="imageViewer"
-    class="fixed inset-0 z-[9999] hidden flex bg-black/90 items-center justify-center p-4"
+    class="fixed inset-0 z-[10000] hidden bg-black/90 items-center justify-center p-4"
     onclick="closeImageViewer()"
 >
 
-    <!-- Botón cerrar -->
+    <!-- Cerrar -->
     <button
         onclick="event.stopPropagation(); closeImageViewer()"
-        class="absolute top-5 right-5 w-12 h-12 rounded-full bg-white/90 text-petroleum text-2xl font-bold flex items-center justify-center shadow-lg"
+        class="absolute top-5 right-5 z-20 w-12 h-12 rounded-full bg-white/90 text-petroleum text-2xl font-bold flex items-center justify-center shadow-lg hover:bg-white"
+        aria-label="Cerrar"
     >
         ×
+    </button>
+
+    <!-- Anterior -->
+    <button
+        onclick="event.stopPropagation(); changeViewerImage(-1)"
+        class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/90 text-petroleum text-3xl font-bold shadow-lg hover:bg-white"
+        aria-label="Imagen anterior"
+    >
+        ‹
     </button>
 
     <!-- Imagen -->
@@ -2102,28 +1940,87 @@ function changeViewerImage(direction) {
         id="imageViewerImage"
         src=""
         alt="Imagen ampliada"
-       class="block mx-auto max-w-[92vw] max-h-[88vh] object-contain rounded-xl shadow-2xl"
+        class="max-w-[90vw] max-h-[88vh] object-contain rounded-xl shadow-2xl"
         onclick="event.stopPropagation()"
     >
-
-    <!-- Anterior -->
-    <button
-        onclick="event.stopPropagation(); changeViewerImage(-1)"
-        class="absolute left-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 text-petroleum text-3xl font-bold shadow-lg"
-    >
-        ‹
-    </button>
 
     <!-- Siguiente -->
     <button
         onclick="event.stopPropagation(); changeViewerImage(1)"
-        class="absolute right-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 text-petroleum text-3xl font-bold shadow-lg"
+        class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/90 text-petroleum text-3xl font-bold shadow-lg hover:bg-white"
+        aria-label="Imagen siguiente"
     >
         ›
     </button>
 
 </div>
 
+<script>
+
+let imageViewerImages = [];
+let currentImageIndex = 0;
+
+function openImageViewer(imageSrc, galleryImages) {
+
+    imageViewerImages = galleryImages;
+
+    currentImageIndex =
+        imageViewerImages.indexOf(imageSrc);
+
+    if (currentImageIndex < 0) {
+        currentImageIndex = 0;
+    }
+
+    const viewer =
+        document.getElementById('imageViewer');
+
+    const image =
+        document.getElementById('imageViewerImage');
+
+    image.src =
+        imageViewerImages[currentImageIndex];
+
+    viewer.classList.remove('hidden');
+    viewer.classList.add('flex');
+
+    document.body.style.overflow = 'hidden';
+}
+
+
+function closeImageViewer() {
+
+    const viewer =
+        document.getElementById('imageViewer');
+
+    viewer.classList.add('hidden');
+    viewer.classList.remove('flex');
+
+    document.body.style.overflow = '';
+}
+
+
+function changeViewerImage(direction) {
+
+    if (!imageViewerImages.length) {
+        return;
+    }
+
+    currentImageIndex += direction;
+
+    if (currentImageIndex < 0) {
+        currentImageIndex =
+            imageViewerImages.length - 1;
+    }
+
+    if (currentImageIndex >= imageViewerImages.length) {
+        currentImageIndex = 0;
+    }
+
+    document.getElementById('imageViewerImage').src =
+        imageViewerImages[currentImageIndex];
+}
+
+</script>$
 </body>
 
 </html>
