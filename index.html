@@ -1480,53 +1480,6 @@ const imageViewerImages = [
 ];
 
 let currentImageIndex = 0;
-
-function openImageViewer(src) {
-    const viewer = document.createElement('div');
-
-    viewer.id = 'image-viewer';
-    viewer.className = 'fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center p-4';
-
-    viewer.innerHTML = `
-        <button
-            onclick="closeImageViewer()"
-            class="absolute top-6 right-6 z-10 w-12 h-12 rounded-full bg-white flex items-center justify-center text-2xl font-bold text-petroleum shadow-lg hover:scale-105 transition"
-            aria-label="Cerrar imagen"
-        >
-            ×
-        </button>
-
-        <img
-            src="${src}"
-            alt="Imagen ampliada"
-            class="max-w-[95vw] max-h-[92vh] w-auto h-auto object-contain rounded-lg shadow-2xl"
-        >
-    `;
-
-    viewer.addEventListener('click', function(event) {
-        if (event.target === viewer) {
-            closeImageViewer();
-        }
-        function closeImageViewer() {
-    const viewer = document.getElementById('image-viewer');
-
-    if (viewer) {
-        viewer.remove();
-    }
-}
-    });
-
-    document.body.appendChild(viewer);
-}
-    const viewer = document.getElementById('imageViewer');
-    const viewerImage = document.getElementById('imageViewerImage');
-
-    viewerImage.src = imageViewerImages[currentImageIndex];
-
-    viewer.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-}
-
 function closeImageViewer() {
 
     const viewer = document.getElementById('imageViewer');
@@ -1551,8 +1504,8 @@ function changeViewerImage(direction) {
         imageViewerImages[currentImageIndex];
 }
 </script>
-        </script>
 
+        
 <!-- VISOR DE IMÁGENES -->
 <div
     id="imageViewer"
@@ -1596,5 +1549,5 @@ function changeViewerImage(direction) {
 </div>
 
 </body>
-</body>
+
 </html>
