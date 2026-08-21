@@ -1700,18 +1700,133 @@
 
         let activeProjectTitle = '';
 
-        function openModal(title, category, description, type) {
-            activeProjectTitle = title;
-            document.getElementById('modal-title').textContent = title;
-            document.getElementById('modal-category').textContent = category;
-            document.getElementById('modal-description').textContent = description;
-            
-            const modal = document.getElementById('portfolio-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            document.body.classList.add('modal-active');
-        }
+       function openModal(title, category, description, type) {
 
+    activeProjectTitle = title;
+
+    document.getElementById('modal-title').textContent = title;
+    document.getElementById('modal-category').textContent = category || '';
+    document.getElementById('modal-description').textContent = description || '';
+
+    /* ==========================================
+       GALERÍAS SEGÚN EL PRODUCTO
+       ========================================== */
+
+    let galleryImages = [];
+
+    const productTitle = (title || '').toLowerCase();
+
+    /* AGENDAS */
+    if (productTitle.includes('agenda')) {
+
+        galleryImages = [
+            '/imagenes/agendas/agenda-portada.png',
+            '/imagenes/agendas/agenda-abierta.png',
+            '/imagenes/agendas/agenda-trasera.png'
+        ];
+
+    }
+
+    /* CAJAS */
+    else if (productTitle.includes('caja')) {
+
+        galleryImages = [
+            '/imagenes/cajas-portada.png',
+            '/imagenes/cajas-abierta.png',
+            '/imagenes/cajas-trasera.png'
+        ];
+
+    }
+
+    /* PORTA CD */
+    else if (
+        productTitle.includes('cd') ||
+        productTitle.includes('porta cd')
+    ) {
+
+        galleryImages = [
+            '/imagenes/cd-portada.png',
+            '/imagenes/cd-abierto.png',
+            '/imagenes/cd-trasera.png'
+        ];
+
+    }
+
+    /* Si no encuentra una categoría */
+    else {
+
+        galleryImages = [];
+    }
+
+
+    /* Guardamos la galería correspondiente */
+    imageViewerImages = galleryImages;
+
+
+    /* ==========================================
+       CREAR GALERÍA DEL PRODUCTO
+       ========================================== */
+
+    const graphicPreview =
+        document.getElementById('modal-graphic-preview');
+
+    if (graphicPreview) {
+
+        if (galleryImages.length > 0) {
+
+            graphicPreview.innerHTML = `
+                <div class="mb-4">
+                    <p class="text-sm font-bold text-petroleum text-center">
+                        Visualización de Proyecto Real
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+                    ${galleryImages.map((imageSrc, index) => `
+                        <div class="rounded-lg overflow-hidden bg-sky/30 aspect-square cursor-pointer">
+
+                            <img
+                                src="${imageSrc}"
+                                alt="${title} - imagen ${index + 1}"
+                                class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                                onclick="openImageViewer('${imageSrc}')"
+                            >
+
+                        </div>
+                    `).join('')}
+
+                </div>
+            `;
+
+        } else {
+
+            graphicPreview.innerHTML = `
+                <div class="mb-4">
+                    <p class="text-sm font-bold text-petroleum text-center">
+                        Visualización de Proyecto Real
+                    </p>
+                </div>
+
+                <div class="text-center py-8 text-gray-400">
+                    Imágenes del proyecto próximamente.
+                </div>
+            `;
+        }
+    }
+
+
+    /* ==========================================
+       ABRIR MODAL
+       ========================================== */
+
+    const modal = document.getElementById('portfolio-modal');
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+
+    document.body.classList.add('modal-active');
+}
         function closeModal() {
             const modal = document.getElementById('portfolio-modal');
             modal.classList.add('hidden');
@@ -1909,18 +2024,26 @@ document.addEventListener('keydown', function(event) {
    VISOR DE IMÁGENES
    ========================= */
 
-const imageViewerImages = [
+let imageViewerImages = [];
+const agendaImages = [
     '/imagenes/agendas/agenda-portada.png',
     '/imagenes/agendas/agenda-abierta.png',
     '/imagenes/agendas/agenda-trasera.png'
 ];
 
+const cajasImages = [
+    '/imagenes/cajas-portada.png',
+    '/imagenes/cajas-abierta.png',
+    '/imagenes/cajas-trasera.png'
+];
+let imageViewerImages = [];
 let currentImageIndex = 0;
-    function openImageViewer(imageSrc) {
+    function openImageViewer(imageSrc, galleryImages) {
     const viewer = document.getElementById('imageViewer');
     const image = document.getElementById('imageViewerImage');
 
-    currentImageIndex = imageViewerImages.indexOf(imageSrc);
+   imageViewerImages = galleryImages;
+currentImageIndex = imageViewerImages.indexOf(imageSrc);
 
     if (currentImageIndex === -1) {
         currentImageIndex = 0;
