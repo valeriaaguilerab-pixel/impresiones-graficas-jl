@@ -1714,10 +1714,10 @@
 
     let galleryImages = [];
 
-    const productTitle = (title || '').toLowerCase();
+    const productText = `${title || ''} ${category || ''} ${type || ''}`.toLowerCase();
 
     /* AGENDAS */
-    if (productTitle.includes('agenda')) {
+   if (productText.includes('agenda')) {
 
         galleryImages = [
             '/imagenes/agendas/agenda-portada.png',
@@ -1728,7 +1728,7 @@
     }
 
     /* CAJAS */
-    else if (productTitle.includes('caja')) {
+    else if (productText.includes('caja')) {
 
         galleryImages = [
             '/imagenes/cajas-portada.png',
@@ -2038,7 +2038,7 @@ const cajasImages = [
 ];
 let imageViewerImages = [];
 let currentImageIndex = 0;
-    function openImageViewer(imageSrc, galleryImages) {
+ function openImageViewer(imageSrc, galleryImages = imageViewerImages) {
     const viewer = document.getElementById('imageViewer');
     const image = document.getElementById('imageViewerImage');
 
