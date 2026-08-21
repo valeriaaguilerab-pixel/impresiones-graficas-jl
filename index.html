@@ -946,7 +946,7 @@
 
 </div>
 </div>             
-    </section>
+</section>
                 
         <!-- SECCIÓN: DETRÁS DE IMPRESIONES GRÁFICAS J.I. -->
 <section id="nuestra-historia" class="scroll-mt-32 py-20 bg-white">
@@ -1675,30 +1675,50 @@
             }
         }
 
-        // Portfolio Filtering Logic
-        function filterPortfolio(category) {
-            const items = document.querySelectorAll('.portfolio-item');
-            const buttons = document.querySelectorAll('.portfolio-btn');
+     function filterPortfolio(category) {
 
-            buttons.forEach(btn => {
-                if (btn.getAttribute('data-filter') === category) {
-                    btn.classList.add('bg-petroleum', 'text-white');
-                    btn.classList.remove('bg-white', 'text-gray-700');
-                } else {
-                    btn.classList.remove('bg-petroleum', 'text-white');
-                    btn.classList.add('bg-white', 'text-gray-700');
-                }
-            });
+    const items = document.querySelectorAll('#portfolio-grid .portfolio-item');
+    const buttons = document.querySelectorAll('#portafolio .portfolio-btn');
 
-            items.forEach(item => {
-                if (category === 'all' || item.classList.contains(category)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+    // Cambiar estado visual de los botones
+    buttons.forEach(button => {
+
+        const buttonCategory = button.dataset.filter;
+
+        if (buttonCategory === category) {
+
+            button.classList.add('bg-petroleum', 'text-white');
+            button.classList.remove('bg-white', 'text-gray-700');
+
+        } else {
+
+            button.classList.remove('bg-petroleum', 'text-white');
+            button.classList.add('bg-white', 'text-gray-700');
+
         }
 
+    });
+
+    // Filtrar proyectos
+    items.forEach(item => {
+
+        const matches =
+            category === 'all' ||
+            item.classList.contains(category);
+
+        if (matches) {
+
+            item.classList.remove('hidden');
+
+        } else {
+
+            item.classList.add('hidden');
+
+        }
+
+    });
+
+}
         let activeProjectTitle = '';
         function openModal(title, category = '', description = '', type = '') {
 
