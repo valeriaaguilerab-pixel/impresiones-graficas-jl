@@ -1699,8 +1699,7 @@
         }
 
         let activeProjectTitle = '';
-
-    function openModal(title, category = '', description = '', type = '') {
+        function openModal(title, category = '', description = '', type = '') {
 
     activeProjectTitle = title;
 
@@ -1712,51 +1711,51 @@
 
     const productText = `${title} ${category} ${type}`.toLowerCase();
 
-    /* ==========================
+    /* =========================
        AGENDAS
-       ========================== */
+       ========================= */
+
     if (productText.includes('agenda')) {
 
         galleryImages = [
-            '/imagenes/agendas/agenda-portada.png',
-            '/imagenes/agendas/agenda-abierta.png',
-            '/imagenes/agendas/agenda-trasera.png'
+            './imagenes/agendas/agenda-portada.png',
+            './imagenes/agendas/agenda-abierta.png',
+            './imagenes/agendas/agenda-trasera.png'
         ];
 
     }
 
-    /* ==========================
+    /* =========================
        CAJAS
-       ========================== */
+       ========================= */
+
     else if (productText.includes('caja')) {
 
         galleryImages = [
-            '/imagenes/cajas-portada.png',
-            '/imagenes/cajas-abierta.png',
-            '/imagenes/cajas-trasera.png'
+            './imagenes/cajas-portada.png',
+            './imagenes/cajas-abierta.png',
+            './imagenes/cajas-trasera.png'
         ];
 
     }
 
-    /* ==========================
+    /* =========================
        PORTA CD
-       ========================== */
-    else if (
-        productText.includes('porta cd') ||
-        productText.includes('porta cd')
-    ) {
+       ========================= */
+
+    else if (productText.includes('porta cd')) {
 
         galleryImages = [
-            '/imagenes/cd-portada.png',
-            '/imagenes/cd-abierto.png',
-            '/imagenes/cd-trasera.png'
+            './imagenes/cd-portada.png',
+            './imagenes/cd-abierto.png',
+            './imagenes/cd-trasera.png'
         ];
 
     }
 
-    /* ==========================
-       GALERÍA
-       ========================== */
+    /* =========================
+       MOSTRAR GALERÍA
+       ========================= */
 
     const graphicPreview =
         document.getElementById('modal-graphic-preview');
@@ -1764,7 +1763,6 @@
     if (galleryImages.length > 0) {
 
         graphicPreview.innerHTML = `
-
             <div class="mb-4">
                 <p class="text-sm font-bold text-petroleum text-center">
                     Visualización de Proyecto Real
@@ -1774,10 +1772,10 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
 
                 ${galleryImages.map((imageSrc, index) => `
-
+                    
                     <div
                         class="rounded-lg overflow-hidden bg-sky/30 aspect-square cursor-pointer"
-                        onclick="openImageViewer('${imageSrc}', ${JSON.stringify(galleryImages).replace(/"/g, '&quot;')})"
+                        onclick='openImageViewer(${JSON.stringify(imageSrc)}, ${JSON.stringify(galleryImages)})'
                     >
 
                         <img
@@ -1791,13 +1789,11 @@
                 `).join('')}
 
             </div>
-
         `;
 
     } else {
 
         graphicPreview.innerHTML = `
-
             <div class="mb-4">
                 <p class="text-sm font-bold text-petroleum text-center">
                     Visualización de Proyecto Real
@@ -1807,13 +1803,12 @@
             <div class="text-center py-8 text-gray-400">
                 Imágenes del proyecto próximamente.
             </div>
-
         `;
     }
 
-    /* ==========================
+    /* =========================
        ABRIR MODAL
-       ========================== */
+       ========================= */
 
     const modal =
         document.getElementById('portfolio-modal');
@@ -1823,37 +1818,152 @@
 
     document.body.classList.add('modal-active');
 }
+
+
+function closeModal() {
+
+    const modal =
+        document.getElementById('portfolio-modal');
+
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+
+    document.body.classList.remove('modal-active');
 }
-        function closeModal() {
-            const modal = document.getElementById('portfolio-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            document.body.classList.remove('modal-active');
-        }
 
-        function modalCotizar() {
+
+function modalCotizar() {
+
+    closeModal();
+
+    const serviceSelect =
+        document.getElementById('servicio');
+
+    if (serviceSelect) {
+        serviceSelect.value =
+            "Otro producto personalizado";
+    }
+
+    window.location.href =
+        "#cotizacion";
+}
+
+
+/* =========================
+   CERRAR MODAL AL HACER
+   CLICK FUERA
+   ========================= */
+
+document
+    .getElementById('portfolio-modal')
+    .addEventListener('click', (e) => {
+
+        if (e.target.id === 'portfolio-modal') {
             closeModal();
-            const serviceSelect = document.getElementById('servicio');
-            if (serviceSelect) {
-                serviceSelect.value = "Otro producto personalizado";
-            }
-            window.location.href = "#cotizacion";
         }
 
-        document.getElementById('portfolio-modal').addEventListener('click', (e) => {
-            if (e.target.id === 'portfolio-modal') {
-                closeModal();
-            }
-        });
+    });
 
-        function updateFileName(input) {
-            const nameSpan = document.getElementById('file-name');
-            if (input.files && input.files[0]) {
-                nameSpan.textContent = "Archivo seleccionado: " + input.files[0].name;
-            } else {
-                nameSpan.textContent = "";
-            }
-        }
+
+/* =========================
+   VISOR DE IMÁGENES
+   ========================= */
+
+let imageViewerImages = [];
+let currentImageIndex = 0;
+
+
+function openImageViewer(imageSrc, galleryImages) {
+
+    imageViewerImages = galleryImages;
+
+    currentImageIndex =
+        imageViewerImages.indexOf(imageSrc);
+
+    if (currentImageIndex < 0) {
+        currentImageIndex = 0;
+    }
+
+    const viewer =
+        document.getElementById('imageViewer');
+
+    const image =
+        document.getElementById('imageViewerImage');
+
+    image.src =
+        imageViewerImages[currentImageIndex];
+
+    viewer.classList.remove('hidden');
+    viewer.classList.add('flex');
+
+    document.body.style.overflow =
+        'hidden';
+}
+
+
+function closeImageViewer() {
+
+    const viewer =
+        document.getElementById('imageViewer');
+
+    viewer.classList.add('hidden');
+    viewer.classList.remove('flex');
+
+    document.body.style.overflow =
+        '';
+}
+
+
+function changeViewerImage(direction) {
+
+    if (!imageViewerImages.length) {
+        return;
+    }
+
+    currentImageIndex += direction;
+
+    if (currentImageIndex < 0) {
+
+        currentImageIndex =
+            imageViewerImages.length - 1;
+    }
+
+    if (
+        currentImageIndex >=
+        imageViewerImages.length
+    ) {
+
+        currentImageIndex = 0;
+    }
+
+    document.getElementById(
+        'imageViewerImage'
+    ).src =
+        imageViewerImages[currentImageIndex];
+}
+
+
+/* =========================
+   NOMBRE DE ARCHIVO
+   ========================= */
+
+function updateFileName(input) {
+
+    const nameSpan =
+        document.getElementById('file-name');
+
+    if (input.files && input.files[0]) {
+
+        nameSpan.textContent =
+            "Archivo seleccionado: " +
+            input.files[0].name;
+
+    } else {
+
+        nameSpan.textContent = "";
+
+    }
+}
 
         // Quote Form Submission & WhatsApp Deep-Linking
         function handleFormSubmit(event) {
@@ -1892,23 +2002,6 @@
             document.getElementById('file-name').textContent = '';
         }
     </script>
-
-});
-    currentImageIndex += direction;
-
-    if (currentImageIndex < 0) {
-        currentImageIndex = imageViewerImages.length - 1;
-    }
-
-    if (currentImageIndex >= imageViewerImages.length) {
-        currentImageIndex = 0;
-    }
-
-    document.getElementById('imageViewerImage').src =
-        imageViewerImages[currentImageIndex];
-}
-</script>
-
         
 <!-- VISOR UNIVERSAL DE IMÁGENES -->
 <div
@@ -1955,72 +2048,6 @@
 
 </div>
 
-<script>
-
-let imageViewerImages = [];
-let currentImageIndex = 0;
-
-function openImageViewer(imageSrc, galleryImages) {
-
-    imageViewerImages = galleryImages;
-
-    currentImageIndex =
-        imageViewerImages.indexOf(imageSrc);
-
-    if (currentImageIndex < 0) {
-        currentImageIndex = 0;
-    }
-
-    const viewer =
-        document.getElementById('imageViewer');
-
-    const image =
-        document.getElementById('imageViewerImage');
-
-    image.src =
-        imageViewerImages[currentImageIndex];
-
-    viewer.classList.remove('hidden');
-    viewer.classList.add('flex');
-
-    document.body.style.overflow = 'hidden';
-}
-
-
-function closeImageViewer() {
-
-    const viewer =
-        document.getElementById('imageViewer');
-
-    viewer.classList.add('hidden');
-    viewer.classList.remove('flex');
-
-    document.body.style.overflow = '';
-}
-
-
-function changeViewerImage(direction) {
-
-    if (!imageViewerImages.length) {
-        return;
-    }
-
-    currentImageIndex += direction;
-
-    if (currentImageIndex < 0) {
-        currentImageIndex =
-            imageViewerImages.length - 1;
-    }
-
-    if (currentImageIndex >= imageViewerImages.length) {
-        currentImageIndex = 0;
-    }
-
-    document.getElementById('imageViewerImage').src =
-        imageViewerImages[currentImageIndex];
-}
-
-</script>$
+        
 </body>
-
 </html>
