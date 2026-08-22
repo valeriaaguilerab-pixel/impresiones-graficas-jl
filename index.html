@@ -2021,199 +2021,10 @@ document
 
 
 /* =========================
-   VISOR DE IMÁGENES — V24
+   ESTADO DEL VISOR UNIVERSAL
    ========================= */
-
 let imageViewerImages = [];
 let currentImageIndex = 0;
-let viewerZoom = 1;
-let viewerPanX = 0;
-let viewerPanY = 0;
-let viewerPointerDown = false;
-let viewerDragging = false;
-let viewerStartX = 0;
-let viewerStartY = 0;
-let viewerLastX = 0;
-let viewerLastY = 0;
-let viewerSwipeStartX = 0;
-let viewerSwipeStartY = 0;
-
-function resetViewerTransform() {
-    viewerZoom = 1;
-    viewerPanX = 0;
-    viewerPanY = 0;
-    viewerDragging = false;
-    const image = document.getElementById('imageViewerImage');
-    if (image) {
-        image.style.transform = 'translate3d(0px, 0px, 0) scale(1)';
-        image.classList.remove('is-zoomed');
-    }
-    updateViewerZoomLabel();
-}
-
-function applyViewerTransform() {
-    const image = document.getElementById('imageViewerImage');
-    if (!image) return;
-    image.style.transform = `translate3d(${viewerPanX}px, ${viewerPanY}px, 0) scale(${viewerZoom})`;
-    image.classList.toggle('is-zoomed', viewerZoom > 1.01);
-    updateViewerZoomLabel();
-}
-
-function updateViewerZoomLabel() {
-    const label = document.getElementById('viewerZoomLabel');
-    if (label) label.textContent = Math.round(viewerZoom * 100) + '%';
-}
-
-function zoomViewer(delta, centerX = null, centerY = null) {
-    const oldZoom = viewerZoom;
-    const newZoom = Math.min(4, Math.max(1, oldZoom + delta));
-
-    if (newZoom === oldZoom) return;
-
-    // Mantiene aproximadamente el punto bajo el cursor al hacer zoom.
-    if (centerX !== null && centerY !== null) {
-        const rect = document.getElementById('imageViewer').getBoundingClientRect();
-        const localX = centerX - (rect.left + rect.width / 2);
-        const localY = centerY - (rect.top + rect.height / 2);
-        const factor = (newZoom / oldZoom) - 1;
-        viewerPanX -= localX * factor;
-        viewerPanY -= localY * factor;
-    }
-
-    viewerZoom = newZoom;
-    if (viewerZoom === 1) {
-        viewerPanX = 0;
-        viewerPanY = 0;
-    }
-    applyViewerTransform();
-}
-
-function openImageViewer(imageSrc, galleryImages) {
-    imageViewerImages = Array.isArray(galleryImages) ? galleryImages : [imageSrc];
-    currentImageIndex = imageViewerImages.indexOf(imageSrc);
-    if (currentImageIndex < 0) currentImageIndex = 0;
-
-    const viewer = document.getElementById('imageViewer');
-    const image = document.getElementById('imageViewerImage');
-    resetViewerTransform();
-
-    setPortfolioImageSource(
-        image,
-        normalizePortfolioFile(imageViewerImages[currentImageIndex])
-    );
-
-    updateViewerCounter();
-    viewer.classList.remove('hidden');
-    viewer.classList.add('flex');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeImageViewer() {
-    const viewer = document.getElementById('imageViewer');
-    viewer.classList.add('hidden');
-    viewer.classList.remove('flex');
-    resetViewerTransform();
-    document.body.style.overflow = '';
-}
-
-function updateViewerCounter() {
-    const counter = document.getElementById('viewerCounter');
-    if (!counter) return;
-    if (imageViewerImages.length > 1) {
-        counter.textContent = `${currentImageIndex + 1} / ${imageViewerImages.length}`;
-        counter.classList.remove('hidden');
-    } else {
-        counter.classList.add('hidden');
-    }
-}
-
-function changeViewerImage(direction) {
-    if (!imageViewerImages.length) return;
-
-    currentImageIndex += direction;
-    if (currentImageIndex < 0) currentImageIndex = imageViewerImages.length - 1;
-    if (currentImageIndex >= imageViewerImages.length) currentImageIndex = 0;
-
-    resetViewerTransform();
-    setPortfolioImageSource(
-        document.getElementById('imageViewerImage'),
-        normalizePortfolioFile(imageViewerImages[currentImageIndex])
-    );
-    updateViewerCounter();
-}
-
-function handleViewerWheel(event) {
-    event.preventDefault();
-    zoomViewer(event.deltaY < 0 ? 0.2 : -0.2, event.clientX, event.clientY);
-}
-
-function viewerPointerDownHandler(event) {
-    if (event.pointerType === 'mouse' && event.button !== 0) return;
-    viewerPointerDown = true;
-    viewerDragging = false;
-    viewerStartX = viewerLastX = event.clientX;
-    viewerStartY = viewerLastY = event.clientY;
-    viewerSwipeStartX = event.clientX;
-    viewerSwipeStartY = event.clientY;
-    const image = document.getElementById('imageViewerImage');
-    if (image) image.setPointerCapture?.(event.pointerId);
-}
-
-function viewerPointerMoveHandler(event) {
-    if (!viewerPointerDown) return;
-    const dx = event.clientX - viewerLastX;
-    const dy = event.clientY - viewerLastY;
-    const totalX = event.clientX - viewerStartX;
-    const totalY = event.clientY - viewerStartY;
-
-    if (Math.abs(totalX) > 5 || Math.abs(totalY) > 5) viewerDragging = true;
-
-    if (viewerZoom > 1) {
-        viewerPanX += dx;
-        viewerPanY += dy;
-        applyViewerTransform();
-        event.preventDefault();
-    }
-
-    viewerLastX = event.clientX;
-    viewerLastY = event.clientY;
-}
-
-function viewerPointerUpHandler(event) {
-    if (!viewerPointerDown) return;
-    viewerPointerDown = false;
-
-    const dx = event.clientX - viewerSwipeStartX;
-    const dy = event.clientY - viewerSwipeStartY;
-
-    // Swipe horizontal cuando no estamos haciendo zoom.
-    if (viewerZoom === 1 && Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)) {
-        changeViewerImage(dx < 0 ? 1 : -1);
-    }
-}
-
-function handleViewerDoubleClick(event) {
-    event.preventDefault();
-    if (viewerZoom > 1) {
-        resetViewerTransform();
-    } else {
-        zoomViewer(1, event.clientX, event.clientY);
-    }
-}
-
-function handleViewerKeydown(event) {
-    const viewer = document.getElementById('imageViewer');
-    if (!viewer || viewer.classList.contains('hidden')) return;
-
-    if (event.key === 'Escape') closeImageViewer();
-    if (event.key === 'ArrowLeft') changeViewerImage(-1);
-    if (event.key === 'ArrowRight') changeViewerImage(1);
-    if (event.key === '+' || event.key === '=') zoomViewer(0.25);
-    if (event.key === '-' || event.key === '_') zoomViewer(-0.25);
-    if (event.key === '0') resetViewerTransform();
-}
-
-document.addEventListener('keydown', handleViewerKeydown);
 
 /* =========================
    NOMBRE DE ARCHIVO
@@ -2351,13 +2162,13 @@ function updateFileName(input) {
         currentImageIndex=imageViewerImages.indexOf(imageSrc); if(currentImageIndex<0)currentImageIndex=0;
         const v=document.getElementById('imageViewer'), img=document.getElementById('imageViewerImage');
         resetViewerTransform();
-        setPortfolioImageSource(img,normalizePortfolioFile(imageViewerImages[currentImageIndex]));
+        setPortfolioImageSource(img,imageViewerImages[currentImageIndex]);
         updateViewerCounter(); v.classList.remove('hidden');v.classList.add('flex');document.body.style.overflow='hidden';
     };
     window.closeImageViewer=function(){const v=document.getElementById('imageViewer');v.classList.add('hidden');v.classList.remove('flex');resetViewerTransform();document.body.style.overflow=''};
     window.changeViewerImage=function(dir){
         if(!imageViewerImages.length)return; currentImageIndex=(currentImageIndex+dir+imageViewerImages.length)%imageViewerImages.length;
-        resetViewerTransform();setPortfolioImageSource(document.getElementById('imageViewerImage'),normalizePortfolioFile(imageViewerImages[currentImageIndex]));updateViewerCounter();
+        resetViewerTransform();setPortfolioImageSource(document.getElementById('imageViewerImage'),imageViewerImages[currentImageIndex]);updateViewerCounter();
     };
     window.updateViewerCounter=function(){const c=document.getElementById('viewerCounter');if(!c)return;if(imageViewerImages.length>1){c.textContent=`${currentImageIndex+1} / ${imageViewerImages.length}`;c.classList.remove('hidden')}else c.classList.add('hidden')};
     const c=canvas();
@@ -2454,6 +2265,20 @@ document.addEventListener('DOMContentLoaded', function () {
         wireModalPortfolioImages();
     }
 })();
+</script>
+<script id="visor-click-fallback-v26">
+document.addEventListener('click', function (e) {
+    const img = e.target.closest('#modal-graphic-preview img[data-portfolio-file]');
+    if (!img) return;
+    const cards = Array.from(document.querySelectorAll('#modal-graphic-preview img[data-portfolio-file]'));
+    const images = cards.map(function(el){ return el.getAttribute('data-portfolio-file') || ''; });
+    const current = img.getAttribute('data-portfolio-file') || '';
+    if (typeof window.openImageViewer === 'function') {
+        e.preventDefault();
+        e.stopPropagation();
+        window.openImageViewer(current, images);
+    }
+}, true);
 </script>
 
 </body>
