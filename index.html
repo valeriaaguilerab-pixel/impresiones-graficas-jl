@@ -559,47 +559,27 @@ label {
 </style>
 
 
-<style id="servicios-imagenes-v19">
-/* V19 — Solo imágenes representativas de Nuestros Servicios */
-#servicios .grid > div > div:first-child,
-#servicios .service-image {
+<style id="servicios-imagenes-v20">
+/* SOLO: imágenes representativas de Nuestros Servicios */
+.service-image {
     height: 220px !important;
     min-height: 220px !important;
     width: 100% !important;
     overflow: hidden !important;
-    flex: 0 0 220px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     background: #F5F8FF !important;
-    box-sizing: border-box !important;
     padding: 14px !important;
+    box-sizing: border-box !important;
 }
-
-#servicios .grid > div > div:first-child img,
-#servicios .service-image img {
+.service-image img {
     width: 100% !important;
     height: 100% !important;
     object-fit: contain !important;
     object-position: center !important;
     display: block !important;
     transform: none !important;
-}
-
-/* Evita que el hover vuelva a deformar o agrandar las ilustraciones */
-#servicios .grid > div > div:first-child img.group-hover\:scale-105,
-#servicios .service-image img.group-hover\:scale-105 {
-    transform: none !important;
-}
-
-@media (max-width: 640px) {
-    #servicios .grid > div > div:first-child,
-    #servicios .service-image {
-        height: 180px !important;
-        min-height: 180px !important;
-        flex-basis: 180px !important;
-        padding: 10px !important;
-    }
 }
 </style>
 
@@ -758,7 +738,7 @@ label {
 <!-- Service 1: Tarjetas de presentación -->
 <div class="bg-white rounded-xl border border-sky/50 p-0 overflow-hidden card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden">
 <div class="h-40 w-full overflow-hidden bg-[#F5F8FF]">
-<img alt="Tarjetas de presentación" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./im%C3%A1genes/tarjetas.png"/>
+<img alt="Tarjetas de presentación" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imágenes/tarjetas.png"/>
 </div>
 <div class="space-y-4 p-6">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl group-hover:bg-[#2858B2] group-hover:text-white transition-colors duration-300">
@@ -779,7 +759,7 @@ label {
 <!-- Service 2: Talonarios -->
 <div class="bg-white rounded-xl border border-sky/50 p-0 overflow-hidden card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden">
 <div class="h-40 w-full overflow-hidden bg-[#F5F8FF]">
-<img alt="Talonarios" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./im%C3%A1genes/talonarios.png"/>
+<img alt="Talonarios" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imágenes/talonarios.png"/>
 </div>
 <div class="space-y-4 p-6">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl group-hover:bg-[#2858B2] group-hover:text-white transition-colors duration-300">
@@ -800,7 +780,7 @@ label {
 <!-- Service 3: Carpetas y Portadocumentos -->
 <div class="bg-white rounded-xl border border-sky/50 p-0 overflow-hidden card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden">
 <div class="h-40 w-full overflow-hidden bg-[#F5F8FF]">
-<img alt="Carpetas y Portadocumentos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./im%C3%A1genes/carpetas.png"/>
+<img alt="Carpetas y Portadocumentos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imágenes/carpetas.png"/>
 </div>
 <div class="space-y-4 p-6">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl group-hover:bg-[#2858B2] group-hover:text-white transition-colors duration-300">
@@ -821,7 +801,7 @@ label {
 <!-- Service 4: Agendas -->
 <div class="bg-white rounded-xl border border-sky/50 p-0 overflow-hidden card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden">
 <div class="h-40 w-full overflow-hidden bg-[#F5F8FF]">
-<img alt="Agendas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./im%C3%A1genes/agendas.png"/>
+<img alt="Agendas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imágenes/agendas.png"/>
 </div>
 <div class="space-y-4 p-6">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl">
@@ -848,7 +828,7 @@ label {
 <!-- Service 5: Folletos -->
 <div class="bg-white rounded-xl border border-sky/50 p-0 overflow-hidden card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden">
 <div class="h-40 w-full overflow-hidden bg-[#F5F8FF]">
-<img alt="Folletos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./im%C3%A1genes/folletos.png"/>
+<img alt="Folletos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imágenes/folletos.png"/>
 </div>
 <div class="space-y-4 p-6">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl group-hover:bg-[#2858B2] group-hover:text-white transition-colors duration-300">
@@ -867,7 +847,7 @@ label {
 </div>
 </div>
 <!-- Service 6: Volantes -->
-<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Volantes y Flyers" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./im%C3%A1genes/volantes.png"/></div>
+<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Volantes y Flyers" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imágenes/volantes.png"/></div>
 <div class="space-y-4">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl group-hover:bg-[#2858B2] group-hover:text-white transition-colors duration-300">
 <i class="fa-solid fa-paper-plane"></i>
@@ -885,7 +865,7 @@ label {
 </div>
 </div>
 <!-- Service 7: Hojas membretadas y Sobres -->
-<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Hojas Membretadas y Sobres" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./im%C3%A1genes/membretes.png"/></div>
+<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Hojas Membretadas y Sobres" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imágenes/membretes.png"/></div>
 <div class="space-y-4">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl group-hover:bg-[#2858B2] group-hover:text-white transition-colors duration-300">
 <i class="fa-regular fa-file-lines"></i>
@@ -903,7 +883,7 @@ label {
 </div>
 </div>
 <!-- Service 8: Etiquetas y stickers -->
-<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Etiquetas y Stickers" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./im%C3%A1genes/etiquetas.png"/></div>
+<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Etiquetas y Stickers" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imágenes/etiquetas.png"/></div>
 <div class="space-y-4">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl group-hover:bg-[#2858B2] group-hover:text-white transition-colors duration-300">
 <i class="fa-solid fa-tags"></i>
@@ -921,7 +901,7 @@ label {
 </div>
 </div>
 <!-- Service 9: Porta CD y Estuches -->
-<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Porta CD y Carátulas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./im%C3%A1genes/portacd.png"/></div>
+<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Porta CD y Carátulas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imágenes/portacd.png"/></div>
 <div class="space-y-4">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl group-hover:bg-[#2858B2] group-hover:text-white transition-colors duration-300">
 <i class="fa-solid fa-compact-disc"></i>
@@ -939,7 +919,7 @@ label {
 </div>
 </div>
 <!-- Service 10: Cajas para Tarjetas y Packaging -->
-<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Cajas para Tarjetas y Packaging" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./im%C3%A1genes/cajas.png"/></div>
+<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Cajas para Tarjetas y Packaging" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imágenes/cajas.png"/></div>
 <div class="space-y-4">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl group-hover:bg-[#2858B2] group-hover:text-white transition-colors duration-300">
 <i class="fa-solid fa-box-archive"></i>
@@ -999,7 +979,7 @@ label {
 <!-- AGENDAS -->
 <div class="portfolio-item agendas bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Agendas Personalizadas', 'Agendas', 'Agendas personalizadas en diferentes formatos, tipos de papel, gramajes y terminaciones, adaptadas a la identidad y necesidades de cada proyecto.', 'agendas')">
 <div class="relative h-64 bg-[#F5F8FF] overflow-hidden">
-<img alt="Agendas personalizadas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="./im%C3%A1genes/agendas/agenda-portada.png"/>
+<img alt="Agendas personalizadas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="./imágenes/agendas/agenda-portada.png"/>
 <div class="absolute inset-0 bg-[#2858B2]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
 <span class="bg-white text-[#2858B2] px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ver proyecto</span>
 </div>
@@ -1013,7 +993,7 @@ label {
 <!-- CAJAS -->
 <div class="portfolio-item cajas bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Cajas Personalizadas y Packaging', 'Cajas y Packaging', 'Cajas y packaging personalizados en diferentes formatos, papeles, cartulinas y terminaciones, ideales para productos, tarjetas y presentaciones especiales.', 'cajas')">
 <div class="relative h-64 bg-[#F5F8FF] overflow-hidden">
-<img alt="Cajas personalizadas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="./im%C3%A1genes/cajas-portada.png"/>
+<img alt="Cajas personalizadas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="./imágenes/cajas-portada.png"/>
 <div class="absolute inset-0 bg-[#2858B2]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
 <span class="bg-white text-[#2858B2] px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ver proyecto</span>
 </div>
@@ -1027,7 +1007,7 @@ label {
 <!-- PAPELERÍA CORPORATIVA -->
 <div class="portfolio-item papeleria bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Papelería Corporativa', 'Papelería Corporativa', 'Carpetas, sobres, tarjetas y hojas personalizadas en diferentes tipos de papel, gramajes, formatos y terminaciones para una presentación profesional.', 'papeleria')">
 <div class="relative h-64 bg-[#F5F8FF] overflow-hidden">
-<img alt="Papelería corporativa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="./im%C3%A1genes/carpeta-e-portada.png"/>
+<img alt="Papelería corporativa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="./imágenes/carpeta-e-portada.png"/>
 <div class="absolute inset-0 bg-[#2858B2]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
 <span class="bg-white text-[#2858B2] px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ver proyecto</span>
 </div>
@@ -1041,7 +1021,7 @@ label {
 <!-- PAPELERÍA PROFESIONAL -->
 <div class="portfolio-item profesional bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Papelería Profesional y Médica', 'Papelería Profesional', 'Recetarios, solicitudes y formularios personalizados en diferentes formatos, tipos de papel y terminaciones para profesionales e instituciones.', 'profesional')">
 <div class="relative h-64 bg-[#F5F8FF] overflow-hidden">
-<img alt="Papelería profesional y médica" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="./im%C3%A1genes/recetario-portada.png"/>
+<img alt="Papelería profesional y médica" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="./imágenes/recetario-portada.png"/>
 <div class="absolute inset-0 bg-[#2858B2]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
 <span class="bg-white text-[#2858B2] px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ver proyecto</span>
 </div>
@@ -1055,7 +1035,7 @@ label {
 <!-- ETIQUETAS -->
 <div class="portfolio-item etiquetas bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Etiquetas Personalizadas', 'Etiquetas y Adhesivos', 'Etiquetas personalizadas en diferentes tamaños, formas, papeles autoadhesivos y terminaciones para productos, packaging y presentaciones.', 'etiquetas')">
 <div class="relative h-64 bg-[#F5F8FF] overflow-hidden">
-<img alt="Etiquetas personalizadas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="./im%C3%A1genes/etiqueta-portada.png"/>
+<img alt="Etiquetas personalizadas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="./imágenes/etiqueta-portada.png"/>
 <div class="absolute inset-0 bg-[#2858B2]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
 <span class="bg-white text-[#2858B2] px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ver proyecto</span>
 </div>
@@ -1069,7 +1049,7 @@ label {
 <!-- PRESENTACIÓN -->
 <div class="portfolio-item presentacion bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Porta CD y Presentaciones', 'Material de Presentación', 'Porta CD y piezas de presentación personalizadas en diferentes papeles, formatos y terminaciones para proyectos institucionales, comerciales y profesionales.', 'presentacion')">
 <div class="relative h-64 bg-[#F5F8FF] overflow-hidden">
-<img alt="Porta CD y presentación" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="./im%C3%A1genes/cd-portada.png"/>
+<img alt="Porta CD y presentación" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="./imágenes/cd-portada.png"/>
 <div class="absolute inset-0 bg-[#2858B2]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
 <span class="bg-white text-[#2858B2] px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ver proyecto</span>
 </div>
@@ -1790,33 +1770,33 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
     /* Galerías reales por categoría */
     const galleries = {
         agendas: [
-            './im%C3%A1genes/agendas/agenda-portada.png',
-            './im%C3%A1genes/agendas/agenda-abierta.png',
-            './im%C3%A1genes/agendas/agenda-trasera.png'
+            './imágenes/agendas/agenda-portada.png',
+            './imágenes/agendas/agenda-abierta.png',
+            './imágenes/agendas/agenda-trasera.png'
         ],
         cajas: [
-            './im%C3%A1genes/cajas-portada.png',
-            './im%C3%A1genes/cajas-abierta.png',
-            './im%C3%A1genes/cajas-trasera.png'
+            './imágenes/cajas-portada.png',
+            './imágenes/cajas-abierta.png',
+            './imágenes/cajas-trasera.png'
         ],
         papeleria: [
-            './im%C3%A1genes/carpeta-e-portada.png',
-            './im%C3%A1genes/carpeta-trasera.png',
-            './im%C3%A1genes/sobre-e-portada.png',
-            './im%C3%A1genes/sobre-e-trasera.png',
-            './im%C3%A1genes/tarjeta-portada.png',
-            './im%C3%A1genes/hoja.png'
+            './imágenes/carpeta-e-portada.png',
+            './imágenes/carpeta-trasera.png',
+            './imágenes/sobre-e-portada.png',
+            './imágenes/sobre-e-trasera.png',
+            './imágenes/tarjeta-portada.png',
+            './imágenes/hoja.png'
         ],
         profesional: [
-            './im%C3%A1genes/recetario-portada.png',
-            './im%C3%A1genes/solicitud.png'
+            './imágenes/recetario-portada.png',
+            './imágenes/solicitud.png'
         ],
         etiquetas: [
-            './im%C3%A1genes/etiqueta-portada.png'
+            './imágenes/etiqueta-portada.png'
         ],
         presentacion: [
-            './im%C3%A1genes/cd-portada.png',
-            './im%C3%A1genes/cd-trasera.png'
+            './imágenes/cd-portada.png',
+            './imágenes/cd-trasera.png'
         ]
     };
 
