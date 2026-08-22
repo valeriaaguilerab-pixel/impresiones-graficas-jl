@@ -127,6 +127,313 @@ section p, .service-description { font-size:14px !important; line-height:1.65 !i
 }
 </style>
 
+
+<style id="tipografia-base-v5">
+/* Aumento suave de la tipografía general del contenido */
+body {
+    font-size: 16.5px;
+}
+.section-description {
+    font-size: 1rem !important;
+    line-height: 1.7 !important;
+}
+.portfolio-item p {
+    font-size: .86rem !important;
+    line-height: 1.6 !important;
+}
+.process-text {
+    font-size: .86rem !important;
+    line-height: 1.6 !important;
+}
+/* Juan Aguilera: más visible, manteniendo jerarquía */
+#nuestra-historia .text-xl.sm\:text-2xl,
+#nuestra-historia h3 {
+    font-size: 1.5rem !important;
+    line-height: 1.25 !important;
+}
+</style>
+
+
+<style id="tipografia-unificada-v6">
+/* Tipografía de cuerpo unificada: evita que algunos párrafos queden demasiado pequeños */
+main section p,
+#servicios .service-description,
+.portfolio-item p,
+.process-text {
+    font-size: 1.125rem !important;
+    line-height: 1.65 !important;
+}
+
+/* El texto principal de la historia conserva una jerarquía ligeramente mayor */
+#nuestra-historia > div p,
+#nuestra-historia p.text-base,
+#nuestra-historia p.text-lg,
+#nuestra-historia p.text-xl {
+    font-size: 1.25rem !important;
+    line-height: 1.65 !important;
+}
+
+/* No alterar textos pequeños funcionales, etiquetas, botones ni navegación */
+header p,
+nav p,
+footer p,
+button p,
+label {
+    font-size: inherit;
+}
+</style>
+
+
+<style id="jerarquia-tipografica-v8">
+/* =========================================================
+   JERARQUÍA TIPOGRÁFICA UNIFICADA
+   Cuerpo principal: 18px
+   Títulos de proceso: mayores que sus párrafos
+   ========================================================= */
+
+/* Inicio: indicadores 100%, +30 años y Atención directa */
+#inicio .pt-8.grid > div > p:first-child,
+#inicio .pt-8.grid > div > p:first-of-type {
+    font-size: 28px !important;
+    line-height: 1.15 !important;
+    font-weight: 800 !important;
+}
+#inicio .pt-8.grid > div > p:last-child {
+    font-size: 18px !important;
+    line-height: 1.5 !important;
+}
+#inicio .pt-8.grid > div:nth-child(3) > p:first-child {
+    font-size: 28px !important;
+    line-height: 1.15 !important;
+}
+
+/* Párrafo principal del hero */
+#inicio > div p.text-base,
+#inicio p.text-base,
+.hero-description {
+    font-size: 18px !important;
+    line-height: 1.7 !important;
+}
+
+/* Introducciones de secciones */
+#servicios > div > div:first-child p,
+#portafolio > div > div:first-child p,
+#¿Por\ qué\ elegirnos\? > div > div:first-child p,
+#proceso .section-description,
+section p.section-description {
+    font-size: 18px !important;
+    line-height: 1.7 !important;
+}
+
+/* ¿Por qué elegirnos? */
+#¿Por\ qué\ elegirnos\? > div > div:first-child > p,
+#¿Por\ qué\ elegirnos\? .text-base,
+#¿Por\ qué\ elegirnos\? .text-lg {
+    font-size: 18px !important;
+    line-height: 1.7 !important;
+}
+
+/* Atención personalizada, Soluciones a medida y Experiencia gráfica */
+#¿Por\ qué\ elegirnos\? .space-y-6 p {
+    font-size: 18px !important;
+    line-height: 1.65 !important;
+}
+
+/* Confidencialidad: cuerpo coherente con el resto */
+section .max-w-5xl p.text-sm,
+section .max-w-5xl p.text-base {
+    font-size: 18px !important;
+    line-height: 1.7 !important;
+}
+
+/* CTA: ¿Tienes un proyecto en mente? */
+section.bg-softbg p.text-base,
+section.bg-softbg p.text-lg {
+    font-size: 18px !important;
+    line-height: 1.7 !important;
+}
+
+/* Proceso: el texto introductorio y cada etapa */
+#proceso .process-text {
+    font-size: 18px !important;
+    line-height: 1.65 !important;
+}
+#proceso .process-title {
+    font-size: 21px !important;
+    line-height: 1.3 !important;
+    font-weight: 800 !important;
+}
+#proceso .section-description {
+    font-size: 18px !important;
+    line-height: 1.7 !important;
+}
+
+/* Mantener las descripciones de servicios al mismo nivel del cuerpo */
+#servicios .service-description {
+    font-size: 18px !important;
+    line-height: 1.65 !important;
+}
+
+/* Texto de "Nuestro trabajo" */
+#portafolio p.text-base,
+#portafolio p.text-lg {
+    font-size: 18px !important;
+    line-height: 1.7 !important;
+}
+
+/* Textos de cierre relacionados con experiencia/proyecto */
+#¿Por\ qué\ elegirnos\? p,
+section p.max-w-3xl {
+    font-size: 18px !important;
+    line-height: 1.7 !important;
+}
+</style>
+
+
+<style id="tipografia-y-alineacion-v9">
+/* =========================================================
+   V9 — MONTSERRAT + TARJETAS DE SERVICIOS ALINEADAS
+   ========================================================= */
+
+/* Toda la página usa Montserrat */
+html, body,
+button, input, select, textarea {
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6,
+.font-heading,
+.service-title,
+.section-title,
+.section-subtitle {
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+/* Cuerpo general */
+body {
+    font-size: 18px !important;
+}
+
+/* ---------------------------------------------------------
+   NUESTROS SERVICIOS
+   Todas las tarjetas tienen exactamente la misma estructura
+   visual: imagen → contenido → pie.
+   --------------------------------------------------------- */
+
+#servicios .grid {
+    align-items: stretch !important;
+}
+
+#servicios .grid > div {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    min-height: 620px !important;
+    overflow: hidden !important;
+}
+
+/* Todas las imágenes superiores quedan a la misma altura */
+#servicios .grid > div > div:first-child {
+    height: 220px !important;
+    min-height: 220px !important;
+    width: 100% !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
+    background: #EAF2FF !important;
+}
+
+#servicios .grid > div > div:first-child img {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    object-fit: cover !important;
+}
+
+/* Área central: mismo padding y misma distribución */
+#servicios .grid > div > div:nth-child(2) {
+    padding: 24px !important;
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* Iconos */
+#servicios .grid > div > div:nth-child(2) > div:first-child {
+    flex-shrink: 0 !important;
+}
+
+/* Títulos: todos parten desde la misma altura */
+#servicios .grid > div .service-title {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 21px !important;
+    line-height: 1.3 !important;
+    font-weight: 800 !important;
+    min-height: 55px !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    margin: 0 !important;
+}
+
+/* Descripciones: mismo tamaño y posición */
+#servicios .grid > div .service-description {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 18px !important;
+    line-height: 1.65 !important;
+    font-weight: 400 !important;
+    margin: 0 !important;
+}
+
+/* Pie de cada tarjeta */
+#servicios .grid > div > div:last-child {
+    min-height: 58px !important;
+    flex-shrink: 0 !important;
+    margin-top: auto !important;
+    padding: 16px 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+/* Texto del pie */
+#servicios .grid > div > div:last-child span {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+}
+
+/* Botón Cotizar */
+#servicios .grid > div > div:last-child a {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 14px !important;
+    white-space: nowrap !important;
+}
+
+/* En pantallas pequeñas */
+@media (max-width: 640px) {
+    body {
+        font-size: 17px !important;
+    }
+
+    #servicios .grid > div {
+        min-height: 0 !important;
+    }
+
+    #servicios .grid > div > div:first-child {
+        height: 180px !important;
+        min-height: 180px !important;
+    }
+
+    #servicios .grid > div .service-title {
+        font-size: 20px !important;
+        min-height: 0 !important;
+    }
+
+    #servicios .grid > div .service-description {
+        font-size: 17px !important;
+    }
+}
+</style>
+
 </head>
 <body class="antialiased selection:bg-sky selection:text-[#2858B2]">
 <!-- Top Announcement Bar -->
@@ -282,7 +589,7 @@ section p, .service-description { font-size:14px !important; line-height:1.65 !i
 <!-- Service 1: Tarjetas de presentación -->
 <div class="bg-white rounded-xl border border-sky/50 p-0 overflow-hidden card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden">
 <div class="h-40 w-full overflow-hidden bg-[#F5F8FF]">
-<img alt="Tarjetas de presentación" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/imagenes/servicios/tarjetas.png"/>
+<img alt="Tarjetas de presentación" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imagenes/tarjetas.png"/>
 </div>
 <div class="space-y-4 p-6">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl group-hover:bg-[#2858B2] group-hover:text-white transition-colors duration-300">
@@ -303,7 +610,7 @@ section p, .service-description { font-size:14px !important; line-height:1.65 !i
 <!-- Service 2: Talonarios -->
 <div class="bg-white rounded-xl border border-sky/50 p-0 overflow-hidden card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden">
 <div class="h-40 w-full overflow-hidden bg-[#F5F8FF]">
-<img alt="Talonarios" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/imagenes/servicios/talonarios.png"/>
+<img alt="Talonarios" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imagenes/talonarios.png"/>
 </div>
 <div class="space-y-4 p-6">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl group-hover:bg-[#2858B2] group-hover:text-white transition-colors duration-300">
@@ -324,7 +631,7 @@ section p, .service-description { font-size:14px !important; line-height:1.65 !i
 <!-- Service 3: Carpetas y Portadocumentos -->
 <div class="bg-white rounded-xl border border-sky/50 p-0 overflow-hidden card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden">
 <div class="h-40 w-full overflow-hidden bg-[#F5F8FF]">
-<img alt="Carpetas y Portadocumentos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/imagenes/servicios/carpetas.png"/>
+<img alt="Carpetas y Portadocumentos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imagenes/carpetas.png"/>
 </div>
 <div class="space-y-4 p-6">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl group-hover:bg-[#2858B2] group-hover:text-white transition-colors duration-300">
@@ -345,7 +652,7 @@ section p, .service-description { font-size:14px !important; line-height:1.65 !i
 <!-- Service 4: Agendas -->
 <div class="bg-white rounded-xl border border-sky/50 p-0 overflow-hidden card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden">
 <div class="h-40 w-full overflow-hidden bg-[#F5F8FF]">
-<img alt="Agendas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/imagenes/servicios/agendas.png"/>
+<img alt="Agendas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imagenes/agendas.png"/>
 </div>
 <div class="space-y-4 p-6">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl">
@@ -372,7 +679,7 @@ section p, .service-description { font-size:14px !important; line-height:1.65 !i
 <!-- Service 5: Folletos -->
 <div class="bg-white rounded-xl border border-sky/50 p-0 overflow-hidden card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden">
 <div class="h-40 w-full overflow-hidden bg-[#F5F8FF]">
-<img alt="Folletos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/imagenes/servicios/folletos.png"/>
+<img alt="Folletos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imagenes/folletos.png"/>
 </div>
 <div class="space-y-4 p-6">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl group-hover:bg-[#2858B2] group-hover:text-white transition-colors duration-300">
@@ -391,7 +698,7 @@ section p, .service-description { font-size:14px !important; line-height:1.65 !i
 </div>
 </div>
 <!-- Service 6: Volantes -->
-<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Volantes y Flyers" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/imagenes/servicios/volantes.png"/></div>
+<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Volantes y Flyers" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imagenes/volantes.png"/></div>
 <div class="space-y-4">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl group-hover:bg-[#2858B2] group-hover:text-white transition-colors duration-300">
 <i class="fa-solid fa-paper-plane"></i>
@@ -409,7 +716,7 @@ section p, .service-description { font-size:14px !important; line-height:1.65 !i
 </div>
 </div>
 <!-- Service 7: Hojas membretadas y Sobres -->
-<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Hojas Membretadas y Sobres" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/imagenes/servicios/membretes.png"/></div>
+<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Hojas Membretadas y Sobres" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imagenes/membretes.png"/></div>
 <div class="space-y-4">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl group-hover:bg-[#2858B2] group-hover:text-white transition-colors duration-300">
 <i class="fa-regular fa-file-lines"></i>
@@ -427,7 +734,7 @@ section p, .service-description { font-size:14px !important; line-height:1.65 !i
 </div>
 </div>
 <!-- Service 8: Etiquetas y stickers -->
-<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Etiquetas y Stickers" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/imagenes/servicios/etiquetas.png"/></div>
+<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Etiquetas y Stickers" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imagenes/etiquetas.png"/></div>
 <div class="space-y-4">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl group-hover:bg-[#2858B2] group-hover:text-white transition-colors duration-300">
 <i class="fa-solid fa-tags"></i>
@@ -445,7 +752,7 @@ section p, .service-description { font-size:14px !important; line-height:1.65 !i
 </div>
 </div>
 <!-- Service 9: Porta CD y Estuches -->
-<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Porta CD y Carátulas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/imagenes/servicios/portacd.png"/></div>
+<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Porta CD y Carátulas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imagenes/portacd.png"/></div>
 <div class="space-y-4">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl group-hover:bg-[#2858B2] group-hover:text-white transition-colors duration-300">
 <i class="fa-solid fa-compact-disc"></i>
@@ -463,7 +770,7 @@ section p, .service-description { font-size:14px !important; line-height:1.65 !i
 </div>
 </div>
 <!-- Service 10: Cajas para Tarjetas y Packaging -->
-<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Cajas para Tarjetas y Packaging" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/imagenes/servicios/cajas.png"/></div>
+<div class="bg-white rounded-xl border border-sky/50 card-hover-effect flex flex-col justify-between shadow-card relative group p-0 overflow-hidden"><div class="service-image"><img alt="Cajas para Tarjetas y Packaging" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="./imagenes/cajas.png"/></div>
 <div class="space-y-4">
 <div class="w-12 h-12 rounded-lg bg-[#F5F8FF] text-[#2858B2] flex items-center justify-center text-2xl group-hover:bg-[#2858B2] group-hover:text-white transition-colors duration-300">
 <i class="fa-solid fa-box-archive"></i>
@@ -1362,12 +1669,12 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
                 </p>
             </div>
 
-            <div class="${galleryImages.length === 1 ? 'flex justify-center' : 'grid grid-cols-1 sm:grid-cols-3 gap-4'}">
+            <div class="${galleryImages.length === 1 ? 'flex justify-center' : galleryImages.length === 2 ? 'flex flex-wrap justify-center items-start gap-6' : 'grid grid-cols-1 sm:grid-cols-3 gap-4'}">
 
                 ${galleryImages.map((imageSrc, index) => `
 
                     <div
-                        class="${galleryImages.length === 1 ? 'w-full max-w-[560px] rounded-lg overflow-hidden bg-[#F5F8FF] cursor-pointer mx-auto' : 'rounded-lg overflow-hidden bg-[#F5F8FF] aspect-square cursor-pointer'}"
+                        class="${galleryImages.length === 1 ? 'w-full max-w-[560px] rounded-lg overflow-hidden bg-[#F5F8FF] cursor-pointer mx-auto' : galleryImages.length === 2 ? 'w-full sm:w-[320px] md:w-[360px] aspect-square rounded-lg overflow-hidden bg-[#F5F8FF] cursor-pointer' : 'rounded-lg overflow-hidden bg-[#F5F8FF] aspect-square cursor-pointer'}"
                         onclick='openImageViewer(${JSON.stringify(imageSrc)}, ${JSON.stringify(galleryImages)})'
                     >
 
