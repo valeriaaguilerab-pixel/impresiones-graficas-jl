@@ -780,6 +780,94 @@ label {
 }
 </style>
 
+
+<style id="servicios-ajuste-v32">
+/* V32 — SOLO las 10 tarjetas de Nuestros servicios.
+   El título y el párrafo superior de la sección NO se modifican. */
+#servicios > .max-w-7xl > .grid > div {
+  min-height: 0 !important;
+  height: 560px !important;
+  border-radius: 16px !important;
+}
+
+/* Imágenes más compactas y uniformes, sin recortes ni deformaciones. */
+#servicios > .max-w-7xl > .grid > div > .service-image,
+#servicios > .max-w-7xl > .grid > div > div:first-child {
+  height: 180px !important;
+  min-height: 180px !important;
+  flex: 0 0 180px !important;
+  padding: 10px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  background: #F5F8FF !important;
+}
+
+#servicios > .max-w-7xl > .grid > div > .service-image img,
+#servicios > .max-w-7xl > .grid > div > div:first-child img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  display: block !important;
+  transform: none !important;
+}
+
+/* Contenido más compacto, manteniendo buena legibilidad. */
+#servicios > .max-w-7xl > .grid > div > div:nth-child(2) {
+  min-height: 0 !important;
+  padding: 18px 20px !important;
+  gap: 12px !important;
+  flex: 1 1 auto !important;
+}
+
+#servicios > .max-w-7xl > .grid > div .service-title {
+  font-size: 20px !important;
+  line-height: 1.25 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+}
+
+#servicios > .max-w-7xl > .grid > div .service-description {
+  font-size: 16.5px !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+
+/* Iconos y pie de tarjeta proporcionados al nuevo tamaño. */
+#servicios > .max-w-7xl > .grid > div > div:nth-child(2) > div:first-child {
+  width: 44px !important;
+  height: 44px !important;
+  font-size: 20px !important;
+}
+
+#servicios > .max-w-7xl > .grid > div > div:last-child {
+  min-height: 52px !important;
+  padding: 12px 20px !important;
+  margin-top: 0 !important;
+  box-sizing: border-box !important;
+}
+
+#servicios > .max-w-7xl > .grid {
+  gap: 18px !important;
+}
+
+@media (max-width: 900px) {
+  #servicios > .max-w-7xl > .grid > div {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+  #servicios > .max-w-7xl > .grid > div > .service-image,
+  #servicios > .max-w-7xl > .grid > div > div:first-child {
+    height: 175px !important;
+    min-height: 175px !important;
+    flex-basis: 175px !important;
+  }
+}
+</style>
+
 </head>
 <body class="antialiased selection:bg-sky selection:text-[#2858B2]">
 <!-- Top Announcement Bar -->
