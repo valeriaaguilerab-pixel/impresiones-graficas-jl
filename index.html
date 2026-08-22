@@ -558,6 +558,51 @@ label {
 }
 </style>
 
+
+<style id="servicios-imagenes-v19">
+/* V19 — Solo imágenes representativas de Nuestros Servicios */
+#servicios .grid > div > div:first-child,
+#servicios .service-image {
+    height: 220px !important;
+    min-height: 220px !important;
+    width: 100% !important;
+    overflow: hidden !important;
+    flex: 0 0 220px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #F5F8FF !important;
+    box-sizing: border-box !important;
+    padding: 14px !important;
+}
+
+#servicios .grid > div > div:first-child img,
+#servicios .service-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    display: block !important;
+    transform: none !important;
+}
+
+/* Evita que el hover vuelva a deformar o agrandar las ilustraciones */
+#servicios .grid > div > div:first-child img.group-hover\:scale-105,
+#servicios .service-image img.group-hover\:scale-105 {
+    transform: none !important;
+}
+
+@media (max-width: 640px) {
+    #servicios .grid > div > div:first-child,
+    #servicios .service-image {
+        height: 180px !important;
+        min-height: 180px !important;
+        flex-basis: 180px !important;
+        padding: 10px !important;
+    }
+}
+</style>
+
 </head>
 <body class="antialiased selection:bg-sky selection:text-[#2858B2]">
 <!-- Top Announcement Bar -->
@@ -2053,98 +2098,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-</script>
-
-
-
-
-
-<script id="image-path-fallback-v16">
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('img').forEach(function (img) {
-    const src = img.getAttribute('src') || '';
-    if (!src.includes('im%C3%A1genes/') && !src.includes('imágenes/')) return;
-
-    const file = src.substring(src.lastIndexOf('/') + 1);
-    const candidates = [
-      './im%C3%A1genes/' + file,
-      './imágenes/' + file,
-      './imagenes/' + file
-    ];
-    let i = 0;
-
-    function tryNext() {
-      if (i >= candidates.length) return;
-      const next = candidates[i++];
-      if (img.getAttribute('src') === next) {
-        tryNext();
-        return;
-      }
-      img.src = next;
-    }
-
-    img.addEventListener('error', tryNext);
-  });
-});
-</script>
-
-
-<script id="github-image-resolver-v17">
-(function () {
-  function githubCandidates(path) {
-    const clean = path.replace(/^\.?\//, '');
-    const encoded = clean.split('/').map(encodeURIComponent).join('/');
-    const candidates = [new URL(path, document.baseURI).href];
-
-    const host = location.hostname;
-    const parts = location.pathname.split('/').filter(Boolean);
-
-    // GitHub Pages: usuario.github.io/repositorio/...
-    if (host.endsWith('.github.io')) {
-      const owner = host.split('.')[0];
-      const repo = parts.length ? parts[0] : '';
-      if (repo) {
-        candidates.push(
-          'https://raw.githubusercontent.com/' + owner + '/' + repo + '/refs/heads/main/' + encoded,
-          'https://raw.githubusercontent.com/' + owner + '/' + repo + '/refs/heads/master/' + encoded
-        );
-      }
-    }
-
-    return [...new Set(candidates)];
-  }
-
-  function fixImage(img) {
-    const original = img.getAttribute('src');
-    if (!original || original.startsWith('data:') || img.dataset.githubResolved === '1') return;
-
-    const candidates = githubCandidates(original);
-    let i = 0;
-
-    function next() {
-      if (i >= candidates.length) return;
-      const url = candidates[i++];
-      img.dataset.githubResolved = '1';
-      img.src = url;
-      img.addEventListener('error', function retry() {
-        img.removeEventListener('error', retry);
-        img.dataset.githubResolved = '0';
-        next();
-      });
-    }
-
-    // Only intervene when the image actually fails.
-    img.addEventListener('error', function firstRetry() {
-      img.removeEventListener('error', firstRetry);
-      img.dataset.githubResolved = '0';
-      next();
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('img').forEach(fixImage);
-  });
-})();
 </script>
 
 </body>
