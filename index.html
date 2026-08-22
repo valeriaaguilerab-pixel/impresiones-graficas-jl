@@ -684,6 +684,102 @@ label {
 }
 </style>
 
+
+<style id="servicios-ajuste-v31">
+/* SOLO tarjetas de "Nuestros Servicios" */
+#servicios .services-grid,
+#servicios .service-grid,
+#servicios .services-cards,
+#servicios .cards-grid {
+  gap: 20px !important;
+}
+
+#servicios .service-card,
+#servicios .servicio-card,
+#servicios .service-item {
+  border-radius: 18px !important;
+  overflow: hidden !important;
+}
+
+/* Compacta el bloque visual superior sin tocar el encabezado de sección */
+#servicios .service-card .service-image,
+#servicios .servicio-card .service-image,
+#servicios .service-card .card-image,
+#servicios .service-item .service-image,
+#servicios .service-item .card-image {
+  height: 210px !important;
+  min-height: 210px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+#servicios .service-card .service-image img,
+#servicios .servicio-card .service-image img,
+#servicios .service-card .card-image img,
+#servicios .service-item .service-image img,
+#servicios .service-item .card-image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+}
+
+/* Alineación consistente del contenido de todas las tarjetas */
+#servicios .service-card .service-content,
+#servicios .servicio-card .service-content,
+#servicios .service-card .card-content,
+#servicios .service-item .service-content,
+#servicios .service-item .card-content {
+  padding: 24px 26px !important;
+  min-height: 300px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  box-sizing: border-box !important;
+}
+
+/* Títulos de tarjetas: mismo tamaño y altura de bloque */
+#servicios .service-card h3,
+#servicios .servicio-card h3,
+#servicios .service-item h3 {
+  font-size: 22px !important;
+  line-height: 1.2 !important;
+  min-height: 53px !important;
+  margin: 0 0 14px !important;
+}
+
+/* Descripciones: tamaño uniforme y alineación */
+#servicios .service-card p,
+#servicios .servicio-card p,
+#servicios .service-item p {
+  font-size: 17px !important;
+  line-height: 1.55 !important;
+  margin: 0 !important;
+}
+
+/* Pie de tarjeta alineado */
+#servicios .service-card .card-footer,
+#servicios .servicio-card .card-footer,
+#servicios .service-item .card-footer {
+  min-height: 58px !important;
+  box-sizing: border-box !important;
+}
+
+/* Responsive: mantener tarjetas compactas en pantallas pequeñas */
+@media (max-width: 900px) {
+  #servicios .service-card .service-image,
+  #servicios .servicio-card .service-image,
+  #servicios .service-card .card-image,
+  #servicios .service-item .service-image,
+  #servicios .service-item .card-image {
+    height: 190px !important;
+    min-height: 190px !important;
+  }
+}
+</style>
+
 </head>
 <body class="antialiased selection:bg-sky selection:text-[#2858B2]">
 <!-- Top Announcement Bar -->
