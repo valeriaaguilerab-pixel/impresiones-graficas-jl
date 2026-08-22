@@ -2274,35 +2274,103 @@ function updateFileName(input) {
             document.getElementById('file-name').textContent = '';
         }
     </script>
-<!-- VISOR UNIVERSAL DE IMÁGENES — V24 -->
-<div class="fixed inset-0 z-[10000] hidden bg-black/90 items-center justify-center p-4" id="imageViewer" onclick="closeImageViewer()">
-    <div class="viewer-stage" id="imageViewerStage">
-        <!-- Cerrar -->
-        <button aria-label="Cerrar" class="absolute top-5 right-5 z-30 w-12 h-12 rounded-full bg-white/90 text-[#2858B2] text-2xl font-bold flex items-center justify-center shadow-lg hover:bg-white" onclick="event.stopPropagation(); closeImageViewer()">×</button>
+<!-- VISOR UNIVERSAL DE IMÁGENES — V25 -->
+<div class="fixed inset-0 z-[10000] hidden bg-black/90 items-center justify-center" id="imageViewer">
+    <div class="viewer-stage-v25" id="imageViewerStage">
+        <button aria-label="Cerrar" class="viewer-close-v25" onclick="closeImageViewer()">×</button>
 
-        <!-- Controles de zoom -->
-        <div class="absolute top-5 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1 bg-white/90 rounded-full p-1 shadow-lg" onclick="event.stopPropagation()">
-            <button aria-label="Alejar" class="w-10 h-10 rounded-full text-[#2858B2] text-xl font-bold hover:bg-[#F5F8FF]" onclick="zoomViewer(-0.25)">−</button>
-            <span class="min-w-[58px] text-center text-sm font-bold text-[#2858B2]" id="viewerZoomLabel">100%</span>
-            <button aria-label="Acercar" class="w-10 h-10 rounded-full text-[#2858B2] text-xl font-bold hover:bg-[#F5F8FF]" onclick="zoomViewer(0.25)">+</button>
-            <button aria-label="Restablecer zoom" class="px-3 h-10 rounded-full text-xs font-bold text-[#2858B2] hover:bg-[#F5F8FF]" onclick="resetViewerTransform()">Restablecer</button>
+        <div class="viewer-tools-v25" onclick="event.stopPropagation()">
+            <button aria-label="Alejar" onclick="zoomViewer(-0.25)">−</button>
+            <span id="viewerZoomLabel">100%</span>
+            <button aria-label="Acercar" onclick="zoomViewer(0.25)">+</button>
+            <button class="viewer-reset-v25" aria-label="Restablecer zoom" onclick="resetViewerTransform()">Restablecer</button>
         </div>
 
-        <!-- Anterior -->
-        <button aria-label="Imagen anterior" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/90 text-[#2858B2] text-3xl font-bold shadow-lg hover:bg-white" onclick="event.stopPropagation(); changeViewerImage(-1)">‹</button>
+        <button aria-label="Imagen anterior" class="viewer-arrow-v25 viewer-prev-v25" onclick="event.stopPropagation(); changeViewerImage(-1)">‹</button>
 
-        <!-- Imagen -->
-        <img alt="Imagen ampliada" class="max-w-[90vw] max-h-[88vh] object-contain rounded-xl shadow-2xl" id="imageViewerImage" draggable="false" src="" onclick="event.stopPropagation()" onwheel="handleViewerWheel(event)" ondblclick="handleViewerDoubleClick(event)" onpointerdown="viewerPointerDownHandler(event)" onpointermove="viewerPointerMoveHandler(event)" onpointerup="viewerPointerUpHandler(event)" onpointercancel="viewerPointerUpHandler(event)"/>
+        <div class="viewer-canvas-v25" id="viewerCanvas" onclick="event.stopPropagation()">
+            <div class="viewer-image-wrap-v25" id="viewerImageWrap">
+                <img alt="Imagen ampliada" id="imageViewerImage" draggable="false" src="" />
+            </div>
+        </div>
 
-        <!-- Siguiente -->
-        <button aria-label="Imagen siguiente" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/90 text-[#2858B2] text-3xl font-bold shadow-lg hover:bg-white" onclick="event.stopPropagation(); changeViewerImage(1)">›</button>
-
-        <!-- Contador -->
-        <div id="viewerCounter" class="hidden absolute bottom-5 left-1/2 -translate-x-1/2 z-30 px-4 py-2 rounded-full bg-black/60 text-white text-sm font-semibold" onclick="event.stopPropagation()">1 / 1</div>
-
-        <div class="absolute bottom-5 right-5 z-30 hidden md:block px-3 py-2 rounded-lg bg-black/55 text-white text-xs" onclick="event.stopPropagation()">Rueda: zoom · Arrastra: mover · ← →: cambiar imagen · Doble clic: zoom</div>
+        <button aria-label="Imagen siguiente" class="viewer-arrow-v25 viewer-next-v25" onclick="event.stopPropagation(); changeViewerImage(1)">›</button>
+        <div id="viewerCounter" class="hidden viewer-counter-v25">1 / 1</div>
+        <div class="viewer-help-v25">Rueda: zoom · Arrastra: mover · ← →: cambiar · Doble clic: zoom</div>
     </div>
 </div>
+
+<style id="visor-trabajos-v25">
+#imageViewer { overflow:hidden !important; }
+.viewer-stage-v25 { position:relative; width:100%; height:100%; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.viewer-canvas-v25 { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; overflow:hidden; touch-action:none; cursor:grab; }
+.viewer-canvas-v25.dragging { cursor:grabbing; }
+.viewer-image-wrap-v25 { position:relative; display:flex; align-items:center; justify-content:center; transform:translate3d(0,0,0) scale(1); transform-origin:center center; will-change:transform; transition:transform .16s ease; }
+.viewer-image-wrap-v25.zoomed { transition:none; }
+.viewer-image-wrap-v25 img { display:block; max-width:86vw; max-height:82vh; width:auto; height:auto; object-fit:contain; user-select:none; -webkit-user-drag:none; pointer-events:none; border-radius:12px; box-shadow:0 10px 40px rgba(0,0,0,.35); }
+.viewer-close-v25 { position:absolute; top:20px; right:20px; z-index:40; width:48px; height:48px; border-radius:999px; background:rgba(255,255,255,.95); color:#2858B2; font-size:30px; font-weight:700; border:0; cursor:pointer; }
+.viewer-tools-v25 { position:absolute; top:20px; left:50%; transform:translateX(-50%); z-index:40; display:flex; align-items:center; gap:3px; padding:4px; border-radius:999px; background:rgba(255,255,255,.96); box-shadow:0 8px 24px rgba(0,0,0,.2); }
+.viewer-tools-v25 button,.viewer-tools-v25 span { height:40px; min-width:40px; border:0; background:transparent; color:#2858B2; display:flex; align-items:center; justify-content:center; font-weight:700; cursor:pointer; }
+.viewer-tools-v25 button { font-size:24px; }
+.viewer-tools-v25 span { min-width:58px; font-size:14px; }
+.viewer-tools-v25 .viewer-reset-v25 { padding:0 12px; font-size:12px; }
+.viewer-arrow-v25 { position:absolute; top:50%; transform:translateY(-50%); z-index:40; width:52px; height:52px; border:0; border-radius:999px; background:rgba(255,255,255,.95); color:#2858B2; font-size:38px; line-height:1; cursor:pointer; box-shadow:0 8px 24px rgba(0,0,0,.18); }
+.viewer-prev-v25 { left:20px; }
+.viewer-next-v25 { right:20px; }
+.viewer-counter-v25 { position:absolute; bottom:22px; left:50%; transform:translateX(-50%); z-index:40; padding:8px 15px; border-radius:999px; background:rgba(0,0,0,.62); color:#fff; font-size:14px; font-weight:700; }
+.viewer-help-v25 { position:absolute; right:20px; bottom:20px; z-index:40; padding:8px 12px; border-radius:8px; background:rgba(0,0,0,.55); color:#fff; font-size:12px; }
+@media(max-width:700px){ .viewer-image-wrap-v25 img{max-width:94vw;max-height:76vh}.viewer-arrow-v25{width:44px;height:44px;font-size:32px}.viewer-prev-v25{left:8px}.viewer-next-v25{right:8px}.viewer-help-v25{display:none}.viewer-tools-v25{top:12px}.viewer-close-v25{top:12px;right:12px} }
+</style>
+
+<script id="visor-trabajos-v25-js">
+(function(){
+    let zoom=1, panX=0, panY=0, dragging=false, moved=false;
+    let startX=0,startY=0,lastX=0,lastY=0;
+    const MIN=1, MAX=4, STEP=.25;
+    function wrap(){return document.getElementById('viewerImageWrap')}
+    function canvas(){return document.getElementById('viewerCanvas')}
+    function apply(){
+        const w=wrap(); if(!w)return;
+        w.style.transform=`translate3d(${panX}px,${panY}px,0) scale(${zoom})`;
+        w.classList.toggle('zoomed',zoom>1);
+        const l=document.getElementById('viewerZoomLabel'); if(l)l.textContent=Math.round(zoom*100)+'%';
+    }
+    window.resetViewerTransform=function(){zoom=1;panX=0;panY=0;dragging=false;moved=false;apply()};
+    window.zoomViewer=function(delta,cx=null,cy=null){
+        const old=zoom, next=Math.max(MIN,Math.min(MAX,old+delta)); if(next===old)return;
+        const c=canvas();
+        if(cx!==null&&cy!==null&&c){
+            const r=c.getBoundingClientRect();
+            const x=cx-(r.left+r.width/2), y=cy-(r.top+r.height/2), f=next/old;
+            panX=x-(x-panX)*f; panY=y-(y-panY)*f;
+        }
+        zoom=next; if(zoom===1){panX=0;panY=0} apply();
+    };
+    window.openImageViewer=function(imageSrc,galleryImages){
+        imageViewerImages=Array.isArray(galleryImages)?galleryImages:[imageSrc];
+        currentImageIndex=imageViewerImages.indexOf(imageSrc); if(currentImageIndex<0)currentImageIndex=0;
+        const v=document.getElementById('imageViewer'), img=document.getElementById('imageViewerImage');
+        resetViewerTransform();
+        setPortfolioImageSource(img,normalizePortfolioFile(imageViewerImages[currentImageIndex]));
+        updateViewerCounter(); v.classList.remove('hidden');v.classList.add('flex');document.body.style.overflow='hidden';
+    };
+    window.closeImageViewer=function(){const v=document.getElementById('imageViewer');v.classList.add('hidden');v.classList.remove('flex');resetViewerTransform();document.body.style.overflow=''};
+    window.changeViewerImage=function(dir){
+        if(!imageViewerImages.length)return; currentImageIndex=(currentImageIndex+dir+imageViewerImages.length)%imageViewerImages.length;
+        resetViewerTransform();setPortfolioImageSource(document.getElementById('imageViewerImage'),normalizePortfolioFile(imageViewerImages[currentImageIndex]));updateViewerCounter();
+    };
+    window.updateViewerCounter=function(){const c=document.getElementById('viewerCounter');if(!c)return;if(imageViewerImages.length>1){c.textContent=`${currentImageIndex+1} / ${imageViewerImages.length}`;c.classList.remove('hidden')}else c.classList.add('hidden')};
+    const c=canvas();
+    c.addEventListener('wheel',function(e){e.preventDefault();zoomViewer(e.deltaY<0?STEP:-STEP,e.clientX,e.clientY)},{passive:false});
+    c.addEventListener('dblclick',function(e){e.preventDefault();zoomViewer(zoom>1?-1:1,e.clientX,e.clientY)});
+    c.addEventListener('pointerdown',function(e){if(e.button!==undefined&&e.button!==0)return;dragging=true;moved=false;startX=lastX=e.clientX;startY=lastY=e.clientY;c.classList.add('dragging');c.setPointerCapture?.(e.pointerId)});
+    c.addEventListener('pointermove',function(e){if(!dragging)return;const dx=e.clientX-lastX,dy=e.clientY-lastY,tx=e.clientX-startX,ty=e.clientY-startY;if(Math.abs(tx)>6||Math.abs(ty)>6)moved=true;if(zoom>1){panX+=dx;panY+=dy;apply();e.preventDefault()}lastX=e.clientX;lastY=e.clientY});
+    c.addEventListener('pointerup',function(e){if(!dragging)return;dragging=false;c.classList.remove('dragging');const dx=e.clientX-startX,dy=e.clientY-startY;if(zoom===1&&Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy))changeViewerImage(dx<0?1:-1)});
+    c.addEventListener('pointercancel',function(){dragging=false;c.classList.remove('dragging')});
+    document.addEventListener('keydown',function(e){const v=document.getElementById('imageViewer');if(!v||v.classList.contains('hidden'))return;if(e.key==='Escape')closeImageViewer();else if(e.key==='ArrowLeft')changeViewerImage(-1);else if(e.key==='ArrowRight')changeViewerImage(1);else if(e.key==='+'||e.key==='=')zoomViewer(STEP);else if(e.key==='-'||e.key==='_')zoomViewer(-STEP);else if(e.key==='0')resetViewerTransform()});
+    document.getElementById('imageViewer').addEventListener('click',function(e){if(e.target===this)closeImageViewer()});
+})();
+</script>
 
 <script id="atencion-directa-fix">
 document.addEventListener('DOMContentLoaded', function () {
