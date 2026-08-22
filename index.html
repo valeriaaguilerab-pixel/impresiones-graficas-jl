@@ -639,6 +639,25 @@ label {
 }
 </style>
 
+<style id="modal-descripcion-v35">
+/* V35 — Solo texto descriptivo del modal de Nuestros Proyectos */
+#portfolio-modal #modal-description {
+    font-size: 1.18rem !important;
+    line-height: 1.75 !important;
+    text-align: justify !important;
+    color: #4B5563 !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0 !important;
+}
+#portfolio-modal #modal-privacy-note {
+    font-size: 0.82rem !important;
+    line-height: 1.5 !important;
+    text-align: justify !important;
+    color: #9CA3AF !important;
+    margin-top: 0.45rem !important;
+    margin-bottom: 0 !important;
+}
+</style>
 
 <style id="visor-trabajos-v24">
 /* V24 — visor ampliable, desplazable y con navegación horizontal */
@@ -865,6 +884,55 @@ label {
     min-height: 175px !important;
     flex-basis: 175px !important;
   }
+}
+</style>
+
+
+<style id="servicios-ajuste-v33">
+/* V33 — SOLO texto interno de las 10 tarjetas de "Nuestros Servicios".
+   No modifica el título de la sección, su párrafo superior ni los títulos de categorías. */
+#servicios > .max-w-7xl > .grid > div .service-description {
+  text-align: justify !important;
+  text-justify: inter-word !important;
+}
+
+/* También justifica únicamente el texto descriptivo/especificación del pie.
+   No afecta al enlace "Cotizar". */
+#servicios > .max-w-7xl > .grid > div > div:last-child > :first-child {
+  text-align: justify !important;
+  text-justify: inter-word !important;
+}
+</style>
+
+<style id="nuestros-proyectos-ajuste-v34">
+/* V34 — Ajustes EXCLUSIVOS de las tarjetas de Nuestros Proyectos.
+   No modifica imágenes ni el encabezado de la sección. */
+#portafolio #portfolio-grid .portfolio-item h3 {
+    font-size: 1.35rem !important;
+    line-height: 1.28 !important;
+    font-weight: 800 !important;
+    margin-top: .65rem !important;
+    margin-bottom: .35rem !important;
+    text-align: left !important;
+}
+
+#portafolio #portfolio-grid .portfolio-item > div:nth-child(2) > p {
+    text-align: justify !important;
+    text-justify: inter-word !important;
+    font-size: 1.05rem !important;
+    line-height: 1.55 !important;
+}
+
+/* Recuadros celestes sobre los títulos: tamaño proporcional al recuadro. */
+#portafolio #portfolio-grid .portfolio-item > div:nth-child(2) > span {
+    display: inline-block !important;
+    font-size: .78rem !important;
+    line-height: 1.2 !important;
+    font-weight: 800 !important;
+    letter-spacing: .12em !important;
+    padding: .42rem .72rem !important;
+    border-radius: .45rem !important;
+    vertical-align: middle !important;
 }
 </style>
 
@@ -1954,6 +2022,7 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
 <p class="text-sm text-gray-600 leading-relaxed" id="modal-description">
                     Descripción detallada del trabajo realizado.
                 </p>
+<p id="modal-privacy-note">*Las imágenes presentadas han sido adaptadas con fines de privacidad, protegiendo la información de nuestros clientes.*</p>
 <div class="pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3">
 <span class="text-xs text-gray-400">Impresiones Gráficas J.I.</span>
 <button class="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-[#2858B2] text-white font-bold text-xs hover:bg-[#1F4690] transition flex items-center justify-center gap-2" id="modal-cotizar-btn" onclick="modalCotizar()">
