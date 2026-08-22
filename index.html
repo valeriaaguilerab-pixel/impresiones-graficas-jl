@@ -2088,5 +2088,64 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
+
+<script id="github-image-resolver-v17">
+(function () {
+  function githubCandidates(path) {
+    const clean = path.replace(/^\.?\//, '');
+    const encoded = clean.split('/').map(encodeURIComponent).join('/');
+    const candidates = [new URL(path, document.baseURI).href];
+
+    const host = location.hostname;
+    const parts = location.pathname.split('/').filter(Boolean);
+
+    // GitHub Pages: usuario.github.io/repositorio/...
+    if (host.endsWith('.github.io')) {
+      const owner = host.split('.')[0];
+      const repo = parts.length ? parts[0] : '';
+      if (repo) {
+        candidates.push(
+          'https://raw.githubusercontent.com/' + owner + '/' + repo + '/refs/heads/main/' + encoded,
+          'https://raw.githubusercontent.com/' + owner + '/' + repo + '/refs/heads/master/' + encoded
+        );
+      }
+    }
+
+    return [...new Set(candidates)];
+  }
+
+  function fixImage(img) {
+    const original = img.getAttribute('src');
+    if (!original || original.startsWith('data:') || img.dataset.githubResolved === '1') return;
+
+    const candidates = githubCandidates(original);
+    let i = 0;
+
+    function next() {
+      if (i >= candidates.length) return;
+      const url = candidates[i++];
+      img.dataset.githubResolved = '1';
+      img.src = url;
+      img.addEventListener('error', function retry() {
+        img.removeEventListener('error', retry);
+        img.dataset.githubResolved = '0';
+        next();
+      });
+    }
+
+    // Only intervene when the image actually fails.
+    img.addEventListener('error', function firstRetry() {
+      img.removeEventListener('error', firstRetry);
+      img.dataset.githubResolved = '0';
+      next();
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('img').forEach(fixImage);
+  });
+})();
+</script>
+
 </body>
 </html>
