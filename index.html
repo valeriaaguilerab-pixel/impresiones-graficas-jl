@@ -640,16 +640,47 @@ label {
 </style>
 
 
-<style id="visor-trabajos-v21">
+<style id="visor-trabajos-v24">
+/* V24 — visor ampliable, desplazable y con navegación horizontal */
 #imageViewer {
     overflow: hidden !important;
+    touch-action: none !important;
+}
+#imageViewer .viewer-stage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    touch-action: none;
 }
 #imageViewer img#imageViewerImage {
-    max-width: 90vw !important;
-    max-height: 88vh !important;
+    max-width: 88vw !important;
+    max-height: 82vh !important;
     width: auto !important;
     height: auto !important;
     object-fit: contain !important;
+    transform-origin: center center;
+    transition: transform 180ms ease;
+    cursor: zoom-in;
+    user-select: none;
+    -webkit-user-drag: none;
+    touch-action: none;
+    will-change: transform;
+}
+#imageViewer img#imageViewerImage.is-zoomed {
+    cursor: grab;
+    transition: none;
+}
+#imageViewer img#imageViewerImage.is-zoomed:active {
+    cursor: grabbing;
+}
+@media (max-width: 700px) {
+    #imageViewer img#imageViewerImage {
+        max-width: 94vw !important;
+        max-height: 78vh !important;
+    }
 }
 </style>
 
@@ -1990,84 +2021,199 @@ document
 
 
 /* =========================
-   VISOR DE IMÁGENES
+   VISOR DE IMÁGENES — V24
    ========================= */
 
 let imageViewerImages = [];
 let currentImageIndex = 0;
+let viewerZoom = 1;
+let viewerPanX = 0;
+let viewerPanY = 0;
+let viewerPointerDown = false;
+let viewerDragging = false;
+let viewerStartX = 0;
+let viewerStartY = 0;
+let viewerLastX = 0;
+let viewerLastY = 0;
+let viewerSwipeStartX = 0;
+let viewerSwipeStartY = 0;
 
+function resetViewerTransform() {
+    viewerZoom = 1;
+    viewerPanX = 0;
+    viewerPanY = 0;
+    viewerDragging = false;
+    const image = document.getElementById('imageViewerImage');
+    if (image) {
+        image.style.transform = 'translate3d(0px, 0px, 0) scale(1)';
+        image.classList.remove('is-zoomed');
+    }
+    updateViewerZoomLabel();
+}
 
-function openImageViewer(imageSrc, galleryImages) {
+function applyViewerTransform() {
+    const image = document.getElementById('imageViewerImage');
+    if (!image) return;
+    image.style.transform = `translate3d(${viewerPanX}px, ${viewerPanY}px, 0) scale(${viewerZoom})`;
+    image.classList.toggle('is-zoomed', viewerZoom > 1.01);
+    updateViewerZoomLabel();
+}
 
-    imageViewerImages = galleryImages;
+function updateViewerZoomLabel() {
+    const label = document.getElementById('viewerZoomLabel');
+    if (label) label.textContent = Math.round(viewerZoom * 100) + '%';
+}
 
-    currentImageIndex =
-        imageViewerImages.indexOf(imageSrc);
+function zoomViewer(delta, centerX = null, centerY = null) {
+    const oldZoom = viewerZoom;
+    const newZoom = Math.min(4, Math.max(1, oldZoom + delta));
 
-    if (currentImageIndex < 0) {
-        currentImageIndex = 0;
+    if (newZoom === oldZoom) return;
+
+    // Mantiene aproximadamente el punto bajo el cursor al hacer zoom.
+    if (centerX !== null && centerY !== null) {
+        const rect = document.getElementById('imageViewer').getBoundingClientRect();
+        const localX = centerX - (rect.left + rect.width / 2);
+        const localY = centerY - (rect.top + rect.height / 2);
+        const factor = (newZoom / oldZoom) - 1;
+        viewerPanX -= localX * factor;
+        viewerPanY -= localY * factor;
     }
 
-    const viewer =
-        document.getElementById('imageViewer');
+    viewerZoom = newZoom;
+    if (viewerZoom === 1) {
+        viewerPanX = 0;
+        viewerPanY = 0;
+    }
+    applyViewerTransform();
+}
 
-    const image =
-        document.getElementById('imageViewerImage');
+function openImageViewer(imageSrc, galleryImages) {
+    imageViewerImages = Array.isArray(galleryImages) ? galleryImages : [imageSrc];
+    currentImageIndex = imageViewerImages.indexOf(imageSrc);
+    if (currentImageIndex < 0) currentImageIndex = 0;
+
+    const viewer = document.getElementById('imageViewer');
+    const image = document.getElementById('imageViewerImage');
+    resetViewerTransform();
 
     setPortfolioImageSource(
         image,
         normalizePortfolioFile(imageViewerImages[currentImageIndex])
     );
 
+    updateViewerCounter();
     viewer.classList.remove('hidden');
     viewer.classList.add('flex');
-
-    document.body.style.overflow =
-        'hidden';
+    document.body.style.overflow = 'hidden';
 }
-
 
 function closeImageViewer() {
-
-    const viewer =
-        document.getElementById('imageViewer');
-
+    const viewer = document.getElementById('imageViewer');
     viewer.classList.add('hidden');
     viewer.classList.remove('flex');
-
-    document.body.style.overflow =
-        '';
+    resetViewerTransform();
+    document.body.style.overflow = '';
 }
 
+function updateViewerCounter() {
+    const counter = document.getElementById('viewerCounter');
+    if (!counter) return;
+    if (imageViewerImages.length > 1) {
+        counter.textContent = `${currentImageIndex + 1} / ${imageViewerImages.length}`;
+        counter.classList.remove('hidden');
+    } else {
+        counter.classList.add('hidden');
+    }
+}
 
 function changeViewerImage(direction) {
-
-    if (!imageViewerImages.length) {
-        return;
-    }
+    if (!imageViewerImages.length) return;
 
     currentImageIndex += direction;
+    if (currentImageIndex < 0) currentImageIndex = imageViewerImages.length - 1;
+    if (currentImageIndex >= imageViewerImages.length) currentImageIndex = 0;
 
-    if (currentImageIndex < 0) {
-
-        currentImageIndex =
-            imageViewerImages.length - 1;
-    }
-
-    if (
-        currentImageIndex >=
-        imageViewerImages.length
-    ) {
-
-        currentImageIndex = 0;
-    }
-
+    resetViewerTransform();
     setPortfolioImageSource(
         document.getElementById('imageViewerImage'),
         normalizePortfolioFile(imageViewerImages[currentImageIndex])
     );
+    updateViewerCounter();
 }
 
+function handleViewerWheel(event) {
+    event.preventDefault();
+    zoomViewer(event.deltaY < 0 ? 0.2 : -0.2, event.clientX, event.clientY);
+}
+
+function viewerPointerDownHandler(event) {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    viewerPointerDown = true;
+    viewerDragging = false;
+    viewerStartX = viewerLastX = event.clientX;
+    viewerStartY = viewerLastY = event.clientY;
+    viewerSwipeStartX = event.clientX;
+    viewerSwipeStartY = event.clientY;
+    const image = document.getElementById('imageViewerImage');
+    if (image) image.setPointerCapture?.(event.pointerId);
+}
+
+function viewerPointerMoveHandler(event) {
+    if (!viewerPointerDown) return;
+    const dx = event.clientX - viewerLastX;
+    const dy = event.clientY - viewerLastY;
+    const totalX = event.clientX - viewerStartX;
+    const totalY = event.clientY - viewerStartY;
+
+    if (Math.abs(totalX) > 5 || Math.abs(totalY) > 5) viewerDragging = true;
+
+    if (viewerZoom > 1) {
+        viewerPanX += dx;
+        viewerPanY += dy;
+        applyViewerTransform();
+        event.preventDefault();
+    }
+
+    viewerLastX = event.clientX;
+    viewerLastY = event.clientY;
+}
+
+function viewerPointerUpHandler(event) {
+    if (!viewerPointerDown) return;
+    viewerPointerDown = false;
+
+    const dx = event.clientX - viewerSwipeStartX;
+    const dy = event.clientY - viewerSwipeStartY;
+
+    // Swipe horizontal cuando no estamos haciendo zoom.
+    if (viewerZoom === 1 && Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)) {
+        changeViewerImage(dx < 0 ? 1 : -1);
+    }
+}
+
+function handleViewerDoubleClick(event) {
+    event.preventDefault();
+    if (viewerZoom > 1) {
+        resetViewerTransform();
+    } else {
+        zoomViewer(1, event.clientX, event.clientY);
+    }
+}
+
+function handleViewerKeydown(event) {
+    const viewer = document.getElementById('imageViewer');
+    if (!viewer || viewer.classList.contains('hidden')) return;
+
+    if (event.key === 'Escape') closeImageViewer();
+    if (event.key === 'ArrowLeft') changeViewerImage(-1);
+    if (event.key === 'ArrowRight') changeViewerImage(1);
+    if (event.key === '+' || event.key === '=') zoomViewer(0.25);
+    if (event.key === '-' || event.key === '_') zoomViewer(-0.25);
+    if (event.key === '0') resetViewerTransform();
+}
+
+document.addEventListener('keydown', handleViewerKeydown);
 
 /* =========================
    NOMBRE DE ARCHIVO
@@ -2128,22 +2274,34 @@ function updateFileName(input) {
             document.getElementById('file-name').textContent = '';
         }
     </script>
-<!-- VISOR UNIVERSAL DE IMÁGENES -->
+<!-- VISOR UNIVERSAL DE IMÁGENES — V24 -->
 <div class="fixed inset-0 z-[10000] hidden bg-black/90 items-center justify-center p-4" id="imageViewer" onclick="closeImageViewer()">
-<!-- Cerrar -->
-<button aria-label="Cerrar" class="absolute top-5 right-5 z-20 w-12 h-12 rounded-full bg-white/90 text-[#2858B2] text-2xl font-bold flex items-center justify-center shadow-lg hover:bg-white" onclick="event.stopPropagation(); closeImageViewer()">
-        ×
-    </button>
-<!-- Anterior -->
-<button aria-label="Imagen anterior" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/90 text-[#2858B2] text-3xl font-bold shadow-lg hover:bg-white" onclick="event.stopPropagation(); changeViewerImage(-1)">
-        ‹
-    </button>
-<!-- Imagen -->
-<img alt="Imagen ampliada" class="max-w-[90vw] max-h-[88vh] object-contain rounded-xl shadow-2xl" id="imageViewerImage" onclick="event.stopPropagation()" src=""/>
-<!-- Siguiente -->
-<button aria-label="Imagen siguiente" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/90 text-[#2858B2] text-3xl font-bold shadow-lg hover:bg-white" onclick="event.stopPropagation(); changeViewerImage(1)">
-        ›
-    </button>
+    <div class="viewer-stage" id="imageViewerStage">
+        <!-- Cerrar -->
+        <button aria-label="Cerrar" class="absolute top-5 right-5 z-30 w-12 h-12 rounded-full bg-white/90 text-[#2858B2] text-2xl font-bold flex items-center justify-center shadow-lg hover:bg-white" onclick="event.stopPropagation(); closeImageViewer()">×</button>
+
+        <!-- Controles de zoom -->
+        <div class="absolute top-5 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1 bg-white/90 rounded-full p-1 shadow-lg" onclick="event.stopPropagation()">
+            <button aria-label="Alejar" class="w-10 h-10 rounded-full text-[#2858B2] text-xl font-bold hover:bg-[#F5F8FF]" onclick="zoomViewer(-0.25)">−</button>
+            <span class="min-w-[58px] text-center text-sm font-bold text-[#2858B2]" id="viewerZoomLabel">100%</span>
+            <button aria-label="Acercar" class="w-10 h-10 rounded-full text-[#2858B2] text-xl font-bold hover:bg-[#F5F8FF]" onclick="zoomViewer(0.25)">+</button>
+            <button aria-label="Restablecer zoom" class="px-3 h-10 rounded-full text-xs font-bold text-[#2858B2] hover:bg-[#F5F8FF]" onclick="resetViewerTransform()">Restablecer</button>
+        </div>
+
+        <!-- Anterior -->
+        <button aria-label="Imagen anterior" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/90 text-[#2858B2] text-3xl font-bold shadow-lg hover:bg-white" onclick="event.stopPropagation(); changeViewerImage(-1)">‹</button>
+
+        <!-- Imagen -->
+        <img alt="Imagen ampliada" class="max-w-[90vw] max-h-[88vh] object-contain rounded-xl shadow-2xl" id="imageViewerImage" draggable="false" src="" onclick="event.stopPropagation()" onwheel="handleViewerWheel(event)" ondblclick="handleViewerDoubleClick(event)" onpointerdown="viewerPointerDownHandler(event)" onpointermove="viewerPointerMoveHandler(event)" onpointerup="viewerPointerUpHandler(event)" onpointercancel="viewerPointerUpHandler(event)"/>
+
+        <!-- Siguiente -->
+        <button aria-label="Imagen siguiente" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/90 text-[#2858B2] text-3xl font-bold shadow-lg hover:bg-white" onclick="event.stopPropagation(); changeViewerImage(1)">›</button>
+
+        <!-- Contador -->
+        <div id="viewerCounter" class="hidden absolute bottom-5 left-1/2 -translate-x-1/2 z-30 px-4 py-2 rounded-full bg-black/60 text-white text-sm font-semibold" onclick="event.stopPropagation()">1 / 1</div>
+
+        <div class="absolute bottom-5 right-5 z-30 hidden md:block px-3 py-2 rounded-lg bg-black/55 text-white text-xs" onclick="event.stopPropagation()">Rueda: zoom · Arrastra: mover · ← →: cambiar imagen · Doble clic: zoom</div>
+    </div>
 </div>
 
 <script id="atencion-directa-fix">
