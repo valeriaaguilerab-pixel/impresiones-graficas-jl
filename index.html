@@ -1898,7 +1898,8 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
                     >
 
                         <img
-                            src="${imageSrc}"
+                            src="about:blank"
+                            data-portfolio-file="${imageSrc.replace(/^\.\//, '').replace(/im%C3%A1genes\//, '').replace(/imágenes\//, '')}"
                             alt="${title} - imagen ${index + 1}"
                             class="${galleryImages.length === 1 ? 'w-full max-h-[520px] object-contain mx-auto hover:scale-105 transition-transform duration-300' : 'w-full h-full object-cover hover:scale-105 transition-transform duration-300'}"
                         >
@@ -1909,6 +1910,10 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
 
             </div>
         `;
+
+        if (window.wireModalPortfolioImages) {
+            window.wireModalPortfolioImages();
+        }
 
     } else {
 
@@ -2009,8 +2014,10 @@ function openImageViewer(imageSrc, galleryImages) {
     const image =
         document.getElementById('imageViewerImage');
 
-    image.src =
-        imageViewerImages[currentImageIndex];
+    setPortfolioImageSource(
+        image,
+        normalizePortfolioFile(imageViewerImages[currentImageIndex])
+    );
 
     viewer.classList.remove('hidden');
     viewer.classList.add('flex');
@@ -2055,10 +2062,10 @@ function changeViewerImage(direction) {
         currentImageIndex = 0;
     }
 
-    document.getElementById(
-        'imageViewerImage'
-    ).src =
-        imageViewerImages[currentImageIndex];
+    setPortfolioImageSource(
+        document.getElementById('imageViewerImage'),
+        normalizePortfolioFile(imageViewerImages[currentImageIndex])
+    );
 }
 
 
@@ -2152,57 +2159,73 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 <!-- FIX V22 — Carga robusta de imágenes de Nuestros Proyectos en GitHub Pages -->
-<script id="portfolio-images-fix-v22">
+
+
+
+
+<!-- FIX V23 — Carga de imágenes de proyectos desde /imágenes/ en GitHub Pages.
+     El src se asigna DESPUÉS de registrar onerror, evitando que el navegador
+     pierda el primer error de carga. También funciona con el modal dinámico. -->
+<script id="portfolio-images-fix-v23">
 (function () {
-    function portfolioImageCandidates(path) {
-        const clean = String(path || '').replace(/^\.\//, '');
-        const encodedPath = clean.split('/').map(encodeURIComponent).join('/');
+    function normalizePortfolioFile(file) {
+        return String(file || '')
+            .replace(/^\.\//, '')
+            .replace(/^im%C3%A1genes\//i, '')
+            .replace(/^imágenes\//i, '')
+            .replace(/^imagenes\//i, '');
+    }
+
+    function portfolioImageCandidates(file) {
+        const clean = normalizePortfolioFile(file);
+        const encodedFile = clean.split('/').map(encodeURIComponent).join('/');
         return [
-            './' + encodedPath,
-            './im%C3%A1genes/' + clean.split('/').map(encodeURIComponent).join('/'),
+            './im%C3%A1genes/' + encodedFile,
             './imágenes/' + clean,
+            './imagenes/' + encodedFile,
             './imagenes/' + clean
         ];
     }
 
-    function loadPortfolioImage(img) {
-        if (!img || img.dataset.portfolioFix === 'done') return;
+    window.setPortfolioImageSource = function (img, file) {
+        if (!img) return;
 
-        const src = img.getAttribute('src') || '';
-        let file = img.getAttribute('data-file') || '';
-
-        if (!file && src) {
-            const marker = 'im%C3%A1genes/';
-            const markerDecoded = 'imágenes/';
-            if (src.includes(marker)) file = src.split(marker)[1];
-            else if (src.includes(markerDecoded)) file = src.split(markerDecoded)[1];
-            else if (src.includes('./imagenes/')) file = src.split('./imagenes/')[1];
-        }
-
-        if (!file) return;
-
-        img.dataset.portfolioFix = 'done';
         const candidates = portfolioImageCandidates(file);
         let index = 0;
 
-        function tryNext() {
-            if (index >= candidates.length) return;
-            img.onerror = tryNext;
-            img.src = candidates[index++];
-        }
+        img.onerror = function () {
+            if (index < candidates.length) {
+                img.src = candidates[index++];
+            } else {
+                img.onerror = null;
+            }
+        };
 
-        img.dataset.file = file;
-        img.onerror = tryNext;
+        img.src = candidates[index++];
+    };
+
+    function wireStaticPortfolioImages() {
+        document.querySelectorAll('#portfolio-grid img[data-file]').forEach(function (img) {
+            setPortfolioImageSource(img, img.getAttribute('data-file'));
+        });
     }
 
-    function initPortfolioImages() {
-        document.querySelectorAll('#portfolio-grid img').forEach(loadPortfolioImage);
+    function wireModalPortfolioImages() {
+        document.querySelectorAll('#modal-graphic-preview img[data-portfolio-file]').forEach(function (img) {
+            setPortfolioImageSource(img, img.getAttribute('data-portfolio-file'));
+        });
     }
+
+    window.wireModalPortfolioImages = wireModalPortfolioImages;
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initPortfolioImages);
+        document.addEventListener('DOMContentLoaded', function () {
+            wireStaticPortfolioImages();
+            wireModalPortfolioImages();
+        });
     } else {
-        initPortfolioImages();
+        wireStaticPortfolioImages();
+        wireModalPortfolioImages();
     }
 })();
 </script>
