@@ -191,7 +191,7 @@ label {
    Títulos de proceso: mayores que sus párrafos
    ========================================================= */
 
-/* Inicio: indicadores 100%, +30 años y Atención directa */
+/* Inicio: indicadores 100%, +30 años y Trato directo */
 #inicio .pt-8.grid > div > p:first-child,
 #inicio .pt-8.grid > div > p:first-of-type {
     font-size: 28px !important;
@@ -954,7 +954,7 @@ label {
 </style>
 
 <style id="indicadores-inicio-alineados-v40">
-/* V40 — Solo indicadores del inicio: 100%, +30 años y Atención directa */
+/* V40 — Solo indicadores del inicio: 100%, +30 años y Trato directo */
 #inicio .pt-8.grid.grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
     column-gap: 48px !important;
@@ -1014,6 +1014,19 @@ label {
     margin-left: auto !important;
 }
 </style>
+
+<style id="ajuste-trato-directo-v44">
+/* V44 — SOLO "Trato directo": ligeramente más pequeño */
+#inicio .pt-8.grid.grid-cols-3 > div:nth-child(3) > p:first-child {
+    font-size: 30px !important;
+}
+@media (max-width: 767px) {
+    #inicio .pt-8.grid.grid-cols-3 > div:nth-child(3) > p:first-child {
+        font-size: 25px !important;
+    }
+}
+</style>
+
 </head>
 <body class="antialiased selection:bg-sky selection:text-[#2858B2]">
 <!-- Top Announcement Bar -->
@@ -1131,7 +1144,7 @@ label {
 <p class="text-xs text-gray-500 font-medium">Experiencia en el rubro</p>
 </div>
 <div>
-<p class="font-heading font-bold text-[#2858B2]">Atención directa</p>
+<p class="font-heading font-bold text-[#2858B2]">Trato directo</p>
 <p class="text-xs text-gray-500 font-medium">Asesoría cercana</p>
 </div>
 </div>
@@ -2538,7 +2551,7 @@ function updateFileName(input) {
 <script id="atencion-directa-fix">
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('h1,h2,h3,h4,p,span').forEach(function (el) {
-        if (el.textContent.trim() === 'Atención directa') {
+        if (el.textContent.trim() === 'Trato directo') {
             el.classList.add('atencion-directa');
             el.id = 'atencion-directa';
         }
