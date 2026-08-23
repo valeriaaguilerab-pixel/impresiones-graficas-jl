@@ -13,272 +13,328 @@ function escapeHtml(value = "") {
     .replace(/'/g, "&#039;");
 }
 
-function parseMultipart(req) {
-  return new Promise((resolve, reject) => {
-    const contentType = req.headers["content-type"] || "";
+async function getRawBody(req) {
+  const chunks = [];
 
-    if (!contentType.includes("multipart/form-data")) {
-      return reject(new Error("El formulario no fue enviado como multipart/form-data."));
+  for await (const chunk of req) {
+    chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+  }
+
+  return Buffer.concat(chunks);
+}
+
+function parseMultipart(buffer, contentType) {
+  const match = contentType.match(/boundary=(?:"([^"]+)"|([^;]+))/i);
+
+  if (!match) {
+    throw new Error("No se encontró el boundary del formulario");
+  }
+
+  const boundary = Buffer.from(`--${match[1] || match[2]}`);
+  const parts = [];
+
+  let start = 0;
+
+  while (true) {
+    const boundaryIndex = buffer.indexOf(boundary, start);
+
+    if (boundaryIndex === -1) break;
+
+    const nextStart = boundaryIndex + boundary.length;
+
+    if (buffer[nextStart] === 45 && buffer[nextStart + 1] === 45) {
+      break;
     }
 
-    const boundaryMatch = contentType.match(/boundary=(?:"([^"]+)"|([^;]+))/);
+    let partStart = nextStart;
 
-    if (!boundaryMatch) {
-      return reject(new Error("No se encontró el boundary del formulario."));
+    if (
+      buffer[partStart] === 13 &&
+      buffer[partStart + 1] === 10
+    ) {
+      partStart += 2;
     }
 
-    const boundary = Buffer.from(`--${boundaryMatch[1] || boundaryMatch[2]}`);
+    const nextBoundary = buffer.indexOf(boundary, partStart);
 
-    const chunks = [];
+    if (nextBoundary === -1) break;
 
-    req.on("data", (chunk) => {
-      chunks.push(chunk);
+    let part = buffer.subarray(partStart, nextBoundary);
+
+    if (
+      part.length >= 2 &&
+      part[part.length - 2] === 13 &&
+      part[part.length - 1] === 10
+    ) {
+      part = part.subarray(0, part.length - 2);
+    }
+
+    const headerEnd = part.indexOf(
+      Buffer.from("\r\n\r\n")
+    );
+
+    if (headerEnd === -1) {
+      start = nextBoundary;
+      continue;
+    }
+
+    const headers = part
+      .subarray(0, headerEnd)
+      .toString("utf8");
+
+    const content = part.subarray(headerEnd + 4);
+
+    const nameMatch = headers.match(
+      /name="([^"]+)"/i
+    );
+
+    if (!nameMatch) {
+      start = nextBoundary;
+      continue;
+    }
+
+    const name = nameMatch[1];
+
+    const filenameMatch = headers.match(
+      /filename="([^"]*)"/i
+    );
+
+    const contentTypeMatch = headers.match(
+      /Content-Type:\s*([^\r\n]+)/i
+    );
+
+    parts.push({
+      name,
+      filename: filenameMatch
+        ? filenameMatch[1]
+        : null,
+      contentType: contentTypeMatch
+        ? contentTypeMatch[1].trim()
+        : null,
+      content,
     });
 
-    req.on("end", () => {
-      try {
-        const body = Buffer.concat(chunks);
-        const fields = {};
-        let file = null;
+    start = nextBoundary;
+  }
 
-        let position = body.indexOf(boundary);
-
-        while (position !== -1) {
-          const nextPosition = body.indexOf(boundary, position + boundary.length);
-
-          if (nextPosition === -1) {
-            break;
-          }
-
-          const part = body.slice(
-            position + boundary.length,
-            nextPosition
-          );
-
-          const headerEnd = part.indexOf("\r\n\r\n");
-
-          if (headerEnd === -1) {
-            position = nextPosition;
-            continue;
-          }
-
-          const headers = part
-            .slice(0, headerEnd)
-            .toString("utf8");
-
-          let content = part.slice(headerEnd + 4);
-
-          if (content.slice(-2).toString() === "\r\n") {
-            content = content.slice(0, -2);
-          }
-
-          const nameMatch = headers.match(
-            /name="([^"]+)"/
-          );
-
-          if (!nameMatch) {
-            position = nextPosition;
-            continue;
-          }
-
-          const fieldName = nameMatch[1];
-
-          const filenameMatch = headers.match(
-            /filename="([^"]*)"/
-          );
-
-          if (filenameMatch && filenameMatch[1]) {
-            const filename = filenameMatch[1];
-
-            file = {
-              filename,
-              content,
-              contentType:
-                (
-                  headers.match(
-                    /Content-Type:\s*([^\r\n]+)/i
-                  ) || []
-                )[1] || "application/octet-stream",
-            };
-          } else {
-            fields[fieldName] = content.toString("utf8");
-          }
-
-          position = nextPosition;
-        }
-
-        resolve({ fields, file });
-      } catch (error) {
-        reject(error);
-      }
-    });
-
-    req.on("error", reject);
-  });
+  return parts;
 }
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({
-      ok: false,
       error: "Método no permitido",
     });
   }
 
   try {
-    const { fields, file } = await parseMultipart(req);
+    const contentType =
+      req.headers["content-type"] || "";
+
+    const rawBody = await getRawBody(req);
+
+    let fields = {};
+    let attachment = null;
+
+    // FORMULARIO CON ARCHIVO
+    if (
+      contentType
+        .toLowerCase()
+        .includes("multipart/form-data")
+    ) {
+      const parts = parseMultipart(
+        rawBody,
+        contentType
+      );
+
+      for (const part of parts) {
+        if (part.filename) {
+          if (part.content.length > 20 * 1024 * 1024) {
+            return res.status(400).json({
+              error:
+                "El archivo supera el límite de 20 MB.",
+            });
+          }
+
+          attachment = {
+            filename: part.filename,
+            content: part.content.toString("base64"),
+            content_type:
+              part.contentType ||
+              "application/octet-stream",
+          };
+        } else {
+          fields[part.name] =
+            part.content.toString("utf8");
+        }
+      }
+    }
+
+    // FORMULARIO JSON
+    else {
+      try {
+        fields = JSON.parse(
+          rawBody.toString("utf8")
+        );
+      } catch {
+        return res.status(400).json({
+          error: "No se pudo leer el formulario.",
+        });
+      }
+    }
 
     const nombre = fields.nombre || "";
-    const empresa = fields.empresa || "";
-    const whatsapp = fields.whatsapp || "";
     const email = fields.email || "";
-    const servicio = fields.servicio || "";
+    const telefono = fields.telefono || "";
+    const producto = fields.producto || "";
     const cantidad = fields.cantidad || "";
-    const papel = fields.papel || "";
-    const acabado = fields.acabado || "";
-    const mensaje = fields.mensaje || "";
+    const mensaje =
+      fields.mensaje ||
+      fields.detalles ||
+      "";
 
-    if (!nombre || !email || !servicio) {
+    if (!nombre || !email || !producto) {
       return res.status(400).json({
-        ok: false,
-        error: "Faltan datos obligatorios.",
+        error:
+          "Faltan datos obligatorios: nombre, email o producto.",
       });
     }
 
-    const maxFileSize = 4 * 1024 * 1024;
+    const emailBody = {
+      from: `Impresiones Gráficas J.I. <cotizaciones@${process.env.RESEND_EMAIL_DOMAIN}>`,
 
-    if (file && file.content.length > maxFileSize) {
-      return res.status(400).json({
-        ok: false,
-        error: "El archivo es demasiado grande. Por favor adjunta un archivo de hasta 4 MB.",
-      });
+      to: ["juanaguilerap@yahoo.com"],
+
+      reply_to: email,
+
+      subject:
+        `Nueva solicitud de cotización - ${producto}`,
+
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 700px; margin: auto;">
+
+          <h2 style="color:#183B70;">
+            Nueva solicitud de cotización
+          </h2>
+
+          <hr>
+
+          <p>
+            <strong>Nombre:</strong>
+            ${escapeHtml(nombre)}
+          </p>
+
+          <p>
+            <strong>Correo:</strong>
+            ${escapeHtml(email)}
+          </p>
+
+          <p>
+            <strong>Teléfono:</strong>
+            ${escapeHtml(telefono || "No indicado")}
+          </p>
+
+          <p>
+            <strong>Producto o trabajo:</strong>
+            ${escapeHtml(producto)}
+          </p>
+
+          <p>
+            <strong>Cantidad:</strong>
+            ${escapeHtml(cantidad || "No indicada")}
+          </p>
+
+          <h3 style="color:#183B70;">
+            Detalles adicionales
+          </h3>
+
+          <p>
+            ${escapeHtml(
+              mensaje || "Sin información adicional"
+            ).replace(/\n/g, "<br>")}
+          </p>
+
+          ${
+            attachment
+              ? `
+                <hr>
+                <p>
+                  <strong>Archivo adjunto:</strong>
+                  ${escapeHtml(
+                    attachment.filename
+                  )}
+                </p>
+              `
+              : ""
+          }
+
+        </div>
+      `,
+    };
+
+    // AGREGAR ARCHIVO ADJUNTO SI EXISTE
+    if (attachment) {
+      emailBody.attachments = [
+        {
+          filename: attachment.filename,
+          content: attachment.content,
+          content_type: attachment.content_type,
+        },
+      ];
     }
-
-    const attachments = [];
-
-    if (file) {
-      attachments.push({
-        filename: file.filename,
-        content: file.content.toString("base64"),
-      });
-    }
-
-    const html = `
-      <div style="font-family:Arial,sans-serif;line-height:1.6;color:#222;">
-        <h2>Nueva solicitud de cotización</h2>
-
-        <h3>Datos del cliente</h3>
-
-        <p>
-          <strong>Nombre:</strong>
-          ${escapeHtml(nombre)}
-        </p>
-
-        <p>
-          <strong>Empresa / Institución:</strong>
-          ${escapeHtml(empresa || "No indicada")}
-        </p>
-
-        <p>
-          <strong>WhatsApp:</strong>
-          ${escapeHtml(whatsapp || "No indicado")}
-        </p>
-
-        <p>
-          <strong>Correo:</strong>
-          ${escapeHtml(email)}
-        </p>
-
-        <h3>Detalles del trabajo</h3>
-
-        <p>
-          <strong>Producto o servicio:</strong>
-          ${escapeHtml(servicio)}
-        </p>
-
-        <p>
-          <strong>Cantidad:</strong>
-          ${escapeHtml(cantidad || "No indicada")}
-        </p>
-
-        <p>
-          <strong>Papel / Material:</strong>
-          ${escapeHtml(papel || "No indicado")}
-        </p>
-
-        <p>
-          <strong>Acabado / Terminación:</strong>
-          ${escapeHtml(acabado || "No indicado")}
-        </p>
-
-        <h3>Detalles adicionales</h3>
-
-        <p>
-          ${escapeHtml(mensaje || "Sin detalles adicionales.")}
-        </p>
-
-        ${
-          file
-            ? `
-              <p>
-                <strong>Archivo adjunto:</strong>
-                ${escapeHtml(file.filename)}
-              </p>
-            `
-            : `
-              <p>
-                <strong>Archivo adjunto:</strong>
-                No se adjuntó ningún archivo.
-              </p>
-            `
-        }
-      </div>
-    `;
 
     const response = await fetch(
       "https://api.resend.com/emails",
       {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+
+          Authorization:
+            `Bearer ${process.env.RESEND_API_KEY}`,
         },
-        body: JSON.stringify({
-          from: "Impresiones Gráficas J.I. <cotizaciones@impresionesgraficasji.cl>",
-          to: ["juanaguilerap@yahoo.com"],
-          reply_to: email,
-          subject: `Nueva solicitud de cotización — ${servicio}`,
-          html,
-          attachments,
-        }),
+
+        body: JSON.stringify(emailBody),
       }
     );
 
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("Error de Resend:", data);
+      console.error(
+        "ERROR RESEND:",
+        data
+      );
 
       return res.status(response.status).json({
-        ok: false,
         error:
           data.message ||
           "Resend no pudo enviar el correo.",
       });
     }
 
+    console.log(
+      "CORREO ENVIADO:",
+      data
+    );
+
     return res.status(200).json({
-      ok: true,
-      message: "Cotización enviada correctamente.",
+      success: true,
+      message:
+        "Cotización enviada correctamente.",
     });
+
   } catch (error) {
-    console.error("Error en send-quote:", error);
+    console.error(
+      "ERROR SERVIDOR:",
+      error
+    );
 
     return res.status(500).json({
-      ok: false,
       error:
         error.message ||
-        "Error interno al procesar la cotización.",
+        "Error interno del servidor.",
     });
   }
 }
