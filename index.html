@@ -936,6 +936,63 @@ label {
 }
 </style>
 
+
+<style id="proceso-v36-alineacion">
+/* V36 — SOLO sección "Así trabajamos contigo" */
+#proceso .process-title {
+    min-height: 2.6em !important;
+    margin-bottom: 0 !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+}
+#proceso .process-text {
+    text-align: justify !important;
+    text-justify: inter-word !important;
+    margin-top: 0.5rem !important;
+}
+</style>
+
+<style id="indicadores-inicio-alineados-v40">
+/* V40 — Solo indicadores del inicio: 100%, +30 años y Atención directa */
+#inicio .pt-8.grid.grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    column-gap: 48px !important;
+    align-items: start !important;
+    max-width: 620px !important;
+}
+#inicio .pt-8.grid.grid-cols-3 > div {
+    min-width: 0 !important;
+}
+#inicio .pt-8.grid.grid-cols-3 > div > p:first-child {
+    font-size: 34px !important;
+    line-height: 1.12 !important;
+    font-weight: 800 !important;
+    margin: 0 !important;
+    min-height: 76px !important;
+    display: flex !important;
+    align-items: flex-start !important;
+}
+#inicio .pt-8.grid.grid-cols-3 > div > p:last-child {
+    font-size: 18px !important;
+    line-height: 1.45 !important;
+    font-weight: 500 !important;
+    margin: 0 !important;
+}
+@media (max-width: 767px) {
+    #inicio .pt-8.grid.grid-cols-3 {
+        column-gap: 20px !important;
+        max-width: 100% !important;
+    }
+    #inicio .pt-8.grid.grid-cols-3 > div > p:first-child {
+        font-size: 28px !important;
+        min-height: 64px !important;
+    }
+    #inicio .pt-8.grid.grid-cols-3 > div > p:last-child {
+        font-size: 16px !important;
+    }
+}
+</style>
 </head>
 <body class="antialiased selection:bg-sky selection:text-[#2858B2]">
 <!-- Top Announcement Bar -->
@@ -945,8 +1002,8 @@ label {
 <span><i class="fa-solid fa-check-circle text-sky mr-1"></i> Atención personalizada para particulares, emprendedores y empresas</span>
 </div>
 <div class="flex items-center gap-4">
-<a class="hover:text-sky transition flex items-center gap-1" href="https://wa.me/5699056453?text=Hola,%20quisiera%20consultar%20por%20servicios%20de%20impresión" target="_blank">
-<i class="fa-brands fa-whatsapp text-green-400"></i> +56 9 9056 453
+<a class="hover:text-sky transition flex items-center gap-1" href="https://wa.me/56990596453?text=Hola,%20quisiera%20consultar%20por%20servicios%20de%20impresión" target="_blank">
+<i class="fa-brands fa-whatsapp text-green-400"></i> +56 9 9059 6453
                 </a>
 <span class="hidden md:inline">|</span>
 <span class="hidden md:inline"><i class="fa-regular fa-clock text-sky mr-1"></i> Lun - Vie: 09:00 - 17:30 hrs</span>
@@ -978,7 +1035,7 @@ label {
 <nav class="hidden lg:flex items-center space-x-8">
 <a class="text-sm font-semibold text-gray-700 hover:text-[#2858B2] transition-colors" href="#inicio">Inicio</a>
 <a class="text-sm font-semibold text-gray-700 hover:text-[#2858B2] transition-colors" href="#servicios">Servicios</a>
-<a class="text-sm font-semibold text-gray-700 hover:text-[#2858B2] transition-colors" href="#portafolio"></a>
+<a class="hidden" href="#portafolio"></a>
 <a class="text-sm font-semibold text-gray-700 hover:text-[#2858B2] transition-colors" href="#nuestra-historia">Nuestra Historia</a>
 <a class="text-sm font-semibold text-gray-700 hover:text-[#2858B2] transition-colors" href="#¿Por qué elegirnos?">¿Por qué elegirnos?</a>
 <a class="text-sm font-semibold text-gray-700 hover:text-[#2858B2] transition-colors" href="#proceso">Proceso</a>
@@ -999,7 +1056,7 @@ label {
 <div class="hidden lg:hidden bg-white border-b border-sky/30 px-4 pt-2 pb-6 space-y-3 shadow-lg" id="mobile-menu">
 <a class="mobile-nav-link block py-2 px-3 text-base font-medium text-gray-700 rounded-md hover:bg-mainbg hover:text-[#2858B2]" href="#inicio">Inicio</a>
 <a class="mobile-nav-link block py-2 px-3 text-base font-medium text-gray-700 rounded-md hover:bg-mainbg hover:text-[#2858B2]" href="#servicios">Servicios</a>
-<a class="mobile-nav-link block py-2 px-3 text-base font-medium text-gray-700 rounded-md hover:bg-mainbg hover:text-[#2858B2]" href="#portafolio"></a>
+<a class="hidden" href="#portafolio"></a>
 <a class="text-sm font-semibold text-gray-700 hover:text-[#2858B2] transition-colors" href="#nuestra-historia">Nuestra Historia</a>
 <a class="mobile-nav-link block py-2 px-3 text-base font-medium text-gray-700 rounded-md hover:bg-mainbg hover:text-[#2858B2]" href="#porque-elegirnos">¿Por qué elegirnos?</a>
 <a class="mobile-nav-link block py-2 px-3 text-base font-medium text-gray-700 rounded-md hover:bg-mainbg hover:text-[#2858B2]" href="#proceso">Proceso</a>
@@ -1008,7 +1065,7 @@ label {
 <a class="mobile-nav-link w-full text-center py-3 px-4 rounded-lg font-semibold text-white bg-[#2858B2]" href="#cotizacion">
                     Solicitar Cotización
                 </a>
-<a class="w-full text-center py-3 px-4 rounded-lg font-semibold text-[#2858B2] border border-[#2858B2] bg-white flex items-center justify-center gap-2" href="https://wa.me/5699056453?text=Hola,%20me%20gustaría%20solicitar%20información%20sobre%20sus%20servicios" target="_blank">
+<a class="w-full text-center py-3 px-4 rounded-lg font-semibold text-[#2858B2] border border-[#2858B2] bg-white flex items-center justify-center gap-2" href="https://wa.me/56990596453?text=Hola,%20me%20gustaría%20solicitar%20información%20sobre%20sus%20servicios" target="_blank">
 <i class="fa-brands fa-whatsapp text-green-600"></i> Contactar por WhatsApp
                 </a>
 </div>
@@ -1053,7 +1110,7 @@ label {
 <p class="text-xs text-gray-500 font-medium">Experiencia en el rubro</p>
 </div>
 <div>
-<p class="font-heading font-bold text-[#2858B2]" style="font-size: 20px !important; line-height: 1.2 !important;">Atención directa</p>
+<p class="font-heading font-bold text-[#2858B2]">Atención directa</p>
 <p class="text-xs text-gray-500 font-medium">Asesoría cercana</p>
 </div>
 </div>
@@ -1332,7 +1389,7 @@ label {
 <!-- AGENDAS -->
 <div class="portfolio-item agendas bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Agendas Personalizadas', 'Agendas', 'Agendas personalizadas en diferentes formatos, tipos de papel, gramajes y terminaciones, adaptadas a la identidad y necesidades de cada proyecto.', 'agendas')">
 <div class="relative h-64 bg-[#F5F8FF] overflow-hidden">
-<img alt="Agendas personalizadas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="./im%C3%A1genes/agendas/agenda-portada.png" data-file="agendas/agenda-portada.png"/>
+<img alt="Agendas personalizadas" class="w-full h-full object-contain object-top group-hover:scale-105 transition-transform duration-300" src="./im%C3%A1genes/agendas/agenda-portada.png" data-file="agendas/agenda-portada.png"/>
 <div class="absolute inset-0 bg-[#2858B2]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
 <span class="bg-white text-[#2858B2] px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ver proyecto</span>
 </div>
@@ -1346,7 +1403,7 @@ label {
 <!-- CAJAS -->
 <div class="portfolio-item cajas bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Cajas Personalizadas y Packaging', 'Cajas y Packaging', 'Cajas y packaging personalizados en diferentes formatos, papeles, cartulinas y terminaciones, ideales para productos, tarjetas y presentaciones especiales.', 'cajas')">
 <div class="relative h-64 bg-[#F5F8FF] overflow-hidden">
-<img alt="Cajas personalizadas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="./im%C3%A1genes/cajas-portada.png" data-file="cajas-portada.png"/>
+<img alt="Cajas personalizadas" class="w-full h-full object-contain object-top group-hover:scale-105 transition-transform duration-300" src="./im%C3%A1genes/cajas-portada.png" data-file="cajas-portada.png"/>
 <div class="absolute inset-0 bg-[#2858B2]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
 <span class="bg-white text-[#2858B2] px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ver proyecto</span>
 </div>
@@ -1360,7 +1417,7 @@ label {
 <!-- PAPELERÍA CORPORATIVA -->
 <div class="portfolio-item papeleria bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Papelería Corporativa', 'Papelería Corporativa', 'Carpetas, sobres, tarjetas y hojas personalizadas en diferentes tipos de papel, gramajes, formatos y terminaciones para una presentación profesional.', 'papeleria')">
 <div class="relative h-64 bg-[#F5F8FF] overflow-hidden">
-<img alt="Papelería corporativa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="./im%C3%A1genes/carpeta-e-portada.png" data-file="carpeta-e-portada.png"/>
+<img alt="Papelería corporativa" class="w-full h-full object-contain object-top group-hover:scale-105 transition-transform duration-300" src="./im%C3%A1genes/carpeta-e-portada.png" data-file="carpeta-e-portada.png"/>
 <div class="absolute inset-0 bg-[#2858B2]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
 <span class="bg-white text-[#2858B2] px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ver proyecto</span>
 </div>
@@ -1374,7 +1431,7 @@ label {
 <!-- PAPELERÍA PROFESIONAL -->
 <div class="portfolio-item profesional bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Papelería Profesional y Médica', 'Papelería Profesional', 'Recetarios, solicitudes y formularios personalizados en diferentes formatos, tipos de papel y terminaciones para profesionales e instituciones.', 'profesional')">
 <div class="relative h-64 bg-[#F5F8FF] overflow-hidden">
-<img alt="Papelería profesional y médica" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="./im%C3%A1genes/recetario-portada.png" data-file="recetario-portada.png"/>
+<img alt="Papelería profesional y médica" class="w-full h-full object-contain object-top group-hover:scale-105 transition-transform duration-300" src="./im%C3%A1genes/recetario-portada.png" data-file="recetario-portada.png"/>
 <div class="absolute inset-0 bg-[#2858B2]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
 <span class="bg-white text-[#2858B2] px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ver proyecto</span>
 </div>
@@ -1388,7 +1445,7 @@ label {
 <!-- ETIQUETAS -->
 <div class="portfolio-item etiquetas bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Etiquetas Personalizadas', 'Etiquetas y Adhesivos', 'Etiquetas personalizadas en diferentes tamaños, formas, papeles autoadhesivos y terminaciones para productos, packaging y presentaciones.', 'etiquetas')">
 <div class="relative h-64 bg-[#F5F8FF] overflow-hidden">
-<img alt="Etiquetas personalizadas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="./im%C3%A1genes/etiqueta-portada.png" data-file="etiqueta-portada.png"/>
+<img alt="Etiquetas personalizadas" class="w-full h-full object-contain object-top group-hover:scale-105 transition-transform duration-300" src="./im%C3%A1genes/etiqueta-portada.png" data-file="etiqueta-portada.png"/>
 <div class="absolute inset-0 bg-[#2858B2]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
 <span class="bg-white text-[#2858B2] px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ver proyecto</span>
 </div>
@@ -1402,7 +1459,7 @@ label {
 <!-- PRESENTACIÓN -->
 <div class="portfolio-item presentacion bg-white rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 border border-sky/30 group cursor-pointer" onclick="openModal('Porta CD y Presentaciones', 'Material de Presentación', 'Porta CD y piezas de presentación personalizadas en diferentes papeles, formatos y terminaciones para proyectos institucionales, comerciales y profesionales.', 'presentacion')">
 <div class="relative h-64 bg-[#F5F8FF] overflow-hidden">
-<img alt="Porta CD y presentación" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="./im%C3%A1genes/cd-portada.png" data-file="cd-portada.png"/>
+<img alt="Porta CD y presentación" class="w-full h-full object-contain object-top group-hover:scale-105 transition-transform duration-300" src="./im%C3%A1genes/cd-portada.png" data-file="cd-portada.png"/>
 <div class="absolute inset-0 bg-[#2858B2]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
 <span class="bg-white text-[#2858B2] px-4 py-2 rounded-full font-bold text-xs shadow"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Ver proyecto</span>
 </div>
@@ -1424,7 +1481,7 @@ label {
 <span class="inline-block px-5 py-2 rounded-full bg-softbg text-[#2858B2] font-bold tracking-wider text-sm">
                 OFICIO, CONFIANZA Y VERSATILIDAD
             </span>
-<h2 class="mt-6 text-xl sm:text-2xl font-heading font-bold text-[#2858B2] section-title">
+<h2 class="mt-6 text-3xl sm:text-4xl font-heading font-bold text-[#2858B2] section-title">
                 Detrás de Impresiones Gráficas J.I.
             </h2>
 <p class="mt-7 text-base sm:text-xl text-gray-600 leading-relaxed">
@@ -1700,7 +1757,7 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
                 Cuéntanos qué necesitas y te ayudaremos a encontrar la mejor alternativa para tu impresión.
             </p>
 <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-<a class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl text-base font-bold text-white bg-[#2858B2] hover:bg-[#1F4690] shadow-md transition" href="https://wa.me/5699056453?text=Hola,%20tengo%20un%20proyecto%20de%20impresión%20y%20me%20gustaría%20asesorarme" target="_blank">
+<a class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl text-base font-bold text-white bg-[#2858B2] hover:bg-[#1F4690] shadow-md transition" href="https://wa.me/56990596453?text=Hola,%20tengo%20un%20proyecto%20de%20impresión%20y%20me%20gustaría%20asesorarme" target="_blank">
 <i class="fa-brands fa-whatsapp text-green-400 text-xl mr-2"></i> MÁNDANOS UN MENSAJE
                 </a>
 <a class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl text-base font-bold text-[#2858B2] bg-white border-2 border-[#2858B2] hover:bg-sky-light transition" href="#cotizacion">
@@ -1892,13 +1949,13 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
                         Servicios gráficos e impresión profesional. Ponte en contacto directamente con nosotros para resolver tus dudas o coordinar tus entregas.
                     </p>
 <div class="space-y-4 pt-2">
-<a class="flex items-center gap-4 p-4 rounded-xl bg-mainbg border border-sky/40 hover:bg-[#F5F8FF] transition" href="https://wa.me/5699056453" target="_blank">
+<a class="flex items-center gap-4 p-4 rounded-xl bg-mainbg border border-sky/40 hover:bg-[#F5F8FF] transition" href="https://wa.me/56990596453" target="_blank">
 <div class="w-10 h-10 rounded-lg bg-[#2858B2] text-white flex items-center justify-center text-xl">
 <i class="fa-brands fa-whatsapp"></i>
 </div>
 <div>
 <p class="text-xs text-gray-500 uppercase font-bold">WhatsApp Directo</p>
-<p class="text-sm font-bold text-[#2858B2]">+56 9 9056 453</p>
+<p class="text-sm font-bold text-[#2858B2]">+56 9 9059 6453</p>
 </div>
 </a>
 <div class="flex items-center gap-4 p-4 rounded-xl bg-mainbg border border-sky/40">
@@ -1969,12 +2026,12 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
 </div>
 <!-- Contacto -->
 <div class="flex items-center gap-6 text-sm text-sky">
-<a class="flex items-center gap-2 hover:text-white transition" href="https://wa.me/5699056453" target="_blank">
+<a class="flex items-center gap-2 hover:text-white transition" href="https://wa.me/56990596453" target="_blank">
 <i class="fa-brands fa-whatsapp text-base"></i>
 <span>WhatsApp</span>
 </a>
-<div class="flex items-start gap-2">
-<i class="fa-regular fa-envelope text-base mt-1"></i>
+<div class="flex items-center gap-2">
+<i class="fa-regular fa-envelope text-base"></i>
 <div class="flex flex-col">
 <a class="hover:text-white transition" href="mailto:contacto@impresionesgraficasji.cl">contacto@impresionesgraficasji.cl</a>
 <a class="hover:text-white transition" href="mailto:juanaguilerap@yahoo.com">juanaguilerap@yahoo.com</a>
@@ -1995,7 +2052,7 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
 </div>
 </footer>
 <!-- Floating WhatsApp Widget -->
-<a aria-label="Chat en WhatsApp" class="fixed bottom-6 right-6 z-50 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:bg-green-600 hover:scale-110 transition-all duration-300 group" href="https://wa.me/5699056453?text=Hola!%20Me%20gustaría%20cotizar%20un%20servicio%20de%20impresión." target="_blank">
+<a aria-label="Chat en WhatsApp" class="fixed bottom-6 right-6 z-50 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:bg-green-600 hover:scale-110 transition-all duration-300 group" href="https://wa.me/56990596453?text=Hola!%20Me%20gustaría%20cotizar%20un%20servicio%20de%20impresión." target="_blank">
 <i class="fa-brands fa-whatsapp text-3xl"></i>
 <span class="absolute right-16 bg-white text-gray-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
             ¿Consultas? ¡Escríbenos!
@@ -2348,7 +2405,7 @@ function updateFileName(input) {
             toast.classList.remove('hidden');
 
             setTimeout(() => {
-                window.open(`https://wa.me/5699056453?text=${whatsappMessage}`, '_blank');
+                window.open(`https://wa.me/56990596453?text=${whatsappMessage}`, '_blank');
                 toast.classList.add('hidden');
             }, 1200);
 
