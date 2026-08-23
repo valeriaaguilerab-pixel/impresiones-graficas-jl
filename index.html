@@ -1027,6 +1027,442 @@ label {
 }
 </style>
 
+
+<style id="mobile-responsive-v1">
+/* =========================================================
+   VERSIÓN MÓVIL — ajustes exclusivos para pantallas pequeñas
+   No modifica la apariencia de escritorio.
+   ========================================================= */
+@media (max-width: 767px) {
+
+    html, body {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    body {
+        font-size: 16px !important;
+    }
+
+    /* ---------- HEADER ---------- */
+    header {
+        position: sticky !important;
+        top: 0 !important;
+    }
+
+    header > div:first-child {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+    header .flex.justify-between.items-center.h-20 {
+        height: 66px !important;
+        min-height: 66px !important;
+    }
+
+    header a.flex.items-center.gap-4.group {
+        gap: 9px !important;
+        min-width: 0 !important;
+        max-width: calc(100% - 52px) !important;
+    }
+
+    header a.flex.items-center.gap-4.group > div:first-child {
+        width: 52px !important;
+        height: 52px !important;
+        flex: 0 0 52px !important;
+    }
+
+    header a.flex.items-center.gap-4.group span:first-child {
+        font-size: 15px !important;
+        line-height: 1.05 !important;
+        white-space: normal !important;
+    }
+
+    header a.flex.items-center.gap-4.group span:last-child {
+        font-size: 8px !important;
+        line-height: 1.15 !important;
+        white-space: normal !important;
+        letter-spacing: .04em !important;
+    }
+
+    #mobile-menu-btn {
+        flex: 0 0 auto !important;
+        padding: 8px !important;
+    }
+
+    #mobile-menu-btn i {
+        font-size: 22px !important;
+    }
+
+    #mobile-menu {
+        max-height: calc(100vh - 66px) !important;
+        overflow-y: auto !important;
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+    #mobile-menu .mobile-nav-link,
+    #mobile-menu > a:not(.hidden) {
+        font-size: 15px !important;
+    }
+
+    /* ---------- CONTENEDORES GENERALES ---------- */
+    section > .max-w-7xl,
+    section > .max-w-5xl,
+    footer .max-w-7xl {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+
+    section {
+        scroll-margin-top: 76px !important;
+    }
+
+    /* ---------- HERO ---------- */
+    #inicio {
+        padding-top: 42px !important;
+        padding-bottom: 42px !important;
+    }
+
+    #inicio .grid {
+        gap: 30px !important;
+    }
+
+    #inicio .lg\:col-span-7 {
+        width: 100% !important;
+    }
+
+    #inicio .lg\:col-span-5 {
+        width: 100% !important;
+    }
+
+    #inicio .inline-flex {
+        max-width: 100% !important;
+        justify-content: center !important;
+        text-align: center !important;
+        font-size: 10px !important;
+        letter-spacing: .08em !important;
+        line-height: 1.3 !important;
+    }
+
+    #inicio h1 {
+        font-size: 30px !important;
+        line-height: 1.14 !important;
+        letter-spacing: -.02em !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    #inicio > .max-w-7xl > .grid > div:first-child > p {
+        font-size: 16px !important;
+        line-height: 1.6 !important;
+        max-width: 100% !important;
+    }
+
+    #inicio .pt-4 {
+        padding-top: 6px !important;
+    }
+
+    #inicio .pt-4 a {
+        width: 100% !important;
+        min-height: 48px !important;
+        padding: 12px 16px !important;
+        font-size: 14px !important;
+    }
+
+    #inicio .pt-8.grid.grid-cols-3 {
+        padding-top: 22px !important;
+        column-gap: 8px !important;
+        max-width: 100% !important;
+    }
+
+    #inicio .pt-8.grid.grid-cols-3 > div {
+        min-width: 0 !important;
+        text-align: center !important;
+    }
+
+    #inicio .pt-8.grid.grid-cols-3 > div > p:first-child {
+        font-size: 20px !important;
+        line-height: 1.15 !important;
+        min-height: 0 !important;
+        white-space: normal !important;
+    }
+
+    #inicio .pt-8.grid.grid-cols-3 > div > p:last-child {
+        font-size: 10px !important;
+        line-height: 1.35 !important;
+    }
+
+    #inicio .relative.overflow-hidden.rounded-2xl img {
+        width: 100% !important;
+        height: 245px !important;
+        max-height: 245px !important;
+        object-fit: cover !important;
+    }
+
+    /* ---------- TÍTULOS DE SECCIÓN ---------- */
+    section h2,
+    .section-title {
+        font-size: 27px !important;
+        line-height: 1.15 !important;
+    }
+
+    section h2 + p,
+    .section-subtitle,
+    .section-description {
+        font-size: 15px !important;
+        line-height: 1.6 !important;
+    }
+
+    /* ---------- SERVICIOS ---------- */
+    #servicios > .max-w-7xl > .text-center {
+        margin-bottom: 30px !important;
+    }
+
+    #servicios > .max-w-7xl > .grid {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+    }
+
+    #servicios > .max-w-7xl > .grid > div {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+    }
+
+    #servicios > .max-w-7xl > .grid > div > div:first-child,
+    #servicios .service-image {
+        height: 175px !important;
+        min-height: 175px !important;
+        flex-basis: 175px !important;
+    }
+
+    #servicios > .max-w-7xl > .grid > div .space-y-4 {
+        padding: 20px !important;
+    }
+
+    #servicios > .max-w-7xl > .grid > div .service-title {
+        font-size: 19px !important;
+        line-height: 1.3 !important;
+    }
+
+    #servicios > .max-w-7xl > .grid > div .service-description {
+        font-size: 15px !important;
+        line-height: 1.55 !important;
+    }
+
+    #servicios > .max-w-7xl > .grid > div > div:last-child {
+        padding: 14px 20px 18px !important;
+        margin-top: 0 !important;
+    }
+
+    #servicios > .max-w-7xl > .grid > div > div:last-child span {
+        font-size: 10px !important;
+    }
+
+    #servicios > .max-w-7xl > .grid > div > div:last-child a {
+        font-size: 12px !important;
+    }
+
+    /* ---------- HISTORIA / PROCESO / CONTENIDO ---------- */
+    #nuestra-historia .grid,
+    #proceso .grid {
+        gap: 28px !important;
+    }
+
+    #nuestra-historia img,
+    #proceso img {
+        max-width: 100% !important;
+    }
+
+    /* ---------- PORTAFOLIO ---------- */
+    #portafolio .grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
+    }
+
+    #portafolio .portfolio-item {
+        min-width: 0 !important;
+    }
+
+    #portafolio .portfolio-item p {
+        font-size: 11px !important;
+        line-height: 1.35 !important;
+    }
+
+    /* ---------- COTIZACIÓN ---------- */
+    #cotizacion {
+        padding-top: 38px !important;
+        padding-bottom: 38px !important;
+    }
+
+    #cotizacion > .max-w-5xl {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    #cotizacion .bg-white.rounded-2xl {
+        padding: 20px 16px !important;
+        border-radius: 16px !important;
+    }
+
+    #cotizacion .text-center.max-w-2xl {
+        margin-bottom: 26px !important;
+    }
+
+    #cotizacion .section-title {
+        font-size: 26px !important;
+    }
+
+    #cotizacion .text-center.max-w-2xl p {
+        font-size: 14px !important;
+        line-height: 1.55 !important;
+    }
+
+    #cotizacion form {
+        gap: 18px !important;
+    }
+
+    #cotizacion form > div.grid {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+    }
+
+    #cotizacion form > div.grid > div,
+    #cotizacion .sm\:col-span-2 {
+        width: 100% !important;
+        grid-column: auto !important;
+    }
+
+    #cotizacion label {
+        font-size: 11px !important;
+        line-height: 1.3 !important;
+    }
+
+    #cotizacion input,
+    #cotizacion select,
+    #cotizacion textarea {
+        width: 100% !important;
+        max-width: 100% !important;
+        font-size: 16px !important;
+        min-height: 48px !important;
+        box-sizing: border-box !important;
+    }
+
+    #cotizacion textarea {
+        min-height: 120px !important;
+    }
+
+    #cotizacion select {
+        padding-right: 34px !important;
+    }
+
+    #cotizacion .border-dashed {
+        padding: 18px 12px !important;
+    }
+
+    #cotizacion .border-dashed p {
+        max-width: 100% !important;
+        line-height: 1.45 !important;
+    }
+
+    #cotizacion .border-dashed button {
+        min-height: 44px !important;
+        padding: 10px 16px !important;
+        font-size: 12px !important;
+    }
+
+    #cotizacion button[type="submit"] {
+        width: 100% !important;
+        min-height: 54px !important;
+        padding: 13px 14px !important;
+        font-size: 13px !important;
+        line-height: 1.25 !important;
+    }
+
+    /* ---------- CONTACTO ---------- */
+    #contacto .grid {
+        gap: 24px !important;
+    }
+
+    #contacto .lg\:col-span-5,
+    #contacto .lg\:col-span-7 {
+        width: 100% !important;
+    }
+
+    #contacto .bg-mainbg.p-8 {
+        padding: 20px !important;
+    }
+
+    #contacto .grid.grid-cols-1.sm\:grid-cols-2 {
+        gap: 18px !important;
+    }
+
+    #contacto a,
+    #contacto .flex.items-center.gap-4 {
+        min-width: 0 !important;
+    }
+
+    #contacto a[href^="mailto:"] {
+        overflow-wrap: anywhere !important;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+        padding-top: 30px !important;
+        padding-bottom: 24px !important;
+    }
+
+    footer .flex.flex-col.md\:flex-row {
+        align-items: flex-start !important;
+    }
+
+    footer .flex.items-center.gap-4 {
+        width: 100% !important;
+    }
+
+    footer .flex.items-center.gap-6.text-sm {
+        width: 100% !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+        font-size: 13px !important;
+    }
+
+    footer .flex.items-center.gap-4 img {
+        width: 48px !important;
+        height: 48px !important;
+    }
+
+    /* ---------- MODALES / VISOR DE TRABAJOS ---------- */
+    #portfolio-modal > div,
+    #modal-graphic-preview > div {
+        width: calc(100vw - 24px) !important;
+        max-width: calc(100vw - 24px) !important;
+        margin: 12px !important;
+    }
+
+    #portfolio-modal img,
+    #modal-graphic-preview img {
+        max-width: 100% !important;
+    }
+
+    /* Evita que textos largos o elementos heredados creen scroll horizontal */
+    img, video, iframe, canvas, svg {
+        max-width: 100% !important;
+    }
+
+    /* Mejora el tamaño táctil de enlaces y botones */
+    button,
+    a {
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+</style>
+
 </head>
 <body class="antialiased selection:bg-sky selection:text-[#2858B2]">
 <!-- Top Announcement Bar -->
@@ -1851,27 +2287,27 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 <div>
 <label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="nombre">Nombre completo *</label>
-<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="nombre" name="nombre" placeholder="Ej. María González" required="" type="text"/>
+<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="nombre" placeholder="Ej. María González" required="" type="text"/ name="nombre">
 </div>
 <div>
 <label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="empresa">Empresa (Opcional)</label>
-<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="empresa" name="empresa" placeholder="Ej. Mi Emprendimiento SpA" type="text"/>
+<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="empresa" placeholder="Ej. Mi Emprendimiento SpA" type="text"/ name="empresa">
 </div>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 <div>
 <label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="whatsapp">WhatsApp / Teléfono *</label>
-<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="whatsapp" name="whatsapp" placeholder="+56 9 1234 5678" required="" type="tel"/>
+<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="whatsapp" placeholder="+56 9 1234 5678" required="" type="tel"/ name="whatsapp">
 </div>
 <div>
 <label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="email">Correo electrónico *</label>
-<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="email" name="email" placeholder="correo@ejemplo.com" required="" type="email"/>
+<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="email" placeholder="correo@ejemplo.com" required="" type="email"/ name="email">
 </div>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
 <div class="sm:col-span-2">
 <label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="servicio">¿Qué necesitas imprimir? *</label>
-<select class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition bg-white" id="servicio" name="servicio" required="">
+<select class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition bg-white" id="servicio" required="" name="servicio">
 <option disabled="" selected="" value="">Selecciona una opción</option>
 <option value="Tarjetas de presentación">Tarjetas de presentación</option>
 <option value="Cajas para tarjetas y packaging">Cajas para tarjetas y packaging</option>
@@ -1894,13 +2330,13 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
 </div>
 <div>
 <label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="cantidad">Cantidad aprox. *</label>
-<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="cantidad" name="cantidad" placeholder="Ej. 500 unidades" required="" type="text"/>
+<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="cantidad" placeholder="Ej. 500 unidades" required="" type="text"/ name="cantidad">
 </div>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 <div>
-<label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="papel">Tipo de Papel / Material</label>
-<select class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition bg-white" id="papel" name="papel" "">
+<label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="papel">Tipo de Papel / Material (Opcional)</label
+<select class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition bg-white" id="papel" name="papel">
 <option disabled="" selected="" value="">Selecciona la alternativa de papel</option>
 <optgroup label="Papel Couché">
 <option value="Couché 300g / 350g (Tarjetas, Carpetas, Portadas)">Couché 300g / 350g (Grueso: Tarjetas, Carpetas)</option>
@@ -1930,7 +2366,7 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
 <input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="otro-papel" placeholder="Indica el papel o material que necesitas" type="text"/>
 </div>
 <div>
-<label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="acabado">Terminaciones y Acabados (Opcional)</label>
+<label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="acabado">Terminaciones y Acabados</label>
 <select class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition bg-white" id="acabado" name="acabado">
 <option value="Sin terminación especial">Sin terminación especial</option>
 <option value="Termolaminado Mate">Termolaminado Mate</option>
@@ -1943,18 +2379,23 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
 </div>
 </div>
 <div>
-<label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="mensaje">Detalles adicionales del proyecto (Opcional)</label>
-<textarea class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="mensaje" name="mensaje" placeholder="Indícanos medidas especiales, si posees el diseño listo en PDF, fechas de entrega deseadas, etc." rows="4"></textarea>
+<label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="mensaje">Detalles adicionales del proyecto</label>
+<textarea class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="mensaje" placeholder="Indícanos medidas especiales, si posees el diseño listo en PDF, fechas de entrega deseadas, etc." rows="4" name="mensaje"></textarea>
 </div>
 <div class="border-2 border-dashed border-sky rounded-lg p-4 text-center bg-sky-light/50">
 <i class="fa-solid fa-cloud-arrow-up text-[#2858B2] text-2xl mb-1"></i>
 <p class="text-xs text-[#2858B2] font-semibold">Adjuntar diseño o referencia (Opcional)</p>
-<p class="text-[11px] text-gray-500">Aceptamos PDF, AI, PSD, PNG o JPG hasta 20MB</p>
-<input class="hidden" id="archivo" onchange="updateFileName(this)" type="file"/>
+<p class="text-[11px] text-gray-500">Aceptamos PDF, AI, PSD, PNG o JPG hasta 4 MB</p>
+<input class="hidden" id="archivo" onchange="updateFileName(this)" type="file"/ name="archivo">
 <button class="mt-2 text-xs font-bold text-[#2858B2] bg-white border border-sky px-3 py-1.5 rounded hover:bg-[#F5F8FF] transition" onclick="document.getElementById('archivo').click()" type="button">
                             Seleccionar Archivo
                         </button>
 <span class="block text-xs text-gray-600 mt-2 font-mono" id="file-name"></span>
+<div class="mt-3 rounded-lg bg-[#F5F8FF] border border-sky/60 px-3 py-2 text-left">
+    <p class="text-[11px] text-[#2858B2] font-semibold">¿Tu archivo pesa más de 4 MB?</p>
+    <p class="text-[11px] text-gray-500 mt-0.5">No hay problema. Puedes enviarnos tu archivo a través de nuestros otros canales de contacto y te ayudaremos con tu solicitud.</p>
+</div>
+<p id="file-size-error" class="hidden text-[11px] text-red-600 font-semibold mt-2"></p>
 </div>
 <button class="w-full py-4 rounded-xl text-base font-bold text-white bg-[#2858B2] hover:bg-[#1F4690] shadow-lg transition duration-200 flex items-center justify-center gap-2" type="submit">
 <i class="fa-solid fa-paper-plane"></i> ENVIAR SOLICITUD DE COTIZACIÓN
@@ -2389,20 +2830,35 @@ let currentImageIndex = 0;
    ========================= */
 
 function updateFileName(input) {
+    const nameSpan = document.getElementById('file-name');
+    const errorSpan = document.getElementById('file-size-error');
+    const MAX_FILE_SIZE = 4 * 1024 * 1024;
 
-    const nameSpan =
-        document.getElementById('file-name');
+    if (errorSpan) {
+        errorSpan.classList.add('hidden');
+        errorSpan.textContent = '';
+    }
 
     if (input.files && input.files[0]) {
+        const file = input.files[0];
 
+        if (file.size > MAX_FILE_SIZE) {
+            input.value = '';
+            nameSpan.textContent = '';
+
+            if (errorSpan) {
+                errorSpan.textContent =
+                    'Este archivo supera los 4 MB. Puedes enviarlo por nuestros otros canales de contacto.';
+                errorSpan.classList.remove('hidden');
+            }
+            return false;
+        }
+
+        const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
         nameSpan.textContent =
-            "Archivo seleccionado: " +
-            input.files[0].name;
-
+            'Archivo seleccionado: ' + file.name + ' (' + sizeMB + ' MB)';
     } else {
-
-        nameSpan.textContent = "";
-
+        nameSpan.textContent = '';
     }
 }
 
@@ -2728,6 +3184,18 @@ document.addEventListener('click', function (e) {
     }
 
     try {
+      const archivoInput = document.getElementById('archivo');
+      const archivo = archivoInput && archivoInput.files
+        ? archivoInput.files[0]
+        : null;
+      const MAX_FILE_SIZE = 4 * 1024 * 1024;
+
+      if (archivo && archivo.size > MAX_FILE_SIZE) {
+        throw new Error(
+          'El archivo supera el límite de 4 MB. Puedes enviarlo por nuestros otros canales de contacto.'
+        );
+      }
+
       const formData = new FormData(form);
 
       const response = await fetch('/api/send-quote', {
