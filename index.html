@@ -2712,49 +2712,246 @@ document.addEventListener('click', function (e) {
 
 <script id="quote-email-integration">
 (function () {
-  const form = document.querySelector('form');
-  if (!form) return;
 
-  const originalSubmit = window.handleFormSubmit;
-  window.handleFormSubmit = async function (event) {
-    event.preventDefault();
+    const form = document.getElementById('quote-form');
 
-    const submitButton = form.querySelector('button[type="submit"]');
-    const originalText = submitButton ? submitButton.innerHTML : '';
-
-    if (submitButton) {
-      submitButton.disabled = true;
-      submitButton.innerHTML = 'ENVIANDO...';
+    if (!form) {
+        console.error('No se encontró el formulario #quote-form');
+        return;
     }
 
-    try {
-      const formData = new FormData(form);
+    const originalSubmit = window.handleFormSubmit;
 
-      const response = await fetch('/api/send-quote', {
-        method: 'POST',
-        body: formData
-      });
+    window.handleFormSubmit = async function (event) {
 
-      if (!response.ok) {
-        throw new Error('No fue posible enviar la cotización por correo.');
-      }
+        event.preventDefault();
 
-      // Mantener el comportamiento existente de WhatsApp.
-      if (typeof originalSubmit === 'function') {
-        originalSubmit(event);
-      } else {
-        alert('Solicitud enviada correctamente.');
-      }
-    } catch (error) {
-      console.error(error);
-      alert('No se pudo enviar la cotización por correo. Inténtalo nuevamente.');
-    } finally {
-      if (submitButton) {
-        submitButton.disabled = false;
-        submitButton.innerHTML = originalText;
-      }
-    }
-  };
+        const submitButton =
+            form.querySelector('button[type="submit"]');
+
+        const originalText =
+            submitButton
+                ? submitButton.innerHTML
+                : '';
+
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.innerHTML = 'ENVIANDO...';
+        }
+
+        try {
+
+            /*
+             * IMPORTANTE:
+             * Usamos explícitamente #quote-form.
+             * No document.querySelector('form'),
+             * porque la página puede tener otros formularios.
+             */
+            const formData =
+                new FormData(form);
+
+            /*
+             * Mostrar en consola qué estamos enviando.
+             */
+            console.log(
+                'DATOS QUE SE ENVIARÁN:'
+            );
+
+            for (const [key, value] of formData.entries()) {
+
+                if (value instanceof File) {
+
+                    console.log(
+                        key,
+                        'ARCHIVO:',
+                        value.name,
+                        value.size,
+                        'bytes'
+                    );
+
+                } else {
+
+                    console.log(
+                        key,
+                        ':',
+                        value
+                    );
+                }
+            }
+
+            const response =
+                await fetch(
+                    '/api/send-quote',
+                    {
+                        method: 'POST',
+                        body: formData
+                    }
+                );
+
+            /*
+             * Leer siempre la respuesta del servidor.
+             */
+            const rawResponse =
+                await response.text();
+
+            console.log(
+                'RESPUESTA DEL SERVIDOR:',
+                rawResponse
+            );
+
+            let result = {};
+
+            try {
+                result =
+                    JSON.parse(
+                        rawResponse
+                    );
+            } catch (_) {
+                result = {};
+            }
+
+            if (
+                !response.ok ||
+                !result.ok
+            ) {
+
+                throw new Error(
+                    result.error ||
+                    result.message ||
+                    `Error del servidor: ${response.status}`
+                );
+            }
+
+            /*
+             * CORREO ENVIADO CORRECTAMENTE
+             */
+
+            console.log(
+                'COTIZACIÓN ENVIADA CORRECTAMENTE'
+            );
+
+            /*
+             * Ahora recién continuamos con WhatsApp.
+             */
+            if (
+                typeof originalSubmit ===
+                'function'
+            ) {
+
+                /*
+                 * Evitamos volver a ejecutar
+                 * el envío de correo.
+                 *
+                 * Solo usamos la parte de WhatsApp
+                 * que ya tiene tu función original.
+                 */
+                const nombre =
+                    document.getElementById(
+                        'nombre'
+                    )?.value || '';
+
+                const empresa =
+                    document.getElementById(
+                        'empresa'
+                    )?.value ||
+                    'Particular';
+
+                const whatsapp =
+                    document.getElementById(
+                        'whatsapp'
+                    )?.value || '';
+
+                const email =
+                    document.getElementById(
+                        'email'
+                    )?.value || '';
+
+                const servicio =
+                    document.getElementById(
+                        'servicio'
+                    )?.value || '';
+
+                const cantidad =
+                    document.getElementById(
+                        'cantidad'
+                    )?.value || '';
+
+                const papel =
+                    document.getElementById(
+                        'papel'
+                    )?.value ||
+                    'A definir';
+
+                const acabado =
+                    document.getElementById(
+                        'acabado'
+                    )?.value ||
+                    'Estándar';
+
+                const mensaje =
+                    document.getElementById(
+                        'mensaje'
+                    )?.value ||
+                    'Sin detalles adicionales';
+
+                const whatsappMessage =
+                    `Hola *Impresiones Gráficas J.I.*, me gustaría solicitar una cotización con los siguientes datos:%0A%0A` +
+                    `👤 *Nombre:* ${encodeURIComponent(nombre)}%0A` +
+                    `🏢 *Empresa / Institución:* ${encodeURIComponent(empresa)}%0A` +
+                    `📱 *WhatsApp:* ${encodeURIComponent(whatsapp)}%0A` +
+                    `✉️ *Correo:* ${encodeURIComponent(email)}%0A%0A` +
+                    `🖨️ *Producto:* ${encodeURIComponent(servicio)}%0A` +
+                    `📦 *Cantidad aprox:* ${encodeURIComponent(cantidad)}%0A` +
+                    `📄 *Tipo de Papel/Material:* ${encodeURIComponent(papel)}%0A` +
+                    `✨ *Acabado / Terminación:* ${encodeURIComponent(acabado)}%0A` +
+                    `📝 *Detalles:* ${encodeURIComponent(mensaje)}`;
+
+                window.open(
+                    `https://wa.me/5699056453?text=${whatsappMessage}`,
+                    '_blank'
+                );
+            }
+
+            /*
+             * Limpiar formulario DESPUÉS de enviar.
+             */
+            form.reset();
+
+            const fileName =
+                document.getElementById(
+                    'file-name'
+                );
+
+            if (fileName) {
+                fileName.textContent = '';
+            }
+
+            alert(
+                '¡Solicitud enviada correctamente! La cotización fue enviada al correo.'
+            );
+
+        } catch (error) {
+
+            console.error(
+                'ERROR REAL DEL CORREO:',
+                error
+            );
+
+            alert(
+                'No se pudo enviar la cotización.\n\n' +
+                error.message
+            );
+
+        } finally {
+
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.innerHTML =
+                    originalText;
+            }
+        }
+    };
+
 })();
 </script>
 
