@@ -1851,27 +1851,27 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 <div>
 <label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="nombre">Nombre completo *</label>
-<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="nombre" placeholder="Ej. María González" required="" type="text"/>
+<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="nombre" name="nombre" placeholder="Ej. María González" required="" type="text"/>
 </div>
 <div>
 <label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="empresa">Empresa (Opcional)</label>
-<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="empresa" placeholder="Ej. Mi Emprendimiento SpA" type="text"/>
+<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="empresa" name="empresa" placeholder="Ej. Mi Emprendimiento SpA" type="text"/>
 </div>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 <div>
 <label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="whatsapp">WhatsApp / Teléfono *</label>
-<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="whatsapp" placeholder="+56 9 1234 5678" required="" type="tel"/>
+<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="whatsapp" name="whatsapp" placeholder="+56 9 1234 5678" required="" type="tel"/>
 </div>
 <div>
 <label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="email">Correo electrónico *</label>
-<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="email" placeholder="correo@ejemplo.com" required="" type="email"/>
+<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="email" name="email" placeholder="correo@ejemplo.com" required="" type="email"/>
 </div>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
 <div class="sm:col-span-2">
 <label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="servicio">¿Qué necesitas imprimir? *</label>
-<select class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition bg-white" id="servicio" required="">
+<select class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition bg-white" id="servicio" name="servicio" required="">
 <option disabled="" selected="" value="">Selecciona una opción</option>
 <option value="Tarjetas de presentación">Tarjetas de presentación</option>
 <option value="Cajas para tarjetas y packaging">Cajas para tarjetas y packaging</option>
@@ -1894,13 +1894,13 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
 </div>
 <div>
 <label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="cantidad">Cantidad aprox. *</label>
-<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="cantidad" placeholder="Ej. 500 unidades" required="" type="text"/>
+<input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="cantidad" name="cantidad" placeholder="Ej. 500 unidades" required="" type="text"/>
 </div>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 <div>
-<label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="papel">Tipo de Papel / Material *</label>
-<select class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition bg-white" id="papel" required="">
+<label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="papel">Tipo de Papel / Material</label>
+<select class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition bg-white" id="papel" name="papel" "">
 <option disabled="" selected="" value="">Selecciona la alternativa de papel</option>
 <optgroup label="Papel Couché">
 <option value="Couché 300g / 350g (Tarjetas, Carpetas, Portadas)">Couché 300g / 350g (Grueso: Tarjetas, Carpetas)</option>
@@ -1930,8 +1930,8 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
 <input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="otro-papel" placeholder="Indica el papel o material que necesitas" type="text"/>
 </div>
 <div>
-<label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="acabado">Terminaciones y Acabados</label>
-<select class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition bg-white" id="acabado">
+<label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="acabado">Terminaciones y Acabados (Opcional)</label>
+<select class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition bg-white" id="acabado" name="acabado">
 <option value="Sin terminación especial">Sin terminación especial</option>
 <option value="Termolaminado Mate">Termolaminado Mate</option>
 <option value="Termolaminado Brillante">Termolaminado Brillante</option>
@@ -1943,8 +1943,8 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
 </div>
 </div>
 <div>
-<label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="mensaje">Detalles adicionales del proyecto</label>
-<textarea class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="mensaje" placeholder="Indícanos medidas especiales, si posees el diseño listo en PDF, fechas de entrega deseadas, etc." rows="4"></textarea>
+<label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="mensaje">Detalles adicionales del proyecto (Opcional)</label>
+<textarea class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition" id="mensaje" name="mensaje" placeholder="Indícanos medidas especiales, si posees el diseño listo en PDF, fechas de entrega deseadas, etc." rows="4"></textarea>
 </div>
 <div class="border-2 border-dashed border-sky rounded-lg p-4 text-center bg-sky-light/50">
 <i class="fa-solid fa-cloud-arrow-up text-[#2858B2] text-2xl mb-1"></i>
@@ -2712,246 +2712,49 @@ document.addEventListener('click', function (e) {
 
 <script id="quote-email-integration">
 (function () {
+  const form = document.querySelector('form');
+  if (!form) return;
 
-    const form = document.getElementById('quote-form');
+  const originalSubmit = window.handleFormSubmit;
+  window.handleFormSubmit = async function (event) {
+    event.preventDefault();
 
-    if (!form) {
-        console.error('No se encontró el formulario #quote-form');
-        return;
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalText = submitButton ? submitButton.innerHTML : '';
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.innerHTML = 'ENVIANDO...';
     }
 
-    const originalSubmit = window.handleFormSubmit;
+    try {
+      const formData = new FormData(form);
 
-    window.handleFormSubmit = async function (event) {
+      const response = await fetch('/api/send-quote', {
+        method: 'POST',
+        body: formData
+      });
 
-        event.preventDefault();
+      if (!response.ok) {
+        throw new Error('No fue posible enviar la cotización por correo.');
+      }
 
-        const submitButton =
-            form.querySelector('button[type="submit"]');
-
-        const originalText =
-            submitButton
-                ? submitButton.innerHTML
-                : '';
-
-        if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.innerHTML = 'ENVIANDO...';
-        }
-
-        try {
-
-            /*
-             * IMPORTANTE:
-             * Usamos explícitamente #quote-form.
-             * No document.querySelector('form'),
-             * porque la página puede tener otros formularios.
-             */
-            const formData =
-                new FormData(form);
-
-            /*
-             * Mostrar en consola qué estamos enviando.
-             */
-            console.log(
-                'DATOS QUE SE ENVIARÁN:'
-            );
-
-            for (const [key, value] of formData.entries()) {
-
-                if (value instanceof File) {
-
-                    console.log(
-                        key,
-                        'ARCHIVO:',
-                        value.name,
-                        value.size,
-                        'bytes'
-                    );
-
-                } else {
-
-                    console.log(
-                        key,
-                        ':',
-                        value
-                    );
-                }
-            }
-
-            const response =
-                await fetch(
-                    '/api/send-quote',
-                    {
-                        method: 'POST',
-                        body: formData
-                    }
-                );
-
-            /*
-             * Leer siempre la respuesta del servidor.
-             */
-            const rawResponse =
-                await response.text();
-
-            console.log(
-                'RESPUESTA DEL SERVIDOR:',
-                rawResponse
-            );
-
-            let result = {};
-
-            try {
-                result =
-                    JSON.parse(
-                        rawResponse
-                    );
-            } catch (_) {
-                result = {};
-            }
-
-            if (
-                !response.ok ||
-                !result.ok
-            ) {
-
-                throw new Error(
-                    result.error ||
-                    result.message ||
-                    `Error del servidor: ${response.status}`
-                );
-            }
-
-            /*
-             * CORREO ENVIADO CORRECTAMENTE
-             */
-
-            console.log(
-                'COTIZACIÓN ENVIADA CORRECTAMENTE'
-            );
-
-            /*
-             * Ahora recién continuamos con WhatsApp.
-             */
-            if (
-                typeof originalSubmit ===
-                'function'
-            ) {
-
-                /*
-                 * Evitamos volver a ejecutar
-                 * el envío de correo.
-                 *
-                 * Solo usamos la parte de WhatsApp
-                 * que ya tiene tu función original.
-                 */
-                const nombre =
-                    document.getElementById(
-                        'nombre'
-                    )?.value || '';
-
-                const empresa =
-                    document.getElementById(
-                        'empresa'
-                    )?.value ||
-                    'Particular';
-
-                const whatsapp =
-                    document.getElementById(
-                        'whatsapp'
-                    )?.value || '';
-
-                const email =
-                    document.getElementById(
-                        'email'
-                    )?.value || '';
-
-                const servicio =
-                    document.getElementById(
-                        'servicio'
-                    )?.value || '';
-
-                const cantidad =
-                    document.getElementById(
-                        'cantidad'
-                    )?.value || '';
-
-                const papel =
-                    document.getElementById(
-                        'papel'
-                    )?.value ||
-                    'A definir';
-
-                const acabado =
-                    document.getElementById(
-                        'acabado'
-                    )?.value ||
-                    'Estándar';
-
-                const mensaje =
-                    document.getElementById(
-                        'mensaje'
-                    )?.value ||
-                    'Sin detalles adicionales';
-
-                const whatsappMessage =
-                    `Hola *Impresiones Gráficas J.I.*, me gustaría solicitar una cotización con los siguientes datos:%0A%0A` +
-                    `👤 *Nombre:* ${encodeURIComponent(nombre)}%0A` +
-                    `🏢 *Empresa / Institución:* ${encodeURIComponent(empresa)}%0A` +
-                    `📱 *WhatsApp:* ${encodeURIComponent(whatsapp)}%0A` +
-                    `✉️ *Correo:* ${encodeURIComponent(email)}%0A%0A` +
-                    `🖨️ *Producto:* ${encodeURIComponent(servicio)}%0A` +
-                    `📦 *Cantidad aprox:* ${encodeURIComponent(cantidad)}%0A` +
-                    `📄 *Tipo de Papel/Material:* ${encodeURIComponent(papel)}%0A` +
-                    `✨ *Acabado / Terminación:* ${encodeURIComponent(acabado)}%0A` +
-                    `📝 *Detalles:* ${encodeURIComponent(mensaje)}`;
-
-                window.open(
-                    `https://wa.me/5699056453?text=${whatsappMessage}`,
-                    '_blank'
-                );
-            }
-
-            /*
-             * Limpiar formulario DESPUÉS de enviar.
-             */
-            form.reset();
-
-            const fileName =
-                document.getElementById(
-                    'file-name'
-                );
-
-            if (fileName) {
-                fileName.textContent = '';
-            }
-
-            alert(
-                '¡Solicitud enviada correctamente! La cotización fue enviada al correo.'
-            );
-
-        } catch (error) {
-
-            console.error(
-                'ERROR REAL DEL CORREO:',
-                error
-            );
-
-            alert(
-                'No se pudo enviar la cotización.\n\n' +
-                error.message
-            );
-
-        } finally {
-
-            if (submitButton) {
-                submitButton.disabled = false;
-                submitButton.innerHTML =
-                    originalText;
-            }
-        }
-    };
-
+      // Mantener el comportamiento existente de WhatsApp.
+      if (typeof originalSubmit === 'function') {
+        originalSubmit(event);
+      } else {
+        alert('Solicitud enviada correctamente.');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('No se pudo enviar la cotización por correo. Inténtalo nuevamente.');
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalText;
+      }
+    }
+  };
 })();
 </script>
 
