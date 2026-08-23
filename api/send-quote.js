@@ -13,41 +13,58 @@ function escapeHtml(value = "") {
     .replace(/'/g, "&#039;");
 }
 
-async function getRawBody(req) {
+async function readBody(req) {
   const chunks = [];
 
   for await (const chunk of req) {
-    chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+    chunks.push(
+      Buffer.isBuffer(chunk)
+        ? chunk
+        : Buffer.from(chunk)
+    );
   }
 
   return Buffer.concat(chunks);
 }
 
 function parseMultipart(buffer, contentType) {
-  const match = contentType.match(/boundary=(?:"([^"]+)"|([^;]+))/i);
+  const match = contentType.match(
+    /boundary=(?:"([^"]+)"|([^;]+))/i
+  );
 
   if (!match) {
-    throw new Error("No se encontró el boundary del formulario");
+    throw new Error(
+      "No se encontró el boundary del formulario."
+    );
   }
 
-  const boundary = Buffer.from(`--${match[1] || match[2]}`);
-  const parts = [];
+  const boundary = Buffer.from(
+    `--${match[1] || match[2]}`
+  );
 
-  let start = 0;
+  const parts = [];
+  let position = 0;
 
   while (true) {
-    const boundaryIndex = buffer.indexOf(boundary, start);
+    const start = buffer.indexOf(
+      boundary,
+      position
+    );
 
-    if (boundaryIndex === -1) break;
+    if (start === -1) break;
 
-    const nextStart = boundaryIndex + boundary.length;
+    let partStart =
+      start + boundary.length;
 
-    if (buffer[nextStart] === 45 && buffer[nextStart + 1] === 45) {
+    // Fin del multipart
+    if (
+      buffer[partStart] === 45 &&
+      buffer[partStart + 1] === 45
+    ) {
       break;
     }
 
-    let partStart = nextStart;
-
+    // Saltar CRLF
     if (
       buffer[partStart] === 13 &&
       buffer[partStart + 1] === 10
@@ -55,18 +72,28 @@ function parseMultipart(buffer, contentType) {
       partStart += 2;
     }
 
-    const nextBoundary = buffer.indexOf(boundary, partStart);
+    const end = buffer.indexOf(
+      boundary,
+      partStart
+    );
 
-    if (nextBoundary === -1) break;
+    if (end === -1) break;
 
-    let part = buffer.subarray(partStart, nextBoundary);
+    let part = buffer.subarray(
+      partStart,
+      end
+    );
 
+    // Eliminar CRLF final
     if (
       part.length >= 2 &&
       part[part.length - 2] === 13 &&
       part[part.length - 1] === 10
     ) {
-      part = part.subarray(0, part.length - 2);
+      part = part.subarray(
+        0,
+        part.length - 2
+      );
     }
 
     const headerEnd = part.indexOf(
@@ -74,7 +101,7 @@ function parseMultipart(buffer, contentType) {
     );
 
     if (headerEnd === -1) {
-      start = nextBoundary;
+      position = end;
       continue;
     }
 
@@ -82,14 +109,16 @@ function parseMultipart(buffer, contentType) {
       .subarray(0, headerEnd)
       .toString("utf8");
 
-    const content = part.subarray(headerEnd + 4);
+    const content = part.subarray(
+      headerEnd + 4
+    );
 
     const nameMatch = headers.match(
       /name="([^"]+)"/i
     );
 
     if (!nameMatch) {
-      start = nextBoundary;
+      position = end;
       continue;
     }
 
@@ -99,7 +128,7 @@ function parseMultipart(buffer, contentType) {
       /filename="([^"]*)"/i
     );
 
-    const contentTypeMatch = headers.match(
+    const typeMatch = headers.match(
       /Content-Type:\s*([^\r\n]+)/i
     );
 
@@ -108,19 +137,22 @@ function parseMultipart(buffer, contentType) {
       filename: filenameMatch
         ? filenameMatch[1]
         : null,
-      contentType: contentTypeMatch
-        ? contentTypeMatch[1].trim()
+      contentType: typeMatch
+        ? typeMatch[1].trim()
         : null,
       content,
     });
 
-    start = nextBoundary;
+    position = end;
   }
 
   return parts;
 }
 
-export default async function handler(req, res) {
+export default async function handler(
+  req,
+  res
+) {
   if (req.method !== "POST") {
     return res.status(405).json({
       error: "Método no permitido",
@@ -131,12 +163,14 @@ export default async function handler(req, res) {
     const contentType =
       req.headers["content-type"] || "";
 
-    const rawBody = await getRawBody(req);
+    const rawBody = await readBody(req);
 
     let fields = {};
     let attachment = null;
 
-    // FORMULARIO CON ARCHIVO
+    /*
+     * FORMULARIO CON ARCHIVO
+     */
     if (
       contentType
         .toLowerCase()
@@ -149,16 +183,21 @@ export default async function handler(req, res) {
 
       for (const part of parts) {
         if (part.filename) {
-          if (part.content.length > 20 * 1024 * 1024) {
+          if (
+            part.content.length >
+            20 * 1024 * 1024
+          ) {
             return res.status(400).json({
               error:
-                "El archivo supera el límite de 20 MB.",
+                "El archivo supera los 20 MB.",
             });
           }
 
           attachment = {
             filename: part.filename,
-            content: part.content.toString("base64"),
+            content: part.content.toString(
+              "base64"
+            ),
             content_type:
               part.contentType ||
               "application/octet-stream",
@@ -170,7 +209,9 @@ export default async function handler(req, res) {
       }
     }
 
-    // FORMULARIO JSON
+    /*
+     * FORMULARIO JSON
+     */
     else {
       try {
         fields = JSON.parse(
@@ -178,7 +219,8 @@ export default async function handler(req, res) {
         );
       } catch {
         return res.status(400).json({
-          error: "No se pudo leer el formulario.",
+          error:
+            "No se pudo leer la información del formulario.",
         });
       }
     }
@@ -193,17 +235,30 @@ export default async function handler(req, res) {
       fields.detalles ||
       "";
 
-    if (!nombre || !email || !producto) {
+    /*
+     * COMPROBAR DATOS
+     */
+    if (
+      !nombre ||
+      !email ||
+      !producto
+    ) {
       return res.status(400).json({
         error:
-          "Faltan datos obligatorios: nombre, email o producto.",
+          "Faltan datos obligatorios.",
       });
     }
 
-    const emailBody = {
-      from: `Impresiones Gráficas J.I. <cotizaciones@${process.env.RESEND_EMAIL_DOMAIN}>`,
+    /*
+     * PREPARAR CORREO
+     */
+    const emailData = {
+      from:
+        `Impresiones Gráficas J.I. <cotizaciones@${process.env.RESEND_EMAIL_DOMAIN}>`,
 
-      to: ["juanaguilerap@yahoo.com"],
+      to: [
+        "juanaguilerap@yahoo.com"
+      ],
 
       reply_to: email,
 
@@ -211,9 +266,9 @@ export default async function handler(req, res) {
         `Nueva solicitud de cotización - ${producto}`,
 
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 700px; margin: auto;">
+        <div style="font-family:Arial,sans-serif;max-width:700px;margin:auto">
 
-          <h2 style="color:#183B70;">
+          <h2 style="color:#183B70">
             Nueva solicitud de cotización
           </h2>
 
@@ -231,7 +286,9 @@ export default async function handler(req, res) {
 
           <p>
             <strong>Teléfono:</strong>
-            ${escapeHtml(telefono || "No indicado")}
+            ${escapeHtml(
+              telefono || "No indicado"
+            )}
           </p>
 
           <p>
@@ -241,23 +298,30 @@ export default async function handler(req, res) {
 
           <p>
             <strong>Cantidad:</strong>
-            ${escapeHtml(cantidad || "No indicada")}
+            ${escapeHtml(
+              cantidad || "No indicada"
+            )}
           </p>
 
-          <h3 style="color:#183B70;">
+          <h3 style="color:#183B70">
             Detalles adicionales
           </h3>
 
           <p>
             ${escapeHtml(
-              mensaje || "Sin información adicional"
-            ).replace(/\n/g, "<br>")}
+              mensaje ||
+              "Sin información adicional"
+            ).replace(
+              /\n/g,
+              "<br>"
+            )}
           </p>
 
           ${
             attachment
               ? `
                 <hr>
+
                 <p>
                   <strong>Archivo adjunto:</strong>
                   ${escapeHtml(
@@ -272,48 +336,69 @@ export default async function handler(req, res) {
       `,
     };
 
-    // AGREGAR ARCHIVO ADJUNTO SI EXISTE
+    /*
+     * AGREGAR ARCHIVO
+     */
     if (attachment) {
-      emailBody.attachments = [
+      emailData.attachments = [
         {
-          filename: attachment.filename,
-          content: attachment.content,
-          content_type: attachment.content_type,
+          filename:
+            attachment.filename,
+
+          content:
+            attachment.content,
+
+          content_type:
+            attachment.content_type,
         },
       ];
     }
 
+    /*
+     * ENVIAR A RESEND
+     */
     const response = await fetch(
       "https://api.resend.com/emails",
       {
         method: "POST",
 
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type":
+            "application/json",
 
           Authorization:
             `Bearer ${process.env.RESEND_API_KEY}`,
         },
 
-        body: JSON.stringify(emailBody),
+        body:
+          JSON.stringify(emailData),
       }
     );
 
-    const data = await response.json();
+    const data =
+      await response.json();
 
+    /*
+     * ERROR DE RESEND
+     */
     if (!response.ok) {
       console.error(
         "ERROR RESEND:",
         data
       );
 
-      return res.status(response.status).json({
+      return res.status(
+        response.status
+      ).json({
         error:
           data.message ||
           "Resend no pudo enviar el correo.",
       });
     }
 
+    /*
+     * CORREO ENVIADO
+     */
     console.log(
       "CORREO ENVIADO:",
       data
@@ -326,6 +411,7 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
+
     console.error(
       "ERROR SERVIDOR:",
       error
