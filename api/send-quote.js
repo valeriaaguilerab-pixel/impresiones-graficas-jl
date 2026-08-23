@@ -1,43 +1,20 @@
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
 export default async function handler(req, res) {
-  // =====================================================
-  // SOLO POST
-  // =====================================================
-
   if (req.method !== "POST") {
     return res.status(405).json({
       ok: false,
-      error: "Método no permitido",
+      error: "Método no permitido"
     });
   }
 
   try {
-    // =====================================================
-    // VERIFICAR CONTENT-TYPE
-    // =====================================================
+    const contentType = req.headers["content-type"] || "";
 
-    const contentType =
-      req.headers["content-type"] || "";
-
-    console.log("Content-Type recibido:", contentType);
-
-    if (!contentType.toLowerCase().includes("multipart/form-data")) {
+    if (!contentType.includes("multipart/form-data")) {
       return res.status(400).json({
         ok: false,
-        error:
-          "El formulario no llegó como multipart/form-data.",
-        contentType,
+        error: "La solicitud no tiene el formato correcto."
       });
     }
-
-    // =====================================================
-    // OBTENER BOUNDARY
-    // =====================================================
 
     const boundaryMatch = contentType.match(
       /boundary=(?:"([^"]+)"|([^;]+))/i
@@ -46,53 +23,25 @@ export default async function handler(req, res) {
     if (!boundaryMatch) {
       return res.status(400).json({
         ok: false,
-        error: "No se encontró el boundary del formulario.",
+        error: "No se encontró el límite del formulario."
       });
     }
 
     const boundary =
-      boundaryMatch[1] ||
-      boundaryMatch[2];
+      boundaryMatch[1] || boundaryMatch[2];
 
-    // =====================================================
-    // LEER BODY
-    // =====================================================
+    // Límite máximo: 4 MB
+    const MAX_UPLOAD_SIZE = 4 * 1024 * 1024;
 
-    const MAX_SIZE = 20 * 1024 * 1024;
-
-    const rawBody =
-      await readRequestBody(
-        req,
-        MAX_SIZE
-      );
-
-    console.log(
-      "Tamaño recibido:",
-      rawBody.length
+    const rawBody = await readRequestBody(
+      req,
+      MAX_UPLOAD_SIZE
     );
 
-    // =====================================================
-    // PARSEAR MULTIPART
-    // =====================================================
-
-    const parts =
-      parseMultipart(
-        rawBody,
-        boundary
-      );
-
-    console.log(
-      "Partes recibidas:",
-      parts.map((p) => ({
-        name: p.name,
-        filename: p.filename,
-        size: p.data.length,
-      }))
+    const parts = parseMultipart(
+      rawBody,
+      boundary
     );
-
-    // =====================================================
-    // EXTRAER CAMPOS
-    // =====================================================
 
     const fields = {};
     let attachment = null;
@@ -102,11 +51,12 @@ export default async function handler(req, res) {
 
       // ARCHIVO
       if (part.filename) {
-        if (part.data.length > MAX_SIZE) {
+
+        if (part.data.length > MAX_UPLOAD_SIZE) {
           return res.status(400).json({
             ok: false,
             error:
-              "El archivo supera el límite de 20 MB.",
+              "El archivo supera el límite permitido de 4 MB. Puedes enviarlo por nuestros otros canales de contacto."
           });
         }
 
@@ -114,14 +64,14 @@ export default async function handler(req, res) {
           attachment = {
             filename: part.filename,
             content:
-              part.data.toString("base64"),
+              part.data.toString("base64")
           };
         }
 
         continue;
       }
 
-      // CAMPO NORMAL
+      // CAMPOS NORMALES
       fields[part.name] =
         part.data
           .toString("utf8")
@@ -129,7 +79,7 @@ export default async function handler(req, res) {
     }
 
     // =====================================================
-    // CAMPOS
+    // DATOS DEL FORMULARIO
     // =====================================================
 
     const nombre =
@@ -170,17 +120,6 @@ export default async function handler(req, res) {
       fields.detalles ||
       "Sin detalles adicionales";
 
-    console.log("Datos recibidos:", {
-      nombre,
-      empresa,
-      whatsapp,
-      email,
-      producto,
-      cantidad,
-      papel,
-      acabado,
-      tieneArchivo: !!attachment,
-    });
 
     // =====================================================
     // VALIDACIONES
@@ -189,14 +128,15 @@ export default async function handler(req, res) {
     if (!nombre) {
       return res.status(400).json({
         ok: false,
-        error: "Falta el nombre.",
+        error: "Falta el nombre."
       });
     }
 
     if (!email) {
       return res.status(400).json({
         ok: false,
-        error: "Falta el correo electrónico.",
+        error:
+          "Falta el correo electrónico."
       });
     }
 
@@ -204,42 +144,88 @@ export default async function handler(req, res) {
       return res.status(400).json({
         ok: false,
         error:
-          "Falta indicar el producto o trabajo.",
+          "Falta indicar el producto o trabajo."
       });
     }
+
 
     // =====================================================
     // RESEND API KEY
     // =====================================================
 
     if (!process.env.RESEND_API_KEY) {
+
       console.error(
-        "RESEND_API_KEY no está configurada."
+        "Falta RESEND_API_KEY en Vercel."
       );
 
       return res.status(500).json({
         ok: false,
         error:
-          "RESEND_API_KEY no está configurada en Vercel.",
+          "El servicio de correo no está configurado correctamente."
       });
     }
+
 
     // =====================================================
     // CORREO
     // =====================================================
 
     const emailPayload = {
+
       from:
         "Impresiones Gráficas J.I. <cotizaciones@impresionesgraficasji.cl>",
 
       to: [
-        "juanaguilerap@yahoo.com",
+        "juanaguilerap@yahoo.com"
       ],
 
-      reply_to: email,
+      reply_to:
+        email,
 
       subject:
         `Nueva solicitud de cotización - ${producto}`,
+
+      // ===================================================
+      // TEXTO PLANO
+      // ===================================================
+
+      text: `
+Nueva solicitud de cotización
+
+DATOS DEL CLIENTE
+
+Nombre: ${nombre}
+Empresa / Institución: ${empresa}
+WhatsApp: ${whatsapp}
+Correo: ${email}
+
+DETALLES DEL TRABAJO
+
+Producto o trabajo: ${producto}
+Cantidad: ${cantidad}
+Papel / Material: ${papel}
+Acabado / Terminación: ${acabado}
+
+DETALLES ADICIONALES
+
+${mensaje}
+
+Archivo adjunto:
+${
+  attachment
+    ? attachment.filename
+    : "No se adjuntó archivo."
+}
+
+Solicitud enviada desde:
+impresionesgraficasji.cl
+`.trim(),
+
+
+      // ===================================================
+      // HTML
+      // ===================================================
 
       html: `
         <div
@@ -341,32 +327,35 @@ export default async function handler(req, res) {
           </p>
 
         </div>
-      `,
+      `
     };
 
+
     // =====================================================
-    // AGREGAR ARCHIVO
+    // ADJUNTO
     // =====================================================
 
     if (attachment) {
+
       emailPayload.attachments = [
         {
           filename:
             attachment.filename,
 
           content:
-            attachment.content,
-        },
+            attachment.content
+        }
       ];
     }
 
-    console.log(
-      "Enviando correo a Yahoo mediante Resend..."
-    );
 
     // =====================================================
-    // RESEND
+    // ENVIAR A RESEND
     // =====================================================
+
+    console.log(
+      "Enviando cotización a Yahoo mediante Resend..."
+    );
 
     const response =
       await fetch(
@@ -378,16 +367,17 @@ export default async function handler(req, res) {
             "Content-Type":
               "application/json",
 
-            Authorization:
-              `Bearer ${process.env.RESEND_API_KEY}`,
+            "Authorization":
+              `Bearer ${process.env.RESEND_API_KEY}`
           },
 
           body:
             JSON.stringify(
               emailPayload
-            ),
+            )
         }
       );
+
 
     const responseText =
       await response.text();
@@ -395,38 +385,46 @@ export default async function handler(req, res) {
     let data;
 
     try {
+
       data =
         JSON.parse(
           responseText
         );
+
     } catch {
+
       data = {
         message:
-          responseText,
+          responseText
       };
     }
+
 
     // =====================================================
     // ERROR RESEND
     // =====================================================
 
     if (!response.ok) {
+
       console.error(
         "RESPUESTA DE RESEND:",
         response.status,
         data
       );
 
-      return res.status(500).json({
+      return res.status(
+        response.status
+      ).json({
+
         ok: false,
+
         error:
           data.message ||
           data.error ||
-          "Resend rechazó el envío del correo.",
-        resendStatus:
-          response.status,
+          "Resend rechazó el envío del correo."
       });
     }
+
 
     // =====================================================
     // ÉXITO
@@ -438,24 +436,31 @@ export default async function handler(req, res) {
     );
 
     return res.status(200).json({
+
       ok: true,
+
       message:
         "Cotización enviada correctamente.",
+
       emailId:
-        data.id || null,
+        data.id || null
     });
 
+
   } catch (error) {
+
     console.error(
       "ERROR GENERAL EN SEND-QUOTE:",
       error
     );
 
     return res.status(500).json({
+
       ok: false,
+
       error:
         error.message ||
-        "Error interno del servidor.",
+        "Error interno del servidor."
     });
   }
 }
@@ -469,35 +474,45 @@ function readRequestBody(
   req,
   maxSize
 ) {
+
   return new Promise(
     (resolve, reject) => {
+
       const chunks = [];
 
       let totalSize = 0;
+
       let finished = false;
+
 
       req.on(
         "data",
         (chunk) => {
+
           if (finished) return;
 
           totalSize +=
             chunk.length;
 
+
           if (
             totalSize >
             maxSize
           ) {
+
             finished = true;
 
             reject(
               new Error(
-                "El formulario supera los 20 MB."
+                "El archivo o formulario supera el límite de 4 MB."
               )
             );
 
+            req.destroy();
+
             return;
           }
+
 
           chunks.push(
             Buffer.from(chunk)
@@ -505,9 +520,11 @@ function readRequestBody(
         }
       );
 
+
       req.on(
         "end",
         () => {
+
           if (finished) return;
 
           finished = true;
@@ -520,9 +537,11 @@ function readRequestBody(
         }
       );
 
+
       req.on(
         "error",
         (error) => {
+
           if (finished) return;
 
           finished = true;
@@ -530,6 +549,7 @@ function readRequestBody(
           reject(error);
         }
       );
+
     }
   );
 }
@@ -543,6 +563,7 @@ function parseMultipart(
   buffer,
   boundary
 ) {
+
   const delimiter =
     Buffer.from(
       `--${boundary}`
@@ -552,23 +573,30 @@ function parseMultipart(
 
   let position = 0;
 
+
   while (
     position <
     buffer.length
   ) {
+
     const start =
       buffer.indexOf(
         delimiter,
         position
       );
 
-    if (start === -1) {
+
+    if (
+      start === -1
+    ) {
       break;
     }
+
 
     const afterBoundary =
       start +
       delimiter.length;
+
 
     // FINAL
     if (
@@ -579,11 +607,14 @@ function parseMultipart(
         afterBoundary + 1
       ] === 45
     ) {
+
       break;
     }
 
+
     let partStart =
       afterBoundary;
+
 
     // CRLF
     if (
@@ -594,8 +625,10 @@ function parseMultipart(
         partStart + 1
       ] === 10
     ) {
+
       partStart += 2;
     }
+
 
     const nextBoundary =
       buffer.indexOf(
@@ -603,17 +636,21 @@ function parseMultipart(
         partStart
       );
 
+
     if (
       nextBoundary === -1
     ) {
+
       break;
     }
+
 
     let partBuffer =
       buffer.subarray(
         partStart,
         nextBoundary
       );
+
 
     // QUITAR CRLF
     if (
@@ -625,12 +662,14 @@ function parseMultipart(
         partBuffer.length - 1
       ] === 10
     ) {
+
       partBuffer =
         partBuffer.subarray(
           0,
           partBuffer.length - 2
         );
     }
+
 
     const headerEnd =
       partBuffer.indexOf(
@@ -639,14 +678,17 @@ function parseMultipart(
         )
       );
 
+
     if (
       headerEnd === -1
     ) {
+
       position =
         nextBoundary;
 
       continue;
     }
+
 
     const headerText =
       partBuffer
@@ -658,27 +700,54 @@ function parseMultipart(
           "utf8"
         );
 
+
     const data =
       partBuffer.subarray(
         headerEnd + 4
       );
 
-    const nameMatch =
+
+    const dispositionMatch =
       headerText.match(
+        /Content-Disposition:\s*form-data;\s*([^]*?)(?:\r\n|$)/i
+      );
+
+
+    if (
+      !dispositionMatch
+    ) {
+
+      position =
+        nextBoundary;
+
+      continue;
+    }
+
+
+    const disposition =
+      dispositionMatch[1];
+
+
+    const nameMatch =
+      disposition.match(
         /name="([^"]*)"/i
       );
 
+
     const filenameMatch =
-      headerText.match(
+      disposition.match(
         /filename="([^"]*)"/i
       );
+
 
     const contentTypeMatch =
       headerText.match(
         /Content-Type:\s*([^\r\n]+)/i
       );
 
+
     parts.push({
+
       name:
         nameMatch
           ? nameMatch[1]
@@ -694,12 +763,15 @@ function parseMultipart(
           ? contentTypeMatch[1].trim()
           : null,
 
-      data,
+      data
+
     });
+
 
     position =
       nextBoundary;
   }
+
 
   return parts;
 }
@@ -712,23 +784,29 @@ function parseMultipart(
 function escapeHtml(
   value
 ) {
+
   return String(value)
+
     .replace(
       /&/g,
       "&amp;"
     )
+
     .replace(
       /</g,
       "&lt;"
     )
+
     .replace(
       />/g,
       "&gt;"
     )
+
     .replace(
       /"/g,
       "&quot;"
     )
+
     .replace(
       /'/g,
       "&#039;"
