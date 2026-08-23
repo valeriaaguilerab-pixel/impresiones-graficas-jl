@@ -1996,7 +1996,7 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
 </div>
 <div class="min-w-0">
 <p class="text-xs text-gray-500 uppercase font-bold mb-1">Correos electrónicos</p>
-<a class="block text-sm font-bold text-[#2858B2] hover:underline break-all" href="mailto:contacto@impresionesgraficasji.cl">contacto@impresionesgraficasji.cl</a>
+<a class="block text-sm font-bold text-[#2858B2] hover:underline break-all" href="mailto:cotizaciones@impresionesgraficas.cl">cotizaciones@impresionesgraficas.cl</a>
 <a class="block text-sm font-bold text-[#2858B2] hover:underline break-all" href="mailto:juanaguilerap@yahoo.com">juanaguilerap@yahoo.com</a>
 </div>
 </div>
@@ -2065,7 +2065,7 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
 <div class="flex items-center gap-2">
 <i class="fa-regular fa-envelope text-base"></i>
 <div class="flex flex-col">
-<a class="hover:text-white transition" href="mailto:contacto@impresionesgraficasji.cl">contacto@impresionesgraficasji.cl</a>
+<a class="hover:text-white transition" href="mailto:cotizaciones@impresionesgraficas.cl">cotizaciones@impresionesgraficas.cl</a>
 <a class="hover:text-white transition" href="mailto:juanaguilerap@yahoo.com">juanaguilerap@yahoo.com</a>
 </div>
 </div>
@@ -2706,6 +2706,55 @@ document.addEventListener('click', function (e) {
     } else {
         init();
     }
+})();
+</script>
+
+
+<script id="quote-email-integration">
+(function () {
+  const form = document.querySelector('form');
+  if (!form) return;
+
+  const originalSubmit = window.handleFormSubmit;
+  window.handleFormSubmit = async function (event) {
+    event.preventDefault();
+
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalText = submitButton ? submitButton.innerHTML : '';
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.innerHTML = 'ENVIANDO...';
+    }
+
+    try {
+      const formData = new FormData(form);
+
+      const response = await fetch('/api/send-quote', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error('No fue posible enviar la cotización por correo.');
+      }
+
+      // Mantener el comportamiento existente de WhatsApp.
+      if (typeof originalSubmit === 'function') {
+        originalSubmit(event);
+      } else {
+        alert('Solicitud enviada correctamente.');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('No se pudo enviar la cotización por correo. Inténtalo nuevamente.');
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalText;
+      }
+    }
+  };
 })();
 </script>
 
