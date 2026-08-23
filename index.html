@@ -1463,6 +1463,32 @@ label {
 }
 </style>
 
+
+<style id="mobile-cotizacion-select-fix">
+@media (max-width: 767px) {
+  #cotizacion select#papel,
+  #cotizacion select#acabado,
+  #cotizacion select#servicio {
+    display: block !important;
+    width: 100% !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    appearance: auto !important;
+    -webkit-appearance: menulist !important;
+  }
+
+  #cotizacion select#papel optgroup,
+  #cotizacion select#acabado optgroup,
+  #cotizacion select#servicio optgroup {
+    font-weight: 700 !important;
+  }
+}
+</style>
+
 </head>
 <body class="antialiased selection:bg-sky selection:text-[#2858B2]">
 <!-- Top Announcement Bar -->
@@ -2335,7 +2361,7 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 <div>
-<label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="papel">Tipo de Papel / Material (Opcional)</label
+<label class="block text-xs font-bold text-[#2858B2] uppercase mb-2" for="papel">Tipo de Papel / Material (Opcional)</label>
 <select class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-petroleum focus:border-[#2858B2] outline-none text-sm transition bg-white" id="papel" name="papel">
 <option disabled="" selected="" value="">Selecciona la alternativa de papel</option>
 <optgroup label="Papel Couché">
@@ -2386,7 +2412,7 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
 <i class="fa-solid fa-cloud-arrow-up text-[#2858B2] text-2xl mb-1"></i>
 <p class="text-xs text-[#2858B2] font-semibold">Adjuntar diseño o referencia (Opcional)</p>
 <p class="text-[11px] text-gray-500">Aceptamos PDF, AI, PSD, PNG o JPG hasta 4 MB</p>
-<input class="hidden" id="archivo" onchange="updateFileName(this)" type="file"/ name="archivo">
+<input class="hidden" id="archivo" onchange="updateFileName(this)" type="file" name="archivo">
 <button class="mt-2 text-xs font-bold text-[#2858B2] bg-white border border-sky px-3 py-1.5 rounded hover:bg-[#F5F8FF] transition" onclick="document.getElementById('archivo').click()" type="button">
                             Seleccionar Archivo
                         </button>
