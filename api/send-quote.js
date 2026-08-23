@@ -1,260 +1,130 @@
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-function escapeHtml(value = "") {
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
-
-async function readBody(req) {
-  const chunks = [];
-
-  for await (const chunk of req) {
-    chunks.push(
-      Buffer.isBuffer(chunk)
-        ? chunk
-        : Buffer.from(chunk)
-    );
-  }
-
-  return Buffer.concat(chunks);
-}
-
-function parseMultipart(buffer, contentType) {
-  const match = contentType.match(
-    /boundary=(?:"([^"]+)"|([^;]+))/i
-  );
-
-  if (!match) {
-    throw new Error(
-      "No se encontró el boundary del formulario."
-    );
-  }
-
-  const boundary = Buffer.from(
-    `--${match[1] || match[2]}`
-  );
-
-  const parts = [];
-  let position = 0;
-
-  while (true) {
-    const start = buffer.indexOf(
-      boundary,
-      position
-    );
-
-    if (start === -1) break;
-
-    let partStart =
-      start + boundary.length;
-
-    // Fin del multipart
-    if (
-      buffer[partStart] === 45 &&
-      buffer[partStart + 1] === 45
-    ) {
-      break;
-    }
-
-    // Saltar CRLF
-    if (
-      buffer[partStart] === 13 &&
-      buffer[partStart + 1] === 10
-    ) {
-      partStart += 2;
-    }
-
-    const end = buffer.indexOf(
-      boundary,
-      partStart
-    );
-
-    if (end === -1) break;
-
-    let part = buffer.subarray(
-      partStart,
-      end
-    );
-
-    // Eliminar CRLF final
-    if (
-      part.length >= 2 &&
-      part[part.length - 2] === 13 &&
-      part[part.length - 1] === 10
-    ) {
-      part = part.subarray(
-        0,
-        part.length - 2
-      );
-    }
-
-    const headerEnd = part.indexOf(
-      Buffer.from("\r\n\r\n")
-    );
-
-    if (headerEnd === -1) {
-      position = end;
-      continue;
-    }
-
-    const headers = part
-      .subarray(0, headerEnd)
-      .toString("utf8");
-
-    const content = part.subarray(
-      headerEnd + 4
-    );
-
-    const nameMatch = headers.match(
-      /name="([^"]+)"/i
-    );
-
-    if (!nameMatch) {
-      position = end;
-      continue;
-    }
-
-    const name = nameMatch[1];
-
-    const filenameMatch = headers.match(
-      /filename="([^"]*)"/i
-    );
-
-    const typeMatch = headers.match(
-      /Content-Type:\s*([^\r\n]+)/i
-    );
-
-    parts.push({
-      name,
-      filename: filenameMatch
-        ? filenameMatch[1]
-        : null,
-      contentType: typeMatch
-        ? typeMatch[1].trim()
-        : null,
-      content,
-    });
-
-    position = end;
-  }
-
-  return parts;
-}
-
-export default async function handler(
-  req,
-  res
-) {
+export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({
-      error: "Método no permitido",
+      ok: false,
+      error: "Método no permitido"
     });
   }
 
   try {
-    const contentType =
-      req.headers["content-type"] || "";
+    const contentType = req.headers["content-type"] || "";
 
-    const rawBody = await readBody(req);
-
-    let fields = {};
-    let attachment = null;
-
-    /*
-     * FORMULARIO CON ARCHIVO
-     */
-    if (
-      contentType
-        .toLowerCase()
-        .includes("multipart/form-data")
-    ) {
-      const parts = parseMultipart(
-        rawBody,
-        contentType
-      );
-
-      for (const part of parts) {
-        if (part.filename) {
-          if (
-            part.content.length >
-            20 * 1024 * 1024
-          ) {
-            return res.status(400).json({
-              error:
-                "El archivo supera los 20 MB.",
-            });
-          }
-
-          attachment = {
-            filename: part.filename,
-            content: part.content.toString(
-              "base64"
-            ),
-            content_type:
-              part.contentType ||
-              "application/octet-stream",
-          };
-        } else {
-          fields[part.name] =
-            part.content.toString("utf8");
-        }
-      }
+    if (!contentType.includes("multipart/form-data")) {
+      return res.status(400).json({
+        ok: false,
+        error: "La solicitud no tiene el formato correcto."
+      });
     }
 
-    /*
-     * FORMULARIO JSON
-     */
-    else {
-      try {
-        fields = JSON.parse(
-          rawBody.toString("utf8")
-        );
-      } catch {
-        return res.status(400).json({
-          error:
-            "No se pudo leer la información del formulario.",
-        });
+    const boundaryMatch = contentType.match(
+      /boundary=(?:"([^"]+)"|([^;]+))/i
+    );
+
+    if (!boundaryMatch) {
+      return res.status(400).json({
+        ok: false,
+        error: "No se encontró el límite del formulario."
+      });
+    }
+
+    const boundary = boundaryMatch[1] || boundaryMatch[2];
+
+    const MAX_UPLOAD_SIZE = 4 * 1024 * 1024;
+
+    const rawBody = await readRequestBody(
+      req,
+      MAX_UPLOAD_SIZE
+    );
+
+    const parts = parseMultipart(
+      rawBody,
+      boundary
+    );
+
+    const fields = {};
+    let attachment = null;
+
+    for (const part of parts) {
+      if (!part.name) continue;
+
+      if (part.filename) {
+        if (part.data.length > MAX_UPLOAD_SIZE) {
+          return res.status(400).json({
+            ok: false,
+            error: "El archivo supera el límite permitido de 4 MB."
+          });
+        }
+
+        if (part.data.length > 0) {
+          attachment = {
+            filename: part.filename,
+            content: part.data.toString("base64")
+          };
+        }
+      } else {
+        fields[part.name] = part.data
+          .toString("utf8")
+          .trim();
       }
     }
 
     const nombre = fields.nombre || "";
-    const email = fields.email || "";
-    const telefono = fields.telefono || "";
-    const producto = fields.producto || "";
-    const cantidad = fields.cantidad || "";
-    const mensaje =
-      fields.mensaje ||
-      fields.detalles ||
+
+    const empresa =
+      fields.empresa || "Particular";
+
+    const whatsapp =
+      fields.whatsapp || "No indicado";
+
+    const email =
+      fields.email || "";
+
+    const producto =
+      fields.servicio ||
+      fields.producto ||
       "";
 
-    /*
-     * COMPROBAR DATOS
-     */
-    if (
-      !nombre ||
-      !email ||
-      !producto
-    ) {
+    const cantidad =
+      fields.cantidad ||
+      "No indicada";
+
+    const papel =
+      fields.papel ||
+      "A definir";
+
+    const acabado =
+      fields.acabado ||
+      "Estándar";
+
+    const mensaje =
+      fields.mensaje ||
+      "Sin detalles adicionales";
+
+    if (!nombre || !email || !producto) {
       return res.status(400).json({
-        error:
-          "Faltan datos obligatorios.",
+        ok: false,
+        error: "Faltan datos obligatorios."
       });
     }
 
-    /*
-     * PREPARAR CORREO
-     */
-    const emailData = {
+    if (!process.env.RESEND_API_KEY) {
+      console.error(
+        "Falta RESEND_API_KEY en las variables de entorno."
+      );
+
+      return res.status(500).json({
+        ok: false,
+        error:
+          "El servicio de correo no está configurado correctamente."
+      });
+    }
+
+    const fromEmail =
+      "cotizaciones@impresionesgraficasji.cl";
+
+    const emailPayload = {
       from:
-        `Impresiones Gráficas J.I. <cotizaciones@${process.env.RESEND_EMAIL_DOMAIN}>`,
+        `Impresiones Gráficas J.I. <${fromEmail}>`,
 
       to: [
         "juanaguilerap@yahoo.com"
@@ -266,13 +136,21 @@ export default async function handler(
         `Nueva solicitud de cotización - ${producto}`,
 
       html: `
-        <div style="font-family:Arial,sans-serif;max-width:700px;margin:auto">
+        <div
+          style="
+            font-family: Arial, sans-serif;
+            color: #1f2937;
+            line-height: 1.6;
+          "
+        >
 
-          <h2 style="color:#183B70">
+          <h2 style="color:#173B73;">
             Nueva solicitud de cotización
           </h2>
 
-          <hr>
+          <h3 style="color:#173B73;">
+            Datos del cliente
+          </h3>
 
           <p>
             <strong>Nombre:</strong>
@@ -280,16 +158,23 @@ export default async function handler(
           </p>
 
           <p>
+            <strong>Empresa / Institución:</strong>
+            ${escapeHtml(empresa)}
+          </p>
+
+          <p>
+            <strong>WhatsApp:</strong>
+            ${escapeHtml(whatsapp)}
+          </p>
+
+          <p>
             <strong>Correo:</strong>
             ${escapeHtml(email)}
           </p>
 
-          <p>
-            <strong>Teléfono:</strong>
-            ${escapeHtml(
-              telefono || "No indicado"
-            )}
-          </p>
+          <h3 style="color:#173B73;">
+            Detalles del trabajo
+          </h3>
 
           <p>
             <strong>Producto o trabajo:</strong>
@@ -298,65 +183,54 @@ export default async function handler(
 
           <p>
             <strong>Cantidad:</strong>
-            ${escapeHtml(
-              cantidad || "No indicada"
-            )}
+            ${escapeHtml(cantidad)}
           </p>
 
-          <h3 style="color:#183B70">
+          <p>
+            <strong>Papel / Material:</strong>
+            ${escapeHtml(papel)}
+          </p>
+
+          <p>
+            <strong>Acabado / Terminación:</strong>
+            ${escapeHtml(acabado)}
+          </p>
+
+          <h3 style="color:#173B73;">
             Detalles adicionales
           </h3>
 
           <p>
-            ${escapeHtml(
-              mensaje ||
-              "Sin información adicional"
-            ).replace(
-              /\n/g,
-              "<br>"
-            )}
+            ${escapeHtml(mensaje)
+              .replace(/\n/g, "<br>")}
           </p>
 
           ${
             attachment
               ? `
-                <hr>
-
                 <p>
                   <strong>Archivo adjunto:</strong>
-                  ${escapeHtml(
-                    attachment.filename
-                  )}
+                  ${escapeHtml(attachment.filename)}
                 </p>
               `
-              : ""
+              : `
+                <p>
+                  <strong>Archivo adjunto:</strong>
+                  No se adjuntó archivo.
+                </p>
+              `
           }
 
         </div>
-      `,
+      `
     };
 
-    /*
-     * AGREGAR ARCHIVO
-     */
     if (attachment) {
-      emailData.attachments = [
-        {
-          filename:
-            attachment.filename,
-
-          content:
-            attachment.content,
-
-          content_type:
-            attachment.content_type,
-        },
+      emailPayload.attachments = [
+        attachment
       ];
     }
 
-    /*
-     * ENVIAR A RESEND
-     */
     const response = await fetch(
       "https://api.resend.com/emails",
       {
@@ -366,61 +240,359 @@ export default async function handler(
           "Content-Type":
             "application/json",
 
-          Authorization:
-            `Bearer ${process.env.RESEND_API_KEY}`,
+          "Authorization":
+            `Bearer ${process.env.RESEND_API_KEY}`
         },
 
         body:
-          JSON.stringify(emailData),
+          JSON.stringify(emailPayload)
       }
     );
 
     const data =
       await response.json();
 
-    /*
-     * ERROR DE RESEND
-     */
     if (!response.ok) {
       console.error(
-        "ERROR RESEND:",
+        "Error de Resend:",
         data
       );
 
-      return res.status(
-        response.status
-      ).json({
-        error:
-          data.message ||
-          "Resend no pudo enviar el correo.",
-      });
+      return res
+        .status(response.status)
+        .json({
+          ok: false,
+          error:
+            data.message ||
+            "Error al enviar el correo."
+        });
     }
 
-    /*
-     * CORREO ENVIADO
-     */
     console.log(
-      "CORREO ENVIADO:",
-      data
+      "Cotización enviada correctamente:",
+      data.id
     );
 
     return res.status(200).json({
-      success: true,
+      ok: true,
       message:
         "Cotización enviada correctamente.",
+      emailId: data.id
     });
 
   } catch (error) {
 
     console.error(
-      "ERROR SERVIDOR:",
+      "Error en /api/send-quote:",
       error
     );
 
     return res.status(500).json({
+      ok: false,
       error:
         error.message ||
-        "Error interno del servidor.",
+        "Error interno del servidor."
     });
   }
+}
+
+
+// =====================================================
+// LEER EL BODY MULTIPART
+// =====================================================
+
+function readRequestBody(
+  req,
+  maxSize
+) {
+  return new Promise(
+    (resolve, reject) => {
+
+      const chunks = [];
+
+      let totalSize = 0;
+      let finished = false;
+
+      req.on(
+        "data",
+        (chunk) => {
+
+          if (finished) return;
+
+          totalSize +=
+            chunk.length;
+
+          if (
+            totalSize >
+            maxSize
+          ) {
+
+            finished = true;
+
+            reject(
+              new Error(
+                "El archivo o formulario supera el límite de 4 MB."
+              )
+            );
+
+            req.destroy();
+
+            return;
+          }
+
+          chunks.push(
+            Buffer.from(chunk)
+          );
+        }
+      );
+
+      req.on(
+        "end",
+        () => {
+
+          if (!finished) {
+
+            finished = true;
+
+            resolve(
+              Buffer.concat(chunks)
+            );
+          }
+        }
+      );
+
+      req.on(
+        "error",
+        (error) => {
+
+          if (!finished) {
+
+            finished = true;
+
+            reject(error);
+          }
+        }
+      );
+
+    }
+  );
+}
+
+
+// =====================================================
+// PARSER MULTIPART
+// =====================================================
+
+function parseMultipart(
+  buffer,
+  boundary
+) {
+
+  const delimiter =
+    Buffer.from(
+      `--${boundary}`
+    );
+
+  const parts = [];
+
+  let position = 0;
+
+  while (
+    position <
+    buffer.length
+  ) {
+
+    const start =
+      buffer.indexOf(
+        delimiter,
+        position
+      );
+
+    if (start === -1) {
+      break;
+    }
+
+    const afterBoundary =
+      start +
+      delimiter.length;
+
+    // Fin del multipart
+    if (
+      buffer[afterBoundary] === 45 &&
+      buffer[afterBoundary + 1] === 45
+    ) {
+      break;
+    }
+
+    let partStart =
+      afterBoundary;
+
+    // Saltar CRLF
+    if (
+      buffer[partStart] === 13 &&
+      buffer[partStart + 1] === 10
+    ) {
+      partStart += 2;
+    }
+
+    const nextBoundary =
+      buffer.indexOf(
+        delimiter,
+        partStart
+      );
+
+    if (
+      nextBoundary === -1
+    ) {
+      break;
+    }
+
+    let partBuffer =
+      buffer.subarray(
+        partStart,
+        nextBoundary
+      );
+
+    // Quitar CRLF
+    if (
+      partBuffer.length >= 2 &&
+      partBuffer[
+        partBuffer.length - 2
+      ] === 13 &&
+      partBuffer[
+        partBuffer.length - 1
+      ] === 10
+    ) {
+
+      partBuffer =
+        partBuffer.subarray(
+          0,
+          partBuffer.length - 2
+        );
+    }
+
+    const headerEnd =
+      partBuffer.indexOf(
+        Buffer.from(
+          "\r\n\r\n"
+        )
+      );
+
+    if (
+      headerEnd === -1
+    ) {
+
+      position =
+        nextBoundary;
+
+      continue;
+    }
+
+    const headerText =
+      partBuffer
+        .subarray(
+          0,
+          headerEnd
+        )
+        .toString("utf8");
+
+    const data =
+      partBuffer.subarray(
+        headerEnd + 4
+      );
+
+    const dispositionMatch =
+      headerText.match(
+        /Content-Disposition:\s*form-data;\s*([^]*?)(?:\r\n|$)/i
+      );
+
+    if (
+      !dispositionMatch
+    ) {
+
+      position =
+        nextBoundary;
+
+      continue;
+    }
+
+    const disposition =
+      dispositionMatch[1];
+
+    const nameMatch =
+      disposition.match(
+        /name="([^"]*)"/i
+      );
+
+    const filenameMatch =
+      disposition.match(
+        /filename="([^"]*)"/i
+      );
+
+    const contentTypeMatch =
+      headerText.match(
+        /Content-Type:\s*([^\r\n]+)/i
+      );
+
+    parts.push({
+      name:
+        nameMatch
+          ? nameMatch[1]
+          : "",
+
+      filename:
+        filenameMatch
+          ? filenameMatch[1]
+          : null,
+
+      contentType:
+        contentTypeMatch
+          ? contentTypeMatch[1].trim()
+          : null,
+
+      data
+    });
+
+    position =
+      nextBoundary;
+  }
+
+  return parts;
+}
+
+
+// =====================================================
+// SEGURIDAD HTML
+// =====================================================
+
+function escapeHtml(
+  value
+) {
+
+  return String(value)
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 }
