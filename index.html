@@ -993,6 +993,27 @@ label {
     }
 }
 </style>
+
+<style id="servicios-footer-sin-solapamiento-v43">
+/* V43 — Solo corrige el pie de las tarjetas de Nuestros Servicios para evitar
+   que el texto de características se monte sobre "Cotizar". */
+#servicios .grid > div > div:last-child {
+    gap: 14px !important;
+    align-items: center !important;
+}
+
+#servicios .grid > div > div:last-child span {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+}
+
+#servicios .grid > div > div:last-child a {
+    flex: 0 0 auto !important;
+    margin-left: auto !important;
+}
+</style>
 </head>
 <body class="antialiased selection:bg-sky selection:text-[#2858B2]">
 <!-- Top Announcement Bar -->
@@ -1601,10 +1622,8 @@ label {
 <div class="mt-10 p-8 sm:p-10 rounded-3xl bg-softbg border border-sky/30 shadow-card">
 <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
 <!-- Iniciales -->
-<div class="w-28 h-28 flex-shrink-0 rounded-3xl bg-[#2858B2] text-white flex items-center justify-center shadow-card">
-<span class="text-4xl font-heading font-extrabold">
-                        JA
-                    </span>
+<div class="w-28 h-28 flex-shrink-0 rounded-3xl overflow-hidden bg-[#2858B2] shadow-card">
+<img src="papa.png" alt="Juan Aguilera" class="w-full h-full object-cover">
 </div>
 <!-- Información -->
 <div>
@@ -2073,7 +2092,7 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
 <i class="fa-solid fa-xmark"></i>
 </button>
 <div class="space-y-4">
-<span class="text-[11px] font-bold uppercase tracking-wider text-[#2858B2] bg-[#F5F8FF] px-2.5 py-1 rounded inline-block" id="modal-category">Categoría</span>
+<span class="text-sm font-bold uppercase tracking-wider text-[#2858B2] bg-[#F5F8FF] px-4 py-2 rounded-lg inline-block" id="modal-category">Categoría</span>
 <h3 class="text-2xl font-heading font-extrabold text-[#2858B2]" id="modal-title">Título del Proyecto</h3>
 <div class="w-full" id="modal-graphic-preview"></div>
 <p class="text-sm text-gray-600 leading-relaxed" id="modal-description">
@@ -2082,7 +2101,7 @@ identificables pueden haber sido modificados para proteger la privacidad de nues
 <p id="modal-privacy-note">*Las imágenes presentadas han sido adaptadas con fines de privacidad, protegiendo la información de nuestros clientes.*</p>
 <div class="pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3">
 <span class="text-xs text-gray-400">Impresiones Gráficas J.I.</span>
-<button class="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-[#2858B2] text-white font-bold text-xs hover:bg-[#1F4690] transition flex items-center justify-center gap-2" id="modal-cotizar-btn" onclick="modalCotizar()">
+<button class="w-full sm:w-auto px-8 py-3 rounded-lg bg-[#2858B2] text-white font-bold text-sm hover:bg-[#1F4690] transition flex items-center justify-center gap-2" id="modal-cotizar-btn" onclick="modalCotizar()">
 <i class="fa-solid fa-calculator"></i> Cotizar este trabajo
                     </button>
 </div>
